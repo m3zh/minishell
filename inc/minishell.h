@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 15:11:11 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/30 11:34:18 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/30 17:06:13 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,22 @@ typedef struct s_env
 	char	**env;
 }	        t_env;
 
+typedef struct s_redir
+{
+	int		tmpin;
+	int		tmpout;
+	int		fdin;
+	int		fdout;
+	int		ap; // append
+	int		ow; // overwrite
+	int		input; // file input
+	int		here_doc; // <<
+	char	*stopword;
+	char	*infile;
+	char	*outfile;
+	char	*errfile;
+}	        t_redir;
+
 typedef struct s_shell
 {
 	int		len;
@@ -51,21 +67,11 @@ typedef struct s_shell
 	int		redir;
 	int		background;
 	int		error_skip;
-	int		tmpin;
-	int		tmpout;
-	int		fdin;
-	int		fdout;
-	int		ap; // append
-	int		ow; // overwrite
-	int		fi; // file input
-	int		here_doc; // <<
-	char	*infile;
-	char	*outfile;
-	char	*errfile;
 	char	**cmd;
 	char	**path;
 	char	**args;
 	t_env	e;
+	t_redir	file;
 }	        t_shell;
 
 typedef struct s_signal

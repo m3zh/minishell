@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 15:07:58 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/30 10:54:57 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/30 17:06:37 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,26 +58,32 @@ static char	**get_paths(char **ep)
 	return (NULL);
 }
 
+static void init_fileredir(t_shell *s)
+{
+	s->file.tmpin = 0;
+	s->file.tmpout = 0;
+	s->file.fdin = 0;
+	s->file.fdout = 0;
+	s->file.ow = 0;
+	s->file.ap = 0;
+	s->file.input = 0;
+	s->file.here_doc = 0;
+	s->file.stopword = 0;
+	s->file.infile = 0;
+	s->file.outfile = 0;
+	s->file.errfile = 0;
+}
+
 void	init_shell(t_shell *s, char **envp)
 {
+	init_fileredir(s);
 	s->len = 0;
-	s->status = 0;
-	s->infile = 0;
-	s->outfile = 0;
-	s->errfile = 0;
+	s->status = -1;
 	s->background = 0;
 	s->redir = 0;
 	// s->error_skip = 0;
 	s->proc = 0;
 	s->prev = 0;
-	s->tmpin = 0;
-	s->tmpout = 0;
-	s->fdin = 0;
-	s->fdout = 0;
-	s->ow = 0;
-	s->ap = 0;
-	s->fi = 0;
-	s->here_doc = 0;
     s->path = get_paths(envp);
 	if (!s->path)
 		ft_exit(s);

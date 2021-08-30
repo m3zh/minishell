@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 16:02:50 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/30 13:20:28 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/30 16:35:47 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ void bash_error_wFilename(t_shell *s, char *file)
 {
     s->error_skip = 1;
     printf("-bash: %s: %s\n", file, strerror(errno));
-    ft_exit(s);
+    // ft_exit(s);
 }
