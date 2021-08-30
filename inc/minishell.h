@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 15:11:11 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/16 15:12:40 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/30 11:34:18 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@
 # define PATH 5
 # define START 6
 # define MAX 1000
-
-struct s_signal	g_signal;
 
 // typedef struct s_file // to refactor code
 // {
@@ -59,6 +57,8 @@ typedef struct s_shell
 	int		fdout;
 	int		ap; // append
 	int		ow; // overwrite
+	int		fi; // file input
+	int		here_doc; // <<
 	char	*infile;
 	char	*outfile;
 	char	*errfile;
@@ -74,7 +74,6 @@ typedef struct s_signal
 	//int	ctrl_d;
 }				t_signal;
 
-extern struct s_signal g_signal;
 
 /*
 * PARSING
@@ -92,6 +91,7 @@ char	**parse_arg(t_shell *s, int i);
 int     check_cmd(t_shell *s);
 void	exec_shell(t_shell s);
 void	bash_cmd(t_shell s);
+void    redir_input(t_shell *s);
 void    redir_output(t_shell *s);
 
 /*

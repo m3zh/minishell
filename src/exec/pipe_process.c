@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 18:17:40 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/16 15:27:41 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/30 11:41:58 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void open_fd(t_shell *s)
 	s->tmpin = dup(0);
 	s->tmpout = dup(1);
 	if (s->infile)
-		s->fdin = open(s->infile, O_RDONLY);
+		redir_input(s);
 	else
 		s->fdin = dup(s->tmpin);
 	s->fdout = dup(s->tmpout);
@@ -33,6 +33,7 @@ static void open_fd(t_shell *s)
 
 static void swap_pipe(t_shell *s, int i)
 {
+	open_fd(s);
 	dup2(s->fdin, 0);
 	close(s->fdin);
 	if (i == s->len - 1)
@@ -85,12 +86,10 @@ void	bash_cmd(t_shell s)
 	char	**arg;
 
 	i = -1;
-	open_fd(&s);
 	pipe(s.pipefd);
 	while (s.cmd[++i])
 	{
-		// if (!s.proc)
-		// 	waitpid(s.proc, &s.status, 0);
+		waitpid(-1, &s.status, 0);
 		arg = parse_arg(&s, i);
 		swap_pipe(&s, i);
 		reset_shell(&s);

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 15:07:58 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/16 14:58:47 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/30 10:54:57 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	init_shell(t_shell *s, char **envp)
 	s->fdout = 0;
 	s->ow = 0;
 	s->ap = 0;
+	s->fi = 0;
+	s->here_doc = 0;
     s->path = get_paths(envp);
 	if (!s->path)
 		ft_exit(s);
