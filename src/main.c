@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/04 14:38:36 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/30 07:36:13 by maxdesall        ###   ########.fr       */
+/*   Created: 2021/08/31 09:19:29 by maxdesall         #+#    #+#             */
+/*   Updated: 2021/08/31 09:19:35 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int main(int ac, char **ag, char **envp)
 	if (ac > 1)
         return (printf("Error\nInvalid number of arguments\n"));
     (void)ag;
-    while (1)
+    while (BASH)
     {
 		input = readline("minishell$ ");
 		ft_history(str, input);

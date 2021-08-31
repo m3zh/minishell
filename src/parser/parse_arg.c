@@ -6,11 +6,14 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 10:31:59 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/16 15:11:32 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/30 17:12:06 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+// getoutfile and getinfile are 90% the same, could be merged into a single function
+// waiting a bit to see if it's a good idea or there are exceptions to handle
 
 static void get_outfile(t_shell *s, char **arg, int i)
 {
@@ -18,10 +21,10 @@ static void get_outfile(t_shell *s, char **arg, int i)
 
     file = i + 1;
     if (arg[file])
-        s->outfile = ft_strdup(arg[file]);
+        s->file.outfile = ft_strdup(arg[file]);
     else
         return (bash_error_unexpectedToken(s));
-    if (!s->outfile)
+    if (!s->file.outfile)
         ft_exit(s);
     reset_string(arg, i);
     reset_string(arg, file);
@@ -35,20 +38,31 @@ static void get_outfile(t_shell *s, char **arg, int i)
     arg[file] = 0;
 }
 
-// static void append_outfile(t_shell *s, char **arg, int i)
-// {
-//     return ;
-// }
+static void get_infile(t_shell *s, char **arg, int i)
+{
+    int file;
 
-// static void get_infile(t_shell *s, char **arg, int i)
-// {
-//     return ;
-// }
-
-// static void eof_stdin(t_shell *s, char **arg, int i)
-// {
-//     return ;
-// }
+    file = i + 1;
+    if (arg[file] && s->file.input)
+        s->file.infile = ft_strdup(arg[file]);
+    else if (arg[file] && s->file.here_doc)
+        s->file.stopword = ft_strdup(arg[file]);
+    else
+        return (bash_error_unexpectedToken(s));
+    if (!s->file.infile)
+        ft_exit(s);
+    reset_string(arg, i);
+    reset_string(arg, file);
+    while (arg[++file])
+    {
+        arg[i] = ft_strdup(arg[file]);
+        if (!arg[i])
+            ft_exit(s);
+        i++;
+    }
+    arg[file] = 0;
+    return ;
+}
 
 char    **parse_arg(t_shell *s, int j)
 {
@@ -62,15 +76,17 @@ char    **parse_arg(t_shell *s, int j)
     while (arg[++i])
     {
         if (!ft_strcmp(arg[i], ">"))
-            s->ow = 1;
+            s->file.ow = 1;
         else if (!ft_strcmp(arg[i], ">>"))
-            s->ap = 1;
-        if (s->ow || s->ap)
-            get_outfile(s, arg, i);          
-        // else if (ft_strcmp(arg[i], "<"))
-        //     get_infile(s, arg, i); 
-        // else if (ft_strcmp(arg[i], "<<"))
-        //     eof_stdin(s, arg, i);
+            s->file.ap = 1;        
+        else if (!ft_strcmp(arg[i], "<"))
+            s->file.input = 1; 
+        else if (!ft_strcmp(arg[i], "<<"))
+            s->file.here_doc = 1;
+        if (s->file.ow || s->file.ap)
+            get_outfile(s, arg, i);
+        else if (s->file.input || s->file.here_doc)
+            get_infile(s, arg, i);
     }
     return (arg);  
 }

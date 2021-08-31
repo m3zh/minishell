@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 18:17:40 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/16 15:27:41 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/31 08:49:30 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,41 +22,43 @@ static void parent_waits(t_shell s, pid_t proc)
 }
 static void open_fd(t_shell *s)
 {
-	s->tmpin = dup(0);
-	s->tmpout = dup(1);
-	if (s->infile)
-		s->fdin = open(s->infile, O_RDONLY);
+	s->file.tmpin = dup(0);
+	s->file.tmpout = dup(1);
+	if (s->file.infile)
+		redir_input(s);
 	else
-		s->fdin = dup(s->tmpin);
-	s->fdout = dup(s->tmpout);
+		s->file.fdin = dup(s->file.tmpin);
+	s->file.fdout = dup(s->file.tmpout);
 }
 
 static void swap_pipe(t_shell *s, int i)
 {
-	dup2(s->fdin, 0);
-	close(s->fdin);
+	if (s->file.infile)
+		redir_input(s);
+	dup2(s->file.fdin, 0);
+	close(s->file.fdin);
 	if (i == s->len - 1)
 	{
-		if (s->outfile)
+		if (s->file.outfile)
 			redir_output(s);
 		else
-			s->fdout = dup(s->tmpout);
+			s->file.fdout = dup(s->file.tmpout);
 	}		
 	else
 	{
-		s->fdout = s->pipefd[1];
-		s->fdin = s->pipefd[0];
+		s->file.fdout = s->pipefd[1];
+		s->file.fdin = s->pipefd[0];
 	}
-	dup2(s->fdout, 1);
-	close(s->fdout);
+	dup2(s->file.fdout, 1);
+	close(s->file.fdout);
 }
 
 static void close_fd(t_shell *s)
 {
-	dup2(s->tmpin, 0);
-	dup2(s->tmpout, 1);
-	close(s->tmpin);
-	close(s->tmpout);
+	dup2(s->file.tmpin, 0);
+	dup2(s->file.tmpout, 1);
+	close(s->file.tmpin);
+	close(s->file.tmpout);
 	close(s->pipefd[0]);
 	close(s->pipefd[1]);
 }
@@ -79,7 +81,7 @@ static void	child_process(t_shell s, char **arg)
 	exit(EXIT_FAILURE);
 }
 
-void	bash_cmd(t_shell s)
+void	exec_shell(t_shell s)
 {
 	int		i;
 	char	**arg;
