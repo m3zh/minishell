@@ -6,7 +6,7 @@
 /*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 11:45:12 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/08/30 11:45:28 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/08/31 14:09:05 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ int	comp(char *s1, char *s2)
 	while (s1[i] && s1[i] == s2[i])
 		i += 1;
 	if (s1[i] == '\0')
-		return (1);
+		return (i + 1);
 	return (0);
 }

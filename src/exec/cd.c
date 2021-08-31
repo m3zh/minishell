@@ -6,7 +6,7 @@
 /*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 07:35:18 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/08/31 09:13:15 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/08/31 11:20:57 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	homer(char *str)
 
 static void	redirect(char *cmd, char *option, char *home)
 {
-	if (comp("cd", cmd))
+	if (comp("cd", cmd) && ft_strlen(cmd) == 2)
 	{
 		if (!option)
 			homer(home);

@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 14:36:49 by mlazzare          #+#    #+#              #
-#    Updated: 2021/08/31 16:24:30 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/08/31 21:48:02 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC = \
 		./src/exec/here_doc.c \
 		./src/exec/cd.c \
 		./src/env/var.c \
+		./src/env/enver.c \
 		./src/utils/free.c \
 		./src/utils/reset.c \
 		./src/utils/error_msg.c \

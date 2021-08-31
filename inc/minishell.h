@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 09:20:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/08/31 21:19:30 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/31 21:47:38 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	child_process(t_shell s, char **arg);
 * ENVIRONMENT
 */ 
 char	*get_var(t_shell *shell, char *str);
+void	enver(t_shell *shell);
 
 /*
 * SIGNALS
