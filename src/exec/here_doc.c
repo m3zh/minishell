@@ -6,46 +6,31 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:08:28 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/31 19:01:49 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/31 21:25:34 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-// static void write_heredoc(char **lines)
-// {
-//     int i;
-
-//     i = -1;
-//     while(line[++i])
-//         printf("%s\n", line[i]);
-//     return ;
-// }
-
-void    read_heredoc(t_shell s, char **arg)
+void    read_heredoc(t_shell *s, char **arg)
 {
-    int i;
+    int     tmpfd;
     char	*word;
 
-    i = 0;
+    (void)arg;
     word = 0;
-    while (arg[i])
-        i++;
+    tmpfd = open(TMPFILE, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (tmpfd < 0)
+        ft_exit(s);
     while (1)
     {
 		word = readline("> ");
-        if (!ft_strcmp(word, s.file.stopword))
+        if (!ft_strcmp(word, s->file.stopword))
             break ;
-        if (!s.file.more)
-        {
-            arg[i] = ft_strdup(word);
-            if (!arg[i])
-            {
-                free_arr(arg);
-                ft_exit(&s);
-            }
-            i++;
-        }
+        if (!s->file.more)
+            write(tmpfd, word, ft_strlen(word)); // add \n
     }
-    arg[i] = 0;
+    redir_heredoc(s, tmpfd);
+    s->file.more = 0;
+    s->file.stopword = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 18:17:40 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/31 18:16:41 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/31 21:23:01 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void swap_pipe(t_shell *s, int i)
 {
 	if (s->file.infile)
 		redir_input(s);
-	dup2(s->file.fdin, 0); // protecting this creates troubles, to check
+	dup2(s->file.fdin, 0); // protecting this breaks up the pipe, to check
 	close(s->file.fdin);
 	if (i == s->len - 1)
 	{
@@ -63,7 +63,7 @@ static void swap_pipe(t_shell *s, int i)
 		s->file.fdout = s->pipefd[1];
 		s->file.fdin = s->pipefd[0];
 	}
-	dup2(s->file.fdout, 1); // protecting this creates troubles, to check
+	dup2(s->file.fdout, 1); // protecting this breaks up the pipe, to check
 	close(s->file.fdout);
 }
 
@@ -86,7 +86,7 @@ void	child_process(t_shell s, char **arg)
 
 	j = -1;
 	if (s.file.stopword) // this is for cmd such as 'echo << stopword'
-		read_heredoc(s, arg);
+		read_heredoc(&s, arg);
 	// line 89: in case the cmd already comes with absolute path, e.g. /bin/ls
 	execve(arg[0], arg, s.e.env); 
 	while (s.path[++j])
