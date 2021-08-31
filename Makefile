@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 14:36:49 by mlazzare          #+#    #+#              #
-#    Updated: 2021/08/31 09:38:32 by maxdesall        ###   ########.fr        #
+#    Updated: 2021/08/31 10:18:40 by maxdesall        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC = \
 		./src/exec/file_redir.c \
 		./src/exec/cd.c \
 		./src/env/var.c \
+		./src/env/enver.c \
 		./src/utils/free.c \
 		./src/utils/reset.c \
 		./src/utils/error_msg.c \

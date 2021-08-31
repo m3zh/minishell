@@ -6,7 +6,7 @@
 /*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 09:20:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/08/31 09:30:19 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/08/31 10:18:27 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void    redir_output(t_shell *s);
 * ENVIRONMENT
 */ 
 char	*get_var(t_shell *shell, char *str);
+void	enver(t_shell *shell);
 
 /*
 * SIGNALS
