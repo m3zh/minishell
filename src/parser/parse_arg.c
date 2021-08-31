@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 10:31:59 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/31 17:32:54 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/31 18:38:12 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void get_infile(t_shell *s, char **arg, int i)
     reset_string(arg, file);
     while (arg[++file])
     {
+        s->file.more = 1;
         arg[i] = ft_strdup(arg[file]);
         if (!arg[i])
             ft_exit(s);

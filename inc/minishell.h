@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 09:20:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/08/31 17:14:24 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/31 18:38:31 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_redir
 	int		ow; // overwrite >
 	int		input; // file input <
 	int		here_doc; // <<
+	int		more;
 	char	*stopword;
 	char	*infile;
 	char	*outfile;
