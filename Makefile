@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 14:36:49 by mlazzare          #+#    #+#              #
-#    Updated: 2021/08/30 11:46:34 by maxdesall        ###   ########.fr        #
+#    Updated: 2021/08/31 09:38:32 by maxdesall        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ SRC = \
 		./src/parser/init_shell.c \
 		./src/parser/parse_shell.c \
 		./src/parser/parse_arg.c \
-		./src/exec/exec_shell.c \
 		./src/exec/pipe_process.c \
 		./src/exec/file_redir.c \
 		./src/exec/cd.c \

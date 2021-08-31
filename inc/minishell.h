@@ -6,7 +6,7 @@
 /*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 09:20:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/08/31 09:20:39 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/08/31 09:30:19 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,15 +99,10 @@ char	**parse_arg(t_shell *s, int i);
 */
 
 int     check_cmd(t_shell *s);
-<<<<<<< HEAD
 int		cd(t_shell *shell);
-void	exec_shell(t_shell *s);
-void	bash_cmd(t_shell s);
-=======
 void	exec_shell(t_shell s);
-// void	exec_shell(t_shell *s);
+void	bash_cmd(t_shell s);
 void    redir_input(t_shell *s);
->>>>>>> dev
 void    redir_output(t_shell *s);
 
 /*
