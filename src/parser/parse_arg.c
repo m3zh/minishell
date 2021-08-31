@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 10:31:59 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/30 17:12:06 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/31 17:32:54 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void get_infile(t_shell *s, char **arg, int i)
         s->file.stopword = ft_strdup(arg[file]);
     else
         return (bash_error_unexpectedToken(s));
-    if (!s->file.infile)
+    if (!s->file.infile && !s->file.stopword)
         ft_exit(s);
     reset_string(arg, i);
     reset_string(arg, file);

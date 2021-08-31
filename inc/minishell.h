@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 09:20:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/08/31 09:54:45 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/31 17:14:24 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ void	bash_cmd(t_shell s);
 void	exec_shell(t_shell *s);
 void    redir_input(t_shell *s);
 void    redir_output(t_shell *s);
+void    read_heredoc(t_shell s, char **arg);
+void	child_process(t_shell s, char **arg);
 
 /*
 * ENVIRONMENT

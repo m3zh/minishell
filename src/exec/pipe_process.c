@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 18:17:40 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/31 16:02:44 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/31 17:33:23 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,16 @@ static void close_fd(t_shell *s)
 	close(s->pipefd[1]);
 }
 
-static void	child_process(t_shell s, char **arg)
+void	child_process(t_shell s, char **arg)
 {
 	int j;
 	char *cmd;
 
 	j = -1;
-	execve(arg[0], arg, s.e.env); // in case the cmd already comes with absolute path, e.g. /bin/ls
+	if (s.file.stopword) // this is for cmd such as 'echo << stopword'
+		return (read_heredoc(s, arg));
+	// line 89: in case the cmd already comes with absolute path, e.g. /bin/ls
+	execve(arg[0], arg, s.e.env); 
 	while (s.path[++j])
 	{
 		cmd = ft_join(s.path[j], arg[0]);
