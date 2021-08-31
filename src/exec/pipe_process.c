@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 18:17:40 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/31 08:46:21 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/31 08:49:30 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void open_fd(t_shell *s)
 	s->file.tmpin = dup(0);
 	s->file.tmpout = dup(1);
 	if (s->file.infile)
-		s->file.fdin = open(s->file.infile, O_RDONLY);
+		redir_input(s);
 	else
 		s->file.fdin = dup(s->file.tmpin);
 	s->file.fdout = dup(s->file.tmpout);
@@ -33,6 +33,8 @@ static void open_fd(t_shell *s)
 
 static void swap_pipe(t_shell *s, int i)
 {
+	if (s->file.infile)
+		redir_input(s);
 	dup2(s->file.fdin, 0);
 	close(s->file.fdin);
 	if (i == s->len - 1)
