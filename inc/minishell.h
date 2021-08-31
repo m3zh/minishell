@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 09:20:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/08/31 09:38:10 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/31 09:54:45 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,6 @@
 # define START 6
 # define MAX 1000
 
-
-// typedef struct s_file // to refactor code
-// {
-// 	char	**env;
-// }	        t_file;
-
 typedef struct s_env
 {
 	char	**env;
@@ -53,9 +47,9 @@ typedef struct s_redir
 	int		tmpout;
 	int		fdin;
 	int		fdout;
-	int		ap; // append
-	int		ow; // overwrite
-	int		input; // file input
+	int		ap; // append >>
+	int		ow; // overwrite >
+	int		input; // file input <
 	int		here_doc; // <<
 	char	*stopword;
 	char	*infile;
