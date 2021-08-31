@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 18:17:40 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/31 09:43:33 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/31 14:01:41 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static void	child_process(t_shell s, char **arg)
 	char *cmd;
 
 	j = -1;
+	execve(arg[0], arg, s.e.env); // in case the cmd already comes with absolute path, e.g. /bin/ls
 	while (s.path[++j])
 	{
 		cmd = ft_join(s.path[j], arg[0]);
@@ -91,8 +92,6 @@ void	bash_cmd(t_shell s)
 	pipe(s.pipefd);
 	while (s.cmd[++i])
 	{
-		// if (!s.proc)
-		// 	waitpid(s.proc, &s.status, 0);
 		arg = parse_arg(&s, i);
 		swap_pipe(&s, i);
 		reset_shell(&s);
@@ -101,6 +100,8 @@ void	bash_cmd(t_shell s)
 			return (perror("Fork"));
 		if (!s.proc)
 			child_process(s, arg);
+		// else if (!WIFEXITED(s.status))
+		// 	parent_waits(s, s.proc);
 	}
 	close_fd(&s);
 	if (!s.background)
