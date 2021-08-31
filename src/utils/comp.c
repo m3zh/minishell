@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_shell.c                                       :+:      :+:    :+:   */
+/*   comp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/04 16:27:58 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/30 08:07:42 by maxdesall        ###   ########.fr       */
+/*   Created: 2021/08/30 11:45:12 by maxdesall         #+#    #+#             */
+/*   Updated: 2021/08/30 11:45:28 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	exec_shell(t_shell *shell)
+int	comp(char *s1, char *s2)
 {
-	cd(shell);
-	bash_cmd(*shell);
-	free_struct(shell);
+	int	i;
+
+	i = 0;
+	while (s1[i] && s1[i] == s2[i])
+		i += 1;
+	if (s1[i] == '\0')
+		return (1);
+	return (0);
 }

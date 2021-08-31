@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 15:11:11 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/16 15:12:40 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/30 14:37:01 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
+
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
 
 # define PATH 5
 # define START 6
@@ -90,9 +94,15 @@ char	**parse_arg(t_shell *s, int i);
 */
 
 int     check_cmd(t_shell *s);
-void	exec_shell(t_shell s);
+int		cd(t_shell *shell);
+void	exec_shell(t_shell *s);
 void	bash_cmd(t_shell s);
 void    redir_output(t_shell *s);
+
+/*
+* ENVIRONMENT
+*/ 
+char	*get_var(t_shell *shell, char *str);
 
 /*
 * SIGNALS
@@ -111,6 +121,7 @@ void	bash_error_unexpectedToken(t_shell *s);
 void	bash_error_wFilename(t_shell *s, char *file);
 int     free_arr(char **path);
 int		ft_exit(t_shell *shell);
+int		comp(char *s1, char *s2);
 
 
 #endif

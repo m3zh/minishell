@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:38:36 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/23 11:48:32 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/30 07:36:13 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int main(int ac, char **ag, char **envp)
 		input = readline("minishell$ ");
 		ft_history(str, input);
         parse_shell(&shell, input, envp);
-        exec_shell(shell);
+        exec_shell(&shell);
 		// system("leaks minishell");
     }
     return (0);
