@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 18:17:40 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/31 08:49:30 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/31 09:38:30 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	child_process(t_shell s, char **arg)
 	exit(EXIT_FAILURE);
 }
 
-void	exec_shell(t_shell s)
+void	bash_cmd(t_shell s)
 {
 	int		i;
 	char	**arg;
