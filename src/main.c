@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:38:36 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/23 11:48:32 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/08/31 08:45:37 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int main(int ac, char **ag, char **envp)
 	if (ac > 1)
         return (printf("Error\nInvalid number of arguments\n"));
     (void)ag;
-    while (1)
+    while (BASH)
     {
 		input = readline("minishell$ ");
 		ft_history(str, input);
