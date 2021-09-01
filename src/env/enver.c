@@ -6,57 +6,53 @@
 /*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 10:13:13 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/08/31 17:23:41 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/01 16:10:58 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static void	exporter(char *str)
+static void	unsetter(t_shell *shell)
 {
 	int		i;
-	int		tmp;
-	char	*var;
-	char	*value;
+	char	*str;
 
-	i = 0;
-	while (str[i] && str[i] != '=')
+	i = comp("unset ", shell->cmd[0]);
+	while ((shell->cmd[0][i] >= 9 && shell->cmd[0][i] <= 13) || shell->cmd[0][i] == ' ')
 		i += 1;
-	if (str[i] == '=')
-	{
-		tmp = i;
-		i -= 1;
-		while (str[i] >= 65 && str[i] <= 90 && i > 0)
-			i -= 1;
-		var = ft_substr(str, i, tmp);
-		i = tmp + 1;
-		while (str[i] && str[i] != ' ' && (!(str[i] >= 9 && str[i] <= 13)))
-			i += 1;
-		value = ft_substr(str, tmp + 1, i);
-		if (setenv(var, value, 1) == -1)
-			perror("setenv function failed");
-	}
+	str = ft_substr(shell->cmd[0], i - 1, ft_strlen(shell->cmd[0]));
+	unset(str);
 	free(str);
 }
 
+static void	env(void)
+{
+	int	i;
+
+	i = 0;
+	while (environ[i])
+	{
+		printf("%s\n", environ[i]);
+		i += 1;
+	}
+}
+
+static void	dollar(t_shell *shell)
+{
+	free(shell->cmd[0]);
+	shell->cmd[0] = get_var(
+			ft_substr(shell->cmd[0], 1, ft_strlen(shell->cmd[0])));
+}
+	
 void	enver(t_shell *shell)
 {
-	char	**tab;
-
 	if (comp("$", shell->cmd[0]))
-	{
-		free(shell->cmd[0]);
-		shell->cmd[0] = get_var(shell, ft_substr(shell->cmd[0], 1, ft_strlen(shell->cmd[0])));
-	}
+		dollar(shell);
+	else if (comp("env", shell->cmd[0]))
+		env();
 	else if (comp("unset ", shell->cmd[0]))
-	{
-		tab = ft_split(shell->cmd[0], ' ');
-		if (unsetenv(tab[1]) == -1)
-			perror("unset command failed");
-		free(tab);
-	}
-	else if (comp("export ", shell->cmd[0]))
-	{
-		exporter(ft_substr(shell->cmd[0], comp("export", shell->cmd[0]), ft_strlen(shell->cmd[0])));
-	}
+		unsetter(shell);
+	else
+		return ;
+	shell->builtin = 1;
 }

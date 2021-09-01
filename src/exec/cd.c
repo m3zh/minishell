@@ -6,7 +6,7 @@
 /*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 07:35:18 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/08/31 11:20:57 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/01 17:48:09 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,15 @@
 
 static void	folder(char *cmd)
 {
-	char	*tmp;
 	char	*pwd;
-	char	*nstr;
 
 	pwd = getcwd(NULL, 0);
-	nstr = ft_join(pwd, "/");
-	tmp = nstr;
-	nstr = ft_join(tmp, cmd);
-	free(tmp);
 	if (!chdir(cmd))
-		setenv("PWD", nstr, 1);
+	{
+		change_var("OLDPWD", pwd);
+		pwd = getcwd(NULL, 0);
+		change_var("PWD", pwd);
+	}
 	else
 		perror("cd command failed");
 }
@@ -36,11 +34,17 @@ static void	folder(char *cmd)
 
 static void	tilde(char *cmd, char *str)
 {
+	char	*pwd;
 	char	*nstr;
 
+	pwd = getcwd(NULL, 0);
 	nstr = ft_join(str, ft_substr(cmd, 1, ft_strlen(cmd)));
 	if (!chdir(nstr))
-		setenv("PWD", nstr, 1);
+	{
+		change_var("OLDPWD", pwd);
+		pwd = getcwd(NULL, 0);
+		change_var("PWD", pwd);
+	}
 	else
 		perror("cd command failed");
 }
@@ -49,15 +53,22 @@ static void	tilde(char *cmd, char *str)
 
 static void	homer(char *str)
 {
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
 	if (!chdir(str))
-		setenv("PWD", str, 1);
+	{
+		change_var("OLDPWD", pwd);
+		pwd = getcwd(NULL, 0);
+		change_var("PWD", pwd);
+	}
 	else
 		perror("cd command failed");
 }
 
 /* redirects to the right functions */
 
-static void	redirect(char *cmd, char *option, char *home)
+static void	redirect(t_shell *shell, char *cmd, char *option, char *home)
 {
 	if (comp("cd", cmd) && ft_strlen(cmd) == 2)
 	{
@@ -70,6 +81,7 @@ static void	redirect(char *cmd, char *option, char *home)
 			else
 				folder(option);
 		}
+		shell->builtin = 1;
 	}
 }
 
@@ -81,9 +93,9 @@ int	cd(t_shell *shell)
 	char	*str;
 	char	**tab;
 	
-	str = get_var(shell, "HOME");
+	str = get_var("HOME");
 	tab = ft_split(shell->cmd[0], ' ');
-	redirect(tab[0], tab[1], str);
+	redirect(shell, tab[0], tab[1], str);
 	free(str);
 	free(tab);
 	return (0);

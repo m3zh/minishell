@@ -6,14 +6,14 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 14:36:49 by mlazzare          #+#    #+#              #
-#    Updated: 2021/09/01 07:44:52 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/09/01 11:31:26 by maxdesall        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = gcc -g3
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 #CFAGS += -fsanitize=address
 
 # sudo apt-get install libreadline-dev <-- handle installation for linux
@@ -38,6 +38,7 @@ SRC = \
 		./src/exec/here_doc.c \
 		./src/exec/cd.c \
 		./src/env/var.c \
+		./src/env/unset.c \
 		./src/env/enver.c \
 		./src/utils/free.c \
 		./src/utils/reset.c \
