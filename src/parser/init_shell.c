@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 15:07:58 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/31 18:57:50 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/01 07:01:45 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void init_fileredir(t_shell *s)
 {
 	s->file.tmpin = 0;
 	s->file.tmpout = 0;
+	s->file.tmpfd = 0;
 	s->file.fdin = 0;
 	s->file.fdout = 0;
 	s->file.ow = 0;

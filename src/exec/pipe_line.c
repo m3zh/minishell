@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 18:17:40 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/31 21:23:01 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/01 07:41:24 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,16 @@ static void close_fd(t_shell *s)
 	close(s->pipefd[1]);
 }
 
-void	child_process(t_shell s, char **arg)
+void	child_process(t_shell s, char **arg, int i)
 {
 	int j;
 	char *cmd;
 
 	j = -1;
 	if (s.file.stopword) // this is for cmd such as 'echo << stopword'
-		read_heredoc(&s, arg);
+		read_heredoc(&s, arg, i);
 	// line 89: in case the cmd already comes with absolute path, e.g. /bin/ls
+	printf("here?");
 	execve(arg[0], arg, s.e.env); 
 	while (s.path[++j])
 	{
@@ -118,7 +119,7 @@ void	bash_cmd(t_shell s)
 		if (s.proc < 0)
 			return (perror("Fork"));
 		if (!s.proc)
-			child_process(s, arg);
+			child_process(s, arg, i);
 		// else if (!WIFEXITED(s.status))
 		// 	parent_waits(s, s.proc);
 	}

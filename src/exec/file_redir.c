@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 15:17:14 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/31 21:24:46 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/01 08:15:29 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,18 @@ void    redir_output(t_shell *s)
 
 void    redir_input(t_shell *s)
 {
-    if (s->file.input)
+    if (s->file.infile)
         s->file.fdin = open(s->file.infile, O_RDONLY);
     if (s->file.fdin < 0)
         bash_error_wFilename(s, s->file.infile);
     ft_free(s->file.infile);
 }
 
-void    redir_heredoc(t_shell *s, int tmpfd)
+void    redir_heredoc(t_shell *s)
 {
     if (s->file.here_doc)
-        s->file.fdin = dup(tmpfd);
-    dup2(s->file.fdin, 0);
+        s->file.fdin = s->file.tmpfd;
+    printf("dup %d\n", dup2(s->file.fdin, 0));
 	close(s->file.fdin);
-    close(tmpfd);
-    // unlink(tmpfd);
+    // unlink(TMPFILE);
 }

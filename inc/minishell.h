@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 09:20:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/08/31 21:47:38 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/01 07:38:45 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_redir
 {
 	int		tmpin;
 	int		tmpout;
+	int		tmpfd;
 	int		fdin;
 	int		fdout;
 	int		ap; // append >>
@@ -101,9 +102,9 @@ void	bash_cmd(t_shell s);
 void	exec_shell(t_shell *s);
 void    redir_input(t_shell *s);
 void    redir_output(t_shell *s);
-void    redir_heredoc(t_shell *s, int tmpfd);
-void    read_heredoc(t_shell *s, char **arg);
-void	child_process(t_shell s, char **arg);
+void    redir_heredoc(t_shell *s);
+void    read_heredoc(t_shell *s, char **arg, int i);
+void	child_process(t_shell s, char **arg, int i);
 
 /*
 * ENVIRONMENT
