@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 15:17:14 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/01 08:15:29 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/01 08:46:56 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ void    redir_input(t_shell *s)
 
 void    redir_heredoc(t_shell *s)
 {
+    close(s->file.tmpfd);
     if (s->file.here_doc)
-        s->file.fdin = s->file.tmpfd;
-    printf("dup %d\n", dup2(s->file.fdin, 0));
-	close(s->file.fdin);
-    // unlink(TMPFILE);
+        s->file.fdin = open(TMPFILE, O_RDONLY);
+    unlink(TMPFILE);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_process.c                                     :+:      :+:    :+:   */
+/*   pipe_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 18:17:40 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/01 07:41:24 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/01 08:48:32 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static void open_fd(t_shell *s)
 
 static void swap_pipe(t_shell *s, int i)
 {
+	if (s->file.stopword) // this is for cmd such as 'echo << stopword'
+		get_heredoc(s);
 	if (s->file.infile)
 		redir_input(s);
 	dup2(s->file.fdin, 0); // protecting this breaks up the pipe, to check
@@ -85,10 +87,8 @@ void	child_process(t_shell s, char **arg, int i)
 	char *cmd;
 
 	j = -1;
-	if (s.file.stopword) // this is for cmd such as 'echo << stopword'
-		read_heredoc(&s, arg, i);
+	(void)i;
 	// line 89: in case the cmd already comes with absolute path, e.g. /bin/ls
-	printf("here?");
 	execve(arg[0], arg, s.e.env); 
 	while (s.path[++j])
 	{
