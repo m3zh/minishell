@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 09:20:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/01 16:11:08 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/02 10:02:06 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void	child_process(t_shell s, char **arg, int i);
 int		change_var(char *var, char *value);
 char	*get_var(char *str);
 void	enver(t_shell *shell);
+void	expoort(char *str);
 void	unset(char *str);
 
 /*
@@ -137,6 +138,7 @@ void	bash_error_wFilename(t_shell *s, char *file);
 int     free_arr(char **path);
 int		ft_exit(t_shell *shell);
 int		comp(char *s1, char *s2);
+void	malloxit(void);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:48:11 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/01 17:20:12 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/02 08:40:02 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ char	            **ft_split(char const *s, char c);
 void				ft_putstr(char *s);
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
+void				ft_putstr_fd(char const *s, int fd);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 14:36:49 by mlazzare          #+#    #+#              #
-#    Updated: 2021/09/01 11:31:26 by maxdesall        ###   ########.fr        #
+#    Updated: 2021/09/02 10:01:42 by maxdesall        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,11 +39,13 @@ SRC = \
 		./src/exec/cd.c \
 		./src/env/var.c \
 		./src/env/unset.c \
+		./src/env/export.c \
 		./src/env/enver.c \
 		./src/utils/free.c \
 		./src/utils/reset.c \
 		./src/utils/error_msg.c \
 		./src/utils/comp.c \
+		./src/utils/exit.c \
 		./src/main.c \
 
 OBJ = $(SRC:.c=.o)

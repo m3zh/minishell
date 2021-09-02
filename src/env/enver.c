@@ -6,11 +6,25 @@
 /*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 10:13:13 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/01 16:10:58 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/02 10:02:17 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+static void	exporter(t_shell *shell)
+{
+	int		i;
+	char	*str;
+
+	i = comp("export ", shell->cmd[0]);
+	while ((shell->cmd[0][i] >= 9 && shell->cmd[0][i] <= 13)
+			|| shell->cmd[0][i] == ' ')
+		i += 1;
+	str = ft_substr(shell->cmd[0], i - 1, ft_strlen(shell->cmd[0]));
+	expoort(str);
+	free(str);
+}
 
 static void	unsetter(t_shell *shell)
 {
@@ -18,7 +32,8 @@ static void	unsetter(t_shell *shell)
 	char	*str;
 
 	i = comp("unset ", shell->cmd[0]);
-	while ((shell->cmd[0][i] >= 9 && shell->cmd[0][i] <= 13) || shell->cmd[0][i] == ' ')
+	while ((shell->cmd[0][i] >= 9 && shell->cmd[0][i] <= 13)
+			|| shell->cmd[0][i] == ' ')
 		i += 1;
 	str = ft_substr(shell->cmd[0], i - 1, ft_strlen(shell->cmd[0]));
 	unset(str);
@@ -52,6 +67,8 @@ void	enver(t_shell *shell)
 		env();
 	else if (comp("unset ", shell->cmd[0]))
 		unsetter(shell);
+	else if (comp("export ", shell->cmd[0]))
+		exporter(shell);
 	else
 		return ;
 	shell->builtin = 1;

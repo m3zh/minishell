@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/10 18:36:32 by mlazzare          #+#    #+#              #
-#    Updated: 2021/09/01 17:19:59 by maxdesall        ###   ########.fr        #
+#    Updated: 2021/09/02 08:41:07 by maxdesall        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC	=	ft_splitpath.c			\
 		ft_space.c				\
 		ft_strlcpy.c				\
 		ft_strlcat.c				\
+		ft_putstr_fd.c				\
 
 OBJS = $(SRC:%.c=%.o)
 
