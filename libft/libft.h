@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:48:11 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/02 17:27:32 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/02 17:37:17 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ size_t              ft_strlcat(char *dst, const char *src, size_t size);
 char                *ft_trim(char *s);
 char                *ft_strncpy(char *dest, const char *src, size_t n);
 char                *ft_concat(char **arg);
-char	            *ft_join(char *dst, char *src);
+char	            *ft_join(char *dst, const char *src);
 char				*ft_strdup(const char *s);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 char	            **ft_splitpath(char *s, char c);

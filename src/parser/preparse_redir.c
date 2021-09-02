@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 15:21:00 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/02 16:25:14 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/02 18:03:22 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ static char **pre_infile(t_shell *s, char **arg, int i)
         s->file.infile = ft_strdup(arg[file]);
     else if (arg[file] && s->file.here_doc)
         s->file.stopword = ft_strdup(arg[file]);
-    // else
-    //     return (bash_error_unexpectedToken(s)); // don't think I need it here
     if (!s->file.infile && !s->file.stopword) // check leaks
         ft_exit(s);
     reset_string(arg, i);
@@ -65,5 +63,5 @@ void check_redir(t_shell *s, int last)
             s->cmd[last] = ft_concat(arg);
         }  
     }
- 
+    reset_shell(s);
 }
