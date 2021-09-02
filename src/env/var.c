@@ -6,11 +6,14 @@
 /*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 09:26:52 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/01 17:22:54 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/02 18:41:47 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+/* changes the value of the variable pointed to by *var to the value pointed */
+/* to by *value */
 
 int	change_var(char *var, char *value)
 {
@@ -31,30 +34,28 @@ int	change_var(char *var, char *value)
 	return (1);
 }
 
-/* removes the name of the environment variable, and the "=" */
-
-static int	var_strip(char *str)
-{
-	int	i;
-
-	i = 1;
-	while (str[i] && str[i - 1] != '=')
-		i += 1;
-	return (i);
-}
-
 /* returns a memory allocated string containing the value */
 /* of the environment variable */
 
 char	*get_var(char *str)
 {
-	int	i;
+	int		i;
+	int		j;
+	char	*var;
 
 	i = 0;
 	while (environ[i])
 	{
-		if (comp(str, environ[i]))
-			return (ft_substr(environ[i], var_strip(environ[i]), ft_strlen(environ[i])));
+		j = 0;
+		while (environ[i][j] && environ[i][j] != '=')
+			j += 1;
+		var = ft_substr(environ[i], 0, j);
+		if (comp(str, var))
+		{
+			free(var);
+			return (ft_substr(environ[i], j + 1, ft_strlen(environ[i])));
+		}
+		free(var);
 		i += 1;
 	}
 	return (NULL);
