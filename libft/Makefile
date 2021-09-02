@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/10 18:36:32 by mlazzare          #+#    #+#              #
-#    Updated: 2021/09/02 08:41:07 by maxdesall        ###   ########.fr        #
+#    Updated: 2021/09/02 18:05:23 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,12 +18,14 @@ SRC	=	ft_splitpath.c			\
 		ft_strcmp.c				\
 		ft_strncmp.c			\
 		ft_strncpy.c			\
+		ft_strlcat.c			\
 		ft_strdup.c				\
 		ft_substr.c				\
 		ft_join.c				\
 		ft_split.c				\
 		ft_trim.c				\
 		ft_space.c				\
+		ft_concat.c				\
 		ft_strlcpy.c				\
 		ft_strlcat.c				\
 		ft_putstr_fd.c				\
@@ -38,7 +40,7 @@ RM = rm -f
 
 CFLAGS = -Wall -Wextra -Werror
 
-$(NAME):
+$(NAME): $(SRC)
 	$(CC) $(CFLAGS) -c $(SRC)
 	ar rcs $(NAME) $(OBJS)
 

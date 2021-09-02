@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_concat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/13 13:50:53 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/02 17:37:00 by mlazzare         ###   ########.fr       */
+/*   Created: 2021/09/02 15:48:18 by mlazzare          #+#    #+#             */
+/*   Updated: 2021/09/02 17:31:27 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
+char    *ft_concat(char **arg)
 {
-	size_t	i;
-	size_t	j;
-	size_t	dstlen;
-	size_t	srclen;
+    int     i;
+    int     l;
+    char    *s;
 
-	i = 0;
-	j = 0;
-	srclen = ft_strlen(src);
-	while (dst[i] && i < size)
-		i++;
-	dstlen = i;
-	while (src[j] && i + 1 < size)
-		dst[i++] = src[j++];
-	if (dstlen < size)
-		dst[i] = '\0';
-	return (srclen + dstlen);
+    i = -1;
+    l = 0;
+    while (arg[++i])
+        l += ft_strlen(arg[i]) + 1;
+    i = -1;
+    s = malloc(sizeof(char) * l);
+    if (!s)
+        return (NULL);
+    s[l] = 0;
+    while (arg[++i])
+    {
+        l = ft_strlen(arg[i]) + ft_strlen(s) + 1;
+        ft_strlcat(s, arg[i], l);
+        ft_strlcat(s, " ", l + 1);
+    }
+    return (s);
 }

@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 14:36:49 by mlazzare          #+#    #+#              #
-#    Updated: 2021/09/02 10:01:42 by maxdesall        ###   ########.fr        #
+#    Updated: 2021/09/02 18:04:51 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,9 +30,9 @@ HEADER = -I./inc \
 
 SRC = \
 		./src/parser/init_shell.c \
-		./src/parser/parse_shell.c \
+		./src/parser/preparse_shell.c \
+		./src/parser/preparse_redir.c \
 		./src/parser/parse_arg.c \
-		./src/exec/exec_shell.c \
 		./src/exec/pipe_line.c \
 		./src/exec/file_redir.c \
 		./src/exec/here_doc.c \

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 10:31:59 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/31 21:08:41 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/02 15:22:09 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void get_outfile(t_shell *s, char **arg, int i)
     file = i + 1;
     if (arg[file])
         s->file.outfile = ft_strdup(arg[file]);
-    else
+    else if (!s->file.preparsing)
         return (bash_error_unexpectedToken(s));
     if (!s->file.outfile)
         ft_exit(s);
@@ -47,7 +47,7 @@ static void get_infile(t_shell *s, char **arg, int i)
         s->file.infile = ft_strdup(arg[file]);
     else if (arg[file] && s->file.here_doc)
         s->file.stopword = ft_strdup(arg[file]);
-    else
+    else if (!s->file.preparsing)
         return (bash_error_unexpectedToken(s));
     if (!s->file.infile && !s->file.stopword) // check leaks
         ft_exit(s);
