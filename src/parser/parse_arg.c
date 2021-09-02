@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 10:31:59 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/31 21:08:41 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/02 14:49:30 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // getoutfile and getinfile are 90% the same, could be merged into a single function
 // waiting a bit to see if it's a good idea or there are exceptions to handle
 
-static void get_outfile(t_shell *s, char **arg, int i)
+void get_outfile(t_shell *s, char **arg, int i)
 {
     int file;
 
@@ -38,7 +38,7 @@ static void get_outfile(t_shell *s, char **arg, int i)
     arg[file] = 0;
 }
 
-static void get_infile(t_shell *s, char **arg, int i)
+void get_infile(t_shell *s, char **arg, int i)
 {
     int file;
 

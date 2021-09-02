@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 18:17:40 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/01 08:48:32 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/02 14:49:42 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void close_fd(t_shell *s)
 	close(s->pipefd[1]);
 }
 
-void	child_process(t_shell s, char **arg, int i)
+static void	child_process(t_shell s, char **arg, int i)
 {
 	int j;
 	char *cmd;
@@ -102,7 +102,7 @@ void	child_process(t_shell s, char **arg, int i)
 	exit(EXIT_FAILURE);
 }
 
-void	bash_cmd(t_shell s)
+void	exec_shell(t_shell s)
 {
 	int		i;
 	char	**arg;
@@ -126,4 +126,5 @@ void	bash_cmd(t_shell s)
 	close_fd(&s);
 	if (!s.background)
 		parent_waits(s, s.proc);
+	free_struct(&s);
 }
