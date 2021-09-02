@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 09:20:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/02 15:26:00 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/02 18:05:03 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@
 
 # define TMPFILE "tmpfile"
 
+extern char	**environ;
+
 typedef struct s_env
 {
 	char	**env;
@@ -67,6 +69,7 @@ typedef struct s_redir
 typedef struct s_shell
 {
 	int		len;
+	int		builtin;
 	int		status;
 	int		pipefd[2];
 	int		background;
@@ -111,8 +114,12 @@ void    get_heredoc(t_shell *s);
 /*
 * ENVIRONMENT
 */ 
-char	*get_var(t_shell *shell, char *str);
+
+int		change_var(char *var, char *value);
+char	*get_var(char *str);
 void	enver(t_shell *shell);
+void	expoort(char *str);
+void	unset(char *str);
 
 /*
 * SIGNALS
@@ -133,6 +140,7 @@ void	bash_error_wFilename(t_shell *s, char *file);
 int     free_arr(char **path);
 int		ft_exit(t_shell *shell);
 int		comp(char *s1, char *s2);
+void	malloxit(void);
 
 
 #endif

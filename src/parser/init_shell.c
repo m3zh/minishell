@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 15:07:58 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/02 15:27:01 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/02 18:19:59 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,33 @@ static void init_fileredir(t_shell *s)
 	s->file.errfile = 0;
 }
 
+static void	envinit(void)
+{
+	int		i;
+	char	**tmp;
+
+	i = 0;
+	while (environ[i])
+		i += 1;
+	tmp = malloc(sizeof(char *) * (i + 1));
+	if (!tmp)
+		return ;
+	i = 0;
+	while (environ[i])
+	{
+		tmp[i] = malloc(sizeof(char) * (ft_strlen(environ[i]) + 1));
+		if (!tmp[i])
+			return ;
+		ft_strlcpy(tmp[i], environ[i], ft_strlen(environ[i]) + 1);
+		i += 1;
+	}
+	tmp[i] = 0;
+	environ = tmp;
+}
+
 void	init_shell(t_shell *s, char **envp)
 {
+	envinit();
 	init_fileredir(s);
 	s->len = 0;
 	s->status = -1;
