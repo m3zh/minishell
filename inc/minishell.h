@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 09:20:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/02 14:50:19 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/02 15:26:00 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ typedef struct s_redir
 	int		ow; // overwrite >
 	int		input; // file input <
 	int		here_doc; // <<
-	int		more;
+	int		lastErr;
+	int		allErr;
+	int		more; // check if there is more after <,<<,>>,>
+	int		preparsing;
 	char	*stopword;
 	char	*infile;
 	char	*outfile;
@@ -90,6 +93,7 @@ typedef struct s_signal
 void	init_shell(t_shell *s, char **envp);
 int		parse_shell(t_shell *shell, char *line, char **envp);
 char	**parse_arg(t_shell *s, int i);
+void	check_redir(t_shell *s, int last);
 
 
 /*
@@ -103,8 +107,6 @@ void    redir_input(t_shell *s);
 void    redir_output(t_shell *s);
 void    redir_heredoc(t_shell *s);
 void    get_heredoc(t_shell *s);
-void 	get_outfile(t_shell *s, char **arg, int i);
-void	get_infile(t_shell *s, char **arg, int i);
 
 /*
 * ENVIRONMENT

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 10:31:59 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/02 14:49:30 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/02 15:22:09 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 // getoutfile and getinfile are 90% the same, could be merged into a single function
 // waiting a bit to see if it's a good idea or there are exceptions to handle
 
-void get_outfile(t_shell *s, char **arg, int i)
+static void get_outfile(t_shell *s, char **arg, int i)
 {
     int file;
 
     file = i + 1;
     if (arg[file])
         s->file.outfile = ft_strdup(arg[file]);
-    else
+    else if (!s->file.preparsing)
         return (bash_error_unexpectedToken(s));
     if (!s->file.outfile)
         ft_exit(s);
@@ -38,7 +38,7 @@ void get_outfile(t_shell *s, char **arg, int i)
     arg[file] = 0;
 }
 
-void get_infile(t_shell *s, char **arg, int i)
+static void get_infile(t_shell *s, char **arg, int i)
 {
     int file;
 
@@ -47,7 +47,7 @@ void get_infile(t_shell *s, char **arg, int i)
         s->file.infile = ft_strdup(arg[file]);
     else if (arg[file] && s->file.here_doc)
         s->file.stopword = ft_strdup(arg[file]);
-    else
+    else if (!s->file.preparsing)
         return (bash_error_unexpectedToken(s));
     if (!s->file.infile && !s->file.stopword) // check leaks
         ft_exit(s);
