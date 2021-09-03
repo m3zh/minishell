@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 18:45:19 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/02 18:45:24 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/03 13:03:05 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define BASH 1
 # define PATH 5
 # define START 6
+# define SINGLEQTS 27
 # define MAX 1000
 
 # define TMPFILE "tmpfile"
@@ -44,6 +45,18 @@ typedef struct s_env
 {
 	char	**env;
 }	        t_env;
+
+typedef struct s_var 
+{
+	int	single_qts;
+	int double_qts;
+} t_var;
+
+typedef struct s_check 
+{
+	int	preredir;
+	int redir;
+} t_check;
 
 typedef struct s_redir
 {
@@ -68,7 +81,7 @@ typedef struct s_redir
 
 typedef struct s_shell
 {
-	int		len;
+	int		pipelen;
 	int		builtin;
 	int		status;
 	int		pipefd[2];
@@ -80,6 +93,8 @@ typedef struct s_shell
 	pid_t	proc;
 	t_env	e;
 	t_redir	file;
+	t_var	var;
+	t_check	check;
 }	        t_shell;
 
 typedef struct s_signal
@@ -96,7 +111,8 @@ typedef struct s_signal
 void	init_shell(t_shell *s, char **envp);
 int		parse_shell(t_shell *shell, char *line, char **envp);
 char	**parse_arg(t_shell *s, int i);
-void	check_redir(t_shell *s, int last);
+void	precheck_redir(t_shell *s, int last);
+void	check_quotes(t_shell *s, char **arg, int i, int j);
 
 
 /*
@@ -139,7 +155,7 @@ void	bash_error_unexpectedToken(t_shell *s);
 void	bash_error_wFilename(t_shell *s, char *file);
 int     free_arr(char **path);
 int		ft_exit(t_shell *shell);
-int		comp(char *s1, char *s2);
+int		starts_with(char *s1, char *s2);
 void	malloxit(void);
 
 

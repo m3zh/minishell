@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   comp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 11:45:12 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/08/31 14:09:05 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/03 12:28:01 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	comp(char *s1, char *s2)
+int	starts_with(char *s1, char *s2)
 {
 	int	i;
 

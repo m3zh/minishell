@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 14:36:49 by mlazzare          #+#    #+#              #
-#    Updated: 2021/09/02 18:04:51 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/09/03 12:59:56 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC = \
 		./src/parser/preparse_shell.c \
 		./src/parser/preparse_redir.c \
 		./src/parser/parse_arg.c \
+		./src/parser/check_quotes.c \
 		./src/exec/pipe_line.c \
 		./src/exec/file_redir.c \
 		./src/exec/here_doc.c \

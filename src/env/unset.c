@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 10:38:24 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/02 09:36:31 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/03 12:06:54 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 static void	tooler(char *str, char **tmp, int i, int *j)
 {
-	if (!(comp(str, environ[i])))
+	if (!(starts_with(str, environ[i])))
 	{
 		tmp[*j] = malloc(sizeof(char) * (ft_strlen(environ[i]) + 1));
 		if (!tmp[*j])

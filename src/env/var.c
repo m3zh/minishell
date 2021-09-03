@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 09:26:52 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/02 18:41:47 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/03 12:06:54 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	change_var(char *var, char *value)
 	int	i;
 
 	i = 0;
-	while (environ[i] && !(comp(var, environ[i])))
+	while (environ[i] && !(starts_with(var, environ[i])))
 		i += 1;
 	if (!environ[i])
 		return (0);
@@ -50,7 +50,7 @@ char	*get_var(char *str)
 		while (environ[i][j] && environ[i][j] != '=')
 			j += 1;
 		var = ft_substr(environ[i], 0, j);
-		if (comp(str, var))
+		if (starts_with(str, var))
 		{
 			free(var);
 			return (ft_substr(environ[i], j + 1, ft_strlen(environ[i])));

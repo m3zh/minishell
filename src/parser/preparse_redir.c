@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 15:21:00 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/02 18:03:22 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/03 11:26:28 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char **pre_infile(t_shell *s, char **arg, int i)
     return (arg);
 }
 
-void check_redir(t_shell *s, int last)
+void precheck_redir(t_shell *s, int last)
 {
     int i;
     char **arg;

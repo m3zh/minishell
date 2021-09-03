@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 07:35:18 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/01 17:48:09 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/03 12:06:54 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ static void	homer(char *str)
 
 static void	redirect(t_shell *shell, char *cmd, char *option, char *home)
 {
-	if (comp("cd", cmd) && ft_strlen(cmd) == 2)
+	if (starts_with("cd", cmd) && ft_strlen(cmd) == 2)
 	{
 		if (!option)
 			homer(home);
 		else
 		{
-			if (comp("~/", option))
+			if (starts_with("~/", option))
 				tilde(option, home);
 			else
 				folder(option);

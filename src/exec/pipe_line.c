@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 18:17:40 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/02 17:53:22 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/03 12:13:29 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void swap_pipe(t_shell *s, int i)
 		redir_input(s);
 	dup2(s->file.fdin, 0); // protecting this breaks up the pipe, to check
 	close(s->file.fdin);
-	if (i == s->len - 1)
+	if (i == s->pipelen - 1)
 	{
 		if (s->file.outfile)
 			redir_output(s);

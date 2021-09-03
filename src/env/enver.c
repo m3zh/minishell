@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enver.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 10:13:13 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/02 18:20:21 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/03 12:06:54 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	exporter(t_shell *shell)
 	char	*value;
 
 	j = 0;
-	i = comp("export ", shell->cmd[0]);
+	i = starts_with("export ", shell->cmd[0]);
 	while (shell->cmd[0] && ((shell->cmd[0][i] >= 9
 				&& shell->cmd[0][i] <= 13)
 			|| shell->cmd[0][i] == ' '))
@@ -50,7 +50,7 @@ static void	unsetter(t_shell *shell)
 	int		i;
 	char	*str;
 
-	i = comp("unset ", shell->cmd[0]);
+	i = starts_with("unset ", shell->cmd[0]);
 	while ((shell->cmd[0][i] >= 9 && shell->cmd[0][i] <= 13)
 			|| shell->cmd[0][i] == ' ')
 		i += 1;
@@ -104,9 +104,9 @@ void	enver(t_shell *shell)
 	int	i;
 
 	i = 0;
-	if (comp("$", shell->cmd[0]))
+	if (starts_with("$", shell->cmd[0]))
 		dollar(shell);
-	else if (comp("env", shell->cmd[0]))
+	else if (starts_with("env", shell->cmd[0]))
 	{
 		while (environ[i])
 		{
@@ -114,11 +114,11 @@ void	enver(t_shell *shell)
 			i += 1;
 		}
 	}
-	else if (comp("unset ", shell->cmd[0]))
+	else if (starts_with("unset ", shell->cmd[0]))
 		unsetter(shell);
-	else if (comp("export", shell->cmd[0]) && ft_strlen(shell->cmd[0]) == 6)
+	else if (starts_with("export", shell->cmd[0]) && ft_strlen(shell->cmd[0]) == 6)
 		exprint();
-	else if (comp("export ", shell->cmd[0]))
+	else if (starts_with("export ", shell->cmd[0]))
 		exporter(shell);
 	else
 		return ;

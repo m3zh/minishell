@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 10:31:59 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/02 15:22:09 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/03 12:39:47 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void get_outfile(t_shell *s, char **arg, int i)
         i++;
     }
     arg[file] = 0;
+    s->check.redir = 1;
 }
 
 static void get_infile(t_shell *s, char **arg, int i)
@@ -62,7 +63,24 @@ static void get_infile(t_shell *s, char **arg, int i)
         i++;
     }
     arg[file] = 0;
-    return ;
+    s->check.redir = 1;
+}
+
+static void check_redir(t_shell *s, char **arg, int i)
+{
+    if (!ft_strcmp(arg[i], ">"))
+        s->file.ow = 1;
+    else if (!ft_strcmp(arg[i], ">>"))
+        s->file.ap = 1;        
+    else if (!ft_strcmp(arg[i], "<"))
+        s->file.input = 1; 
+    else if (!ft_strcmp(arg[i], "<<"))
+        s->file.here_doc = 1;
+    if ((s->file.ow || s->file.ap) && !s->file.outfile)
+        get_outfile(s, arg, i);
+    else if ((s->file.input && !s->file.infile)
+        || (s->file.here_doc && !s->file.stopword))
+        get_infile(s, arg, i);
 }
 
 char    **parse_arg(t_shell *s, int j)
@@ -76,18 +94,8 @@ char    **parse_arg(t_shell *s, int j)
         ft_exit(s);
     while (arg[++i])
     {
-        if (!ft_strcmp(arg[i], ">"))
-            s->file.ow = 1;
-        else if (!ft_strcmp(arg[i], ">>"))
-            s->file.ap = 1;        
-        else if (!ft_strcmp(arg[i], "<"))
-            s->file.input = 1; 
-        else if (!ft_strcmp(arg[i], "<<"))
-            s->file.here_doc = 1;
-        if (s->file.ow || s->file.ap)
-            get_outfile(s, arg, i);
-        else if (s->file.input || s->file.here_doc)
-            get_infile(s, arg, i);
+        check_quotes(s, arg, i, j);
+        check_redir(s, arg, i);
     }
     return (arg);  
 }

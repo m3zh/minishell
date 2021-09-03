@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 18:44:35 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/02 18:44:48 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/03 12:14:35 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,11 @@ void	init_shell(t_shell *s, char **envp)
 {
 	envinit();
 	init_fileredir(s);
-	s->len = 0;
+	s->check.preredir = 0;
+	s->check.redir = 0;
+	s->var.single_qts = 0;
+	s->var.double_qts = 0;
+	s->pipelen = 0;
 	s->status = -1;
 	s->background = 0;
 	// s->error_skip = 0;
