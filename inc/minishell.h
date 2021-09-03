@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 18:45:19 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/03 15:38:27 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/03 16:19:36 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define PATH 5
 # define START 6
 # define SINGLEQTS 39
+# define DOUBLEQTS 34
 # define MAX 1000
 
 # define TMPFILE "tmpfile"
@@ -147,15 +148,16 @@ void	which_signal();
 * UTILS
 */
 
+int     free_arr(char **path);
+int		ft_exit(t_shell *shell);
+int		starts_with(char *s1, char *s2);
 void	reset_string(char **s, int i);
 void    reset_shell(t_shell *s);
 void	free_struct(t_shell *s);
 void	ft_free(char *s);
 void	bash_error_unexpectedToken(t_shell *s);
 void	bash_error_wFilename(t_shell *s, char *file);
-int     free_arr(char **path);
-int		ft_exit(t_shell *shell);
-int		starts_with(char *s1, char *s2);
+void	str_replace(char *dst, char *src);
 void	malloxit(void);
 
 

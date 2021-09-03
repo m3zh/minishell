@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 10:31:59 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/03 16:05:52 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/03 16:19:17 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,27 @@
 
 // getoutfile and getinfile are 90% the same, could be merged into a single function
 // waiting a bit to see if it's a good idea or there are exceptions to handle
+
+static void doubleqts_stringify(t_shell *s, char **arg, int i)
+{
+    int     j;
+    int     k;
+    char    *tmp;
+
+    j = -1;
+    k = 0;
+    tmp = malloc(sizeof(char) * ft_strlen(arg[i]) + 1); // check for leaks ?
+    if (!tmp)
+        malloxit();
+    while (arg[i][++j])  // doublequotes ascii code is 34
+    {
+        if (arg[i][j] != DOUBLEQTS)
+            tmp[k++] = arg[i][j];
+    }
+    tmp[k] = 0;
+    str_replace(arg[i], tmp); 
+    s->var.single_qts = 0;
+}
 
 static void singleqts_stringify(t_shell *s, char **arg, int i)
 {
@@ -49,6 +70,6 @@ void check_quotes(t_shell *s, char **arg, int i, int j)
         s->var.double_qts = 1;       
     if (s->var.single_qts)
         singleqts_stringify(s, arg, i);
-    // else if (s->var.double_qts)
-    //     doubleqts_stringify(s, j);
+    else if (s->var.double_qts)
+        doubleqts_stringify(s, arg, i);
 }
