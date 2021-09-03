@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 18:45:19 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/03 13:03:05 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/03 15:38:27 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define BASH 1
 # define PATH 5
 # define START 6
-# define SINGLEQTS 27
+# define SINGLEQTS 39
 # define MAX 1000
 
 # define TMPFILE "tmpfile"

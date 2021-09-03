@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 18:17:40 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/03 12:13:29 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/03 16:00:09 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,8 @@ void	exec_shell(t_shell s)
 			return (perror("Fork"));
 		if (!s.proc)
 			child_process(s, arg, i);
-		// else if (!WIFEXITED(s.status))
-		// 	parent_waits(s, s.proc);
+		else if (s.proc < 0 && !WIFEXITED(s.status))
+			parent_waits(s, s.proc);
 	}
 	close_fd(&s);
 	if (!s.background)
