@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 10:31:59 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/03 18:27:19 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/04 08:30:56 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ static void doubleqts_stringify(t_shell *s, char **arg, int i)
     {
         if (arg[i][j] == DOLLARSIGN && (j == 0 || arg[i][j - 1] != BACKSLASH))
         {
-            start = j + 1;
-            while (arg[i][j] && !ft_space(arg[i][j]))
+            j++;
+            start = j;
+            while (arg[i][j]
+                && !ft_space(arg[i][j]) && arg[i][j] != DOUBLEQTS)
                 j++;
-            var_name = ft_substr(arg[i], start, j);
+            var_name = ft_substr(arg[i], start, j - start);
             if (!var_name)
                 malloxit();
             var = get_var(var_name);
@@ -53,7 +55,8 @@ static void doubleqts_stringify(t_shell *s, char **arg, int i)
             j--;
         }
         else if (arg[i][j] != DOUBLEQTS ||
-            (j > 0 && arg[i][j - 1] == BACKSLASH && arg[i][j] == DOUBLEQTS))
+                (j > 0 && arg[i][j - 1] == BACKSLASH
+                && arg[i][j] == DOUBLEQTS))
             tmp[k++] = arg[i][j];
     }
     tmp[k] = 0;

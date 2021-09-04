@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 15:48:18 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/03 18:17:24 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/04 07:38:24 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ char    *ft_concat(char **arg)
     while (arg[++i])
     {
         l = ft_strlen(arg[i]) + ft_strlen(s) + 1;
-        ft_strcat(s, arg[i], l);
-        ft_strcat(s, " ", l + 1);
+        ft_strlcat(s, arg[i], l);
+        ft_strlcat(s, " ", l + 1);
     }
     return (s);
 }

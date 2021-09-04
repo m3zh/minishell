@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:44:22 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/08/04 17:54:44 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/04 08:25:27 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 	if (s_len < start)
 		len = 0;
 	else if (s_len < start + len)
-		len = s_len - start;
+		len = s_len - start;	
 	r = (char *)malloc(sizeof(char) * (len + 1));
 	if (!r)
 		return (NULL);
