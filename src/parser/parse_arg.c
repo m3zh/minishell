@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 10:31:59 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/03 17:50:27 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/06 12:23:18 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static void get_infile(t_shell *s, char **arg, int i)
 
 static void check_redir(t_shell *s, char **arg, int i)
 {
+    if (s->var.single_qts || s->var.double_qts)
+        return ;
     if (!ft_strcmp(arg[i], ">"))
         s->file.ow = 1;
     else if (!ft_strcmp(arg[i], ">>"))
@@ -95,7 +97,9 @@ char    **parse_arg(t_shell *s, int j)
     while (arg[++i])
     {
         check_quotes(s, arg, i);
+        check_echo(s, arg, i);
         check_redir(s, arg, i);
     }
+    s->var.single_qts = 0; // reset shell
     return (arg);  
 }
