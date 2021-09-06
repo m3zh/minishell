@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/02 18:45:19 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/06 15:39:59 by maxdesall        ###   ########.fr       */
+/*   Created: 2021/09/06 15:43:27 by maxdesall         #+#    #+#             */
+/*   Updated: 2021/09/06 15:43:28 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		parse_shell(t_shell *shell, char *line, char **envp);
 char	**parse_arg(t_shell *s, int i);
 void	precheck_redir(t_shell *s, int last);
 void	check_quotes(t_shell *s, char **arg, int i);
+void    check_echo(t_shell *s, char **arg, int i);
 
 
 /*
@@ -100,7 +101,7 @@ void	free_struct(t_shell *s);
 void	ft_free(char *s);
 void	bash_error_unexpectedToken(t_shell *s);
 void	bash_error_wFilename(t_shell *s, char *file);
-void	str_replace(char *dst, char *src);
+void	str_replace(char **dst, char *src);
 void	malloxit(void);
 
 #endif

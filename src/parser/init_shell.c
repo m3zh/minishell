@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/02 18:44:35 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/06 15:38:05 by maxdesall        ###   ########.fr       */
+/*   Created: 2021/09/06 15:42:58 by maxdesall         #+#    #+#             */
+/*   Updated: 2021/09/06 15:43:04 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void	init_shell(t_shell *s, char **envp)
 	s->var.single_qts = 0;
 	s->var.double_qts = 0;
 	s->pipelen = 0;
+	s->builtin = 0;
 	// s->status = -1;
 	s->background = 0;
 	// s->error_skip = 0;

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 11:45:12 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/03 16:19:41 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/06 12:10:38 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	starts_with(char *s1, char *s2)
 	return (0);
 }
 
-void	str_replace(char *dst, char *src)
+void	str_replace(char **dst, char *src)
 {
-	if (dst)
-		free(dst);
-    dst = ft_strdup(src);
-    if (!dst)
+	if (*dst)
+		free(*dst);
+    *dst = ft_strdup(src);
+    if (!*dst)
         malloxit();
-    free(src);    
+    free(src);
 }
