@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 18:44:35 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/03 15:47:37 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/06 15:38:05 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ static void	envinit(void)
 	}
 	tmp[i] = 0;
 	environ = tmp;
+	ranker();
 }
 
 void	init_shell(t_shell *s, char **envp)

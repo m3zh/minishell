@@ -6,7 +6,7 @@
 /*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 09:28:31 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/02 16:43:44 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/06 14:31:33 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* returns 1 if all the characters until j are equal between the two strings */
 
-static int	equal(char *str, int i, int j)
+int	equal(char *str, int i, int j)
 {
 	int	k;
 
@@ -30,7 +30,7 @@ static int	equal(char *str, int i, int j)
 
 /* returns the line at which the new environment variable should be placed */
 
-static int	alpharank(char *str)
+int	alpharank(char *str)
 {
 	int	i;
 	int	j;

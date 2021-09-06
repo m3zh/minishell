@@ -6,7 +6,7 @@
 /*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 18:45:08 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/02 18:45:09 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/06 10:56:43 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int main(int ac, char **ag, char **envp)
 		ft_history(str, input);
         parse_shell(&shell, input, envp);
 		shell.builtin = 0;
+		stop(&shell);
 		cd(&shell);
 		enver(&shell);
 		if (shell.builtin == 0)
