@@ -6,14 +6,14 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 14:36:49 by mlazzare          #+#    #+#              #
-#    Updated: 2021/09/03 16:18:14 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/09/06 14:55:56 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = gcc -g3
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 #CFAGS += -fsanitize=address
 
 # sudo apt-get install libreadline-dev <-- handle installation for linux

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 18:17:40 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/03 16:00:09 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/06 18:05:03 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 static void parent_waits(t_shell s, pid_t proc)
 {
-	if (waitpid(proc, &s.status, 0) < 1)
-	{
-			perror("Waitpid");
-			ft_exit(&s);
-	}
+	int status;
+
+	(void)s;
+	waitpid(proc, &status, 0);
 }
 static void open_fd(t_shell *s)
 {
@@ -105,11 +104,13 @@ static void	child_process(t_shell s, char **arg, int i)
 void	exec_shell(t_shell s)
 {
 	int		i;
+	int		status;
 	char	**arg;
 
 	i = -1;
 	open_fd(&s);
-	pipe(s.pipefd);
+	if (pipe(s.pipefd) < 0)
+		ft_exit(&s);
 	while (s.cmd[++i])
 	{
 		arg = parse_arg(&s, i);
@@ -120,7 +121,7 @@ void	exec_shell(t_shell s)
 			return (perror("Fork"));
 		if (!s.proc)
 			child_process(s, arg, i);
-		else if (s.proc < 0 && !WIFEXITED(s.status))
+		else if (s.proc < 0 && !WIFEXITED(status))
 			parent_waits(s, s.proc);
 	}
 	close_fd(&s);
