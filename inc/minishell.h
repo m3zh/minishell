@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/02 18:45:19 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/06 12:29:01 by mlazzare         ###   ########.fr       */
+/*   Created: 2021/09/06 15:43:27 by maxdesall         #+#    #+#             */
+/*   Updated: 2021/09/06 15:43:28 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void    redir_input(t_shell *s);
 void    redir_output(t_shell *s);
 void    redir_heredoc(t_shell *s);
 void    get_heredoc(t_shell *s);
+void	stop(t_shell *shell);
 
 /*
 * ENVIRONMENT
@@ -76,6 +77,10 @@ char	*get_var(char *str);
 void	enver(t_shell *shell);
 void	expoort(char *str);
 void	unset(char *str);
+char	*get_val(char *str);
+int		alpharank(char *str);
+int		equal(char *str, int i, int j);
+void	ranker(void);
 
 /*
 * SIGNALS

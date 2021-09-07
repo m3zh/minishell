@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:21:53 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/06 11:19:42 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/07 09:30:37 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 
 static void preparsing(t_shell *s, int last)
 {
+    int i;
+
+    i = -1;
+    while (s->cmd[++i])
+    {
+        
+    }
     s->file.preparsing = 1;
     if (s->pipelen > 1)
         precheck_redir(s, last);

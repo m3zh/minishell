@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/02 18:45:08 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/06 12:20:33 by mlazzare         ###   ########.fr       */
+/*   Created: 2021/09/06 15:43:12 by maxdesall         #+#    #+#             */
+/*   Updated: 2021/09/06 15:43:14 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int main(int ac, char **ag, char **envp)
 		ft_history(str, input);
         parse_shell(&shell, input, envp);
 		shell.builtin = 0;
+		stop(&shell);
 		cd(&shell);
 		enver(&shell);
 		if (shell.builtin == 0)

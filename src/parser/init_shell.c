@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/02 18:44:35 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/06 12:20:14 by mlazzare         ###   ########.fr       */
+/*   Created: 2021/09/06 15:42:58 by maxdesall         #+#    #+#             */
+/*   Updated: 2021/09/06 15:43:04 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ static void	envinit(void)
 	}
 	tmp[i] = 0;
 	environ = tmp;
+	ranker();
 }
 
 void	init_shell(t_shell *s, char **envp)

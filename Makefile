@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 14:36:49 by mlazzare          #+#    #+#              #
-#    Updated: 2021/09/06 14:55:56 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/09/07 10:13:16 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC = \
 		./src/exec/pipe_line.c \
 		./src/exec/file_redir.c \
 		./src/exec/here_doc.c \
+		./src/exec/exit.c \
 		./src/exec/cd.c \
 		./src/env/var.c \
 		./src/env/unset.c \
