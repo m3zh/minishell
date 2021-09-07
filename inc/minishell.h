@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:43:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/07 13:30:15 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/07 18:06:09 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	ranker(void);
 * SIGNALS
 */
 
-void	which_signal();
+void    shell_signal();
 
 /*
 * UTILS
