@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 18:17:40 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/06 18:05:03 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/07 13:38:24 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void swap_pipe(t_shell *s, int i)
 		get_heredoc(s);
 	if (s->file.infile)
 		redir_input(s);
-	dup2(s->file.fdin, 0); // protecting this breaks up the pipe, to check
+	dup2(s->file.fdin, READ); // protecting this breaks up the pipe, to check
 	close(s->file.fdin);
 	if (i == s->pipelen - 1)
 	{
@@ -61,23 +61,28 @@ static void swap_pipe(t_shell *s, int i)
 	}		
 	else
 	{
-		s->file.fdout = s->pipefd[1];
-		s->file.fdin = s->pipefd[0];
+		if (s->file.outfile)
+			redir_output(s);
+		else
+		{
+			s->file.fdout = s->pipefd[WRITE];
+			s->file.fdin = s->pipefd[READ];
+		}
 	}
-	dup2(s->file.fdout, 1); // protecting this breaks up the pipe, to check
+	dup2(s->file.fdout, WRITE); // protecting this breaks up the pipe, to check
 	close(s->file.fdout);
 }
 
 static void close_fd(t_shell *s)
 {
-	if (dup2(s->file.tmpin, 0) < 0)
+	if (dup2(s->file.tmpin, READ) < 0)
 		ft_exit(s);
-	if (dup2(s->file.tmpout, 1)  < 0)
+	if (dup2(s->file.tmpout, WRITE)  < 0)
 		ft_exit(s);
 	close(s->file.tmpin);
 	close(s->file.tmpout);
-	close(s->pipefd[0]);
-	close(s->pipefd[1]);
+	close(s->pipefd[READ]);
+	close(s->pipefd[WRITE]);
 }
 
 static void	child_process(t_shell s, char **arg, int i)
@@ -88,16 +93,16 @@ static void	child_process(t_shell s, char **arg, int i)
 	j = -1;
 	(void)i;
 	// line 89: in case the cmd already comes with absolute path, e.g. /bin/ls
-	execve(arg[0], arg, s.e.env); 
+	execve(arg[READ], arg, s.e.env); 
 	while (s.path[++j])
 	{
-		cmd = ft_join(s.path[j], arg[0]);
+		cmd = ft_join(s.path[j], arg[READ]);
 		if (!cmd)
 			return ;
 		execve(cmd, arg, s.e.env);
 		free(cmd);
 	}
-	bash_error_wFilename(&s, arg[0]);
+	bash_error_wFilename(&s, arg[READ]);
 	exit(EXIT_FAILURE);
 }
 
