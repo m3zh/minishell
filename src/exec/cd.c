@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 07:35:18 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/06 12:21:05 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/07 09:59:25 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,18 @@ static void	folder(char *cmd)
 /* goes to a specific directory when using the tilde */
 /* example: "cd ~/some-directory" */
 
-static void	tilde(char *cmd, char *str)
+static void	tilde(t_shell *shell, char *cmd, char *str)
 {
 	char	*pwd;
+	char	*tmp;
 	char	*nstr;
 
 	pwd = getcwd(NULL, 0);
-	nstr = ft_join(str, ft_substr(cmd, 1, ft_strlen(cmd)));
+	tmp = ft_substr(cmd, 1, ft_strlen(cmd));
+	nstr = ft_join(str, tmp);
+	if (!shell->tilde)
+		free(shell->tilde);
+	shell->tilde = cmd;
 	if (!chdir(nstr))
 	{
 		change_var("OLDPWD", pwd);
@@ -77,7 +82,9 @@ static void	redirect(t_shell *shell, char *cmd, char *option, char *home)
 		else
 		{
 			if (starts_with("~/", option))
-				tilde(option, home);
+				tilde(shell, option, home);
+			else if (starts_with("-", option) && ft_strlen(option) == 1)
+				tilde(shell, shell->tilde, home);
 			else
 				folder(option);
 		}

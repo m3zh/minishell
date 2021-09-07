@@ -6,7 +6,7 @@
 /*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 09:28:31 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/06 14:31:33 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/06 17:51:56 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	equal(char *str, int i, int j)
 	int	k;
 
 	k = 0;
-	while (k < j && environ[i][k] && str[k])
+	while (k < j && environ[i][k] && str[k] && environ[i][k] != '=' && str[k] != '=')
 	{
 		if (str[k] != environ[i][k])
 			return (0);

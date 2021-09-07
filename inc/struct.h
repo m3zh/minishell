@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   STRUCT.H                                           :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 16:38:45 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/03 16:39:11 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/07 09:31:41 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_shell
 	int		pipefd[2];
 	int		background;
 	int		error_skip;
+	char	*tilde;
 	char	**cmd;
 	char	**path;
 	char	**args;
