@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 11:45:12 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/06 12:10:38 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/07 09:28:04 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	starts_with(char *s1, char *s2)
 
 void	str_replace(char **dst, char *src)
 {
+	if (!src)
+		return ;
 	if (*dst)
 		free(*dst);
     *dst = ft_strdup(src);
