@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:43:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/08 17:36:53 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/08 18:00:23 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ void    redir_output(t_shell *s);
 void    redir_heredoc(t_shell *s);
 void    get_heredoc(t_shell *s);
 void	stop(t_shell *shell);
+void	handle_sigint(int sig);
+void	handle_sigquit(int sig);
+void	handle_sigusr1(int sig);
 
 /*
 * ENVIRONMENT

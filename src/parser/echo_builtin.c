@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:13:39 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/08 17:57:23 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/08 18:06:10 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static void get_lastRetValue(t_shell s, char **arg, int i)
         malloxit();
     l = ft_numlen(s.cmdretval);
     k = l;
-    if (!s.cmdretval)
-        tmp[k++] = 0 + '0';
-    while (l >= 0)
+    if (s.cmdretval == 0)
+        tmp[0] = 0 + '0';
+    while (s.cmdretval != 0 && l > 0)
     {
         tmp[--l] = s.cmdretval % 10 + '0';
         s.cmdretval /= 10;        

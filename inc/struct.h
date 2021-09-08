@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/03 16:38:45 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/08 17:09:52 by mlazzare         ###   ########.fr       */
+/*   Created: 2021/09/07 18:49:00 by maxdesall         #+#    #+#             */
+/*   Updated: 2021/09/08 18:00:18 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_shell
 	int		builtin;
 	int		pipefd[2];
 	int		cmdretval;
+	char	*tilde;
 	char	**cmd;
 	char	**path;
 	char	**args;
