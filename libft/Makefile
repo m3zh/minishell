@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/10 18:36:32 by mlazzare          #+#    #+#              #
-#    Updated: 2021/09/04 08:28:30 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/09/08 15:22:59 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,8 @@ SRC	=	ft_splitpath.c			\
 		ft_concat.c				\
 		ft_strcat.c				\
 		ft_putstr_fd.c			\
+		ft_isalpha.c			\
+		ft_isword.c			\
 
 OBJS = $(SRC:%.c=%.o)
 

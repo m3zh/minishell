@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 16:02:50 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/01 07:51:56 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/08 15:42:56 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 void bash_error_unexpectedToken(t_shell *s)
 {
-    s->error_skip = 1;
+    // s->error_skip = 1;
     printf("-bash: syntax error near unexpected token `newline'\n");
     ft_exit(s);
 }
@@ -30,7 +30,8 @@ void bash_error_unexpectedToken(t_shell *s)
 
 void bash_error_wFilename(t_shell *s, char *file)
 {
-    s->error_skip = 1;
+    (void)s;
+    // s->error_skip = 1;
     printf("-bash: %s: %s\n", file, strerror(errno));
     // ft_exit(s);
 }

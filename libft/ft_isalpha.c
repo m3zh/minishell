@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/02 08:35:57 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/08 15:25:27 by mlazzare         ###   ########.fr       */
+/*   Created: 2021/09/08 15:22:37 by mlazzare          #+#    #+#             */
+/*   Updated: 2021/09/08 15:22:39 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "libft.h"
 
-void	malloxit(void)
+int	ft_isalpha(int c)
 {
-	ft_putstr_fd("minishell: memory allocation failed\n", STDERR);
-	exit(EXIT_FAILURE);
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return (1);
+	return (0);
 }

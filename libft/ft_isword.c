@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_isword.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/02 08:35:57 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/08 15:25:27 by mlazzare         ###   ########.fr       */
+/*   Created: 2021/09/08 15:20:02 by mlazzare          #+#    #+#             */
+/*   Updated: 2021/09/08 15:36:24 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "libft.h"
 
-void	malloxit(void)
+int ft_isword(char *s)
 {
-	ft_putstr_fd("minishell: memory allocation failed\n", STDERR);
-	exit(EXIT_FAILURE);
+    int i;
+
+    i = -1;
+    while (s[++i])
+    {
+        if (!ft_isalpha(s[i]))
+            return (0);
+    }
+    return (1);
 }
