@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 18:17:40 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/07 13:38:24 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/08 10:59:19 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,6 @@ static void parent_waits(t_shell s, pid_t proc)
 
 	(void)s;
 	waitpid(proc, &status, 0);
-}
-static void open_fd(t_shell *s)
-{
-	s->file.tmpin = dup(0);
-	if (s->file.tmpin < 0)
-		ft_exit(s);
-	s->file.tmpout = dup(1);
-	if (s->file.tmpout < 0)
-		ft_exit(s);
-	if (s->file.infile)
-		redir_input(s);
-	else
-	{
-		s->file.fdin = dup(s->file.tmpin);
-		if (s->file.fdin < 0)
-			ft_exit(s);
-	}
-	s->file.fdout = dup(s->file.tmpout);
-	if (s->file.fdout < 0)
-		ft_exit(s);
 }
 
 static void swap_pipe(t_shell *s, int i)
@@ -73,17 +53,7 @@ static void swap_pipe(t_shell *s, int i)
 	close(s->file.fdout);
 }
 
-static void close_fd(t_shell *s)
-{
-	if (dup2(s->file.tmpin, READ) < 0)
-		ft_exit(s);
-	if (dup2(s->file.tmpout, WRITE)  < 0)
-		ft_exit(s);
-	close(s->file.tmpin);
-	close(s->file.tmpout);
-	close(s->pipefd[READ]);
-	close(s->pipefd[WRITE]);
-}
+
 
 static void	child_process(t_shell s, char **arg, int i)
 {
@@ -93,44 +63,37 @@ static void	child_process(t_shell s, char **arg, int i)
 	j = -1;
 	(void)i;
 	// line 89: in case the cmd already comes with absolute path, e.g. /bin/ls
-	execve(arg[READ], arg, s.e.env); 
+	execve(arg[READ], arg, environ); 
 	while (s.path[++j])
 	{
 		cmd = ft_join(s.path[j], arg[READ]);
 		if (!cmd)
 			return ;
-		execve(cmd, arg, s.e.env);
+		execve(cmd, arg, environ);
 		free(cmd);
 	}
 	bash_error_wFilename(&s, arg[READ]);
 	exit(EXIT_FAILURE);
 }
 
-void	exec_shell(t_shell s)
+void    pipe_line(t_shell *s)
 {
 	int		i;
 	int		status;
-	char	**arg;
+    char	**arg;
 
-	i = -1;
-	open_fd(&s);
-	if (pipe(s.pipefd) < 0)
-		ft_exit(&s);
-	while (s.cmd[++i])
+    i = -1;
+	while (s->cmd[++i])
 	{
-		arg = parse_arg(&s, i);
-		swap_pipe(&s, i);
-		reset_shell(&s);
-		s.proc = fork();
-		if (s.proc < 0)
+		arg = parse_arg(s, i);
+		swap_pipe(s, i);
+		reset_shell(s);
+		s->proc = fork();
+		if (s->proc < 0)
 			return (perror("Fork"));
-		if (!s.proc)
-			child_process(s, arg, i);
-		else if (s.proc < 0 && !WIFEXITED(status))
-			parent_waits(s, s.proc);
+		if (!s->proc)
+			child_process(*s, arg, i);
+		else if (s->proc < 0 && !WIFEXITED(status))
+			parent_waits(*s, s->proc);
 	}
-	close_fd(&s);
-	if (!s.background)
-		parent_waits(s, s.proc);
-	free_struct(&s);
 }

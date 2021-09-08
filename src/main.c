@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:43:12 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/06 15:43:14 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/08 10:49:03 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,7 @@ int main(int ac, char **ag, char **envp)
 		input = readline("minishell$ ");
 		ft_history(str, input);
         parse_shell(&shell, input, envp);
-		shell.builtin = 0;
-		stop(&shell);
-		cd(&shell);
-		enver(&shell);
-		if (shell.builtin == 0)
-			exec_shell(shell);
+		exec_shell(shell);
 		// system("leaks minishell");
     }
     return (0);

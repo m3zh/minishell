@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 07:35:18 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/06 12:21:05 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/08 10:54:34 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,18 @@ static void	redirect(t_shell *shell, char *cmd, char *option, char *home)
 /* assigns the right values to the newly created variables */
 /* calls the redirection function and frees everything */
 
-int	cd(t_shell *shell)
+void	cd(t_shell *shell)
 {
 	char	*str;
 	char	**tab;
 	
+	if (shell->pipelen > 1)
+		return ;
 	str = get_var("HOME");
 	tab = ft_split(shell->cmd[0], ' ');
+	if (!tab)
+		malloxit();
 	redirect(shell, tab[0], tab[1], str);
 	free(str);
 	free(tab);
-	return (0);
 }
