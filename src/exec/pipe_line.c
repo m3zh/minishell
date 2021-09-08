@@ -6,13 +6,13 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 18:17:40 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/08 10:59:19 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/08 17:42:06 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static void parent_waits(t_shell s, pid_t proc)
+static void parent_waits(t_shell *s, pid_t proc)
 {
 	int status;
 
@@ -53,9 +53,7 @@ static void swap_pipe(t_shell *s, int i)
 	close(s->file.fdout);
 }
 
-
-
-static void	child_process(t_shell s, char **arg, int i)
+static void	child_process(t_shell *s, char **arg, int i)
 {
 	int j;
 	char *cmd;
@@ -64,16 +62,17 @@ static void	child_process(t_shell s, char **arg, int i)
 	(void)i;
 	// line 89: in case the cmd already comes with absolute path, e.g. /bin/ls
 	execve(arg[READ], arg, environ); 
-	while (s.path[++j])
+	while (s->path[++j])
 	{
-		cmd = ft_join(s.path[j], arg[READ]);
+		cmd = ft_join(s->path[j], arg[READ]);
 		if (!cmd)
 			return ;
 		execve(cmd, arg, environ);
 		free(cmd);
 	}
-	bash_error_wFilename(&s, arg[READ]);
-	exit(EXIT_FAILURE);
+	// to add msg command not found
+	bash_error_wFilename(s, arg[READ]);
+	// exit(EXIT_FAILURE);
 }
 
 void    pipe_line(t_shell *s)
@@ -92,8 +91,8 @@ void    pipe_line(t_shell *s)
 		if (s->proc < 0)
 			return (perror("Fork"));
 		if (!s->proc)
-			child_process(*s, arg, i);
+			child_process(s, arg, i);
 		else if (s->proc < 0 && !WIFEXITED(status))
-			parent_waits(*s, s->proc);
+			parent_waits(s, s->proc);
 	}
 }

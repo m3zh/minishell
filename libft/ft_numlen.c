@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reset.c                                            :+:      :+:    :+:   */
+/*   ft_numlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/13 11:24:04 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/08 16:12:48 by mlazzare         ###   ########.fr       */
+/*   Created: 2021/09/08 16:25:34 by mlazzare          #+#    #+#             */
+/*   Updated: 2021/09/08 16:26:08 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "libft.h"
 
-void    reset_string(char **s, int i)
+int	ft_numlen(long n)
 {
-    if (s && s[i])
-    {
-        free(s[i]);
-        s[i] = NULL;
-    }
-}
+	int	count;
 
-void    reset_shell(t_shell *s)
-{
-	s->file.infile = 0;
-	s->file.outfile = 0;
-	s->file.errfile = 0;
-	s->file.ow = 0;
-	s->file.ap = 0;
-	s->file.input = 0;
-	s->file.here_doc = 0;
+	count = 0;
+	if (n <= 0)
+	{
+		count += 1;
+		n *= -1;
+	}
+	while (n > 0)
+	{
+		count++;
+		n /= 10;
+	}
+	return (count);
 }

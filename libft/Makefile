@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/10 18:36:32 by mlazzare          #+#    #+#              #
-#    Updated: 2021/09/08 15:22:59 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/09/08 16:27:16 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ INC = libft.h
 
 SRC	=	ft_splitpath.c			\
 		ft_strlen.c				\
+		ft_numlen.c				\
 		ft_tablen.c				\
 		ft_strcmp.c				\
 		ft_strncmp.c			\
@@ -31,7 +32,7 @@ SRC	=	ft_splitpath.c			\
 		ft_strcat.c				\
 		ft_putstr_fd.c			\
 		ft_isalpha.c			\
-		ft_isword.c			\
+		ft_isword.c				\
 
 OBJS = $(SRC:%.c=%.o)
 

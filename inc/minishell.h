@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:43:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/08 10:59:42 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/08 17:36:53 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void    check_echo(t_shell *s, char **arg, int i);
 
 int     check_cmd(t_shell *s);
 void	cd(t_shell *shell);
-void	exec_shell(t_shell s);
+void	exec_shell(t_shell *s);
 void    pipe_line(t_shell *s);
 void    redir_input(t_shell *s);
 void    redir_output(t_shell *s);

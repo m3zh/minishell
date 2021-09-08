@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 16:38:45 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/08 15:42:10 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/08 17:09:52 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,8 @@ typedef struct s_shell
 {
 	int		pipelen;
 	int		builtin;
-	int		status;
 	int		pipefd[2];
-	int		background;
+	int		cmdretval;
 	char	**cmd;
 	char	**path;
 	char	**args;

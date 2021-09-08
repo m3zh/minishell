@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 10:31:59 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/07 09:47:51 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/08 16:56:45 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,6 @@
 static int  is_specialchar(char c)
 {
     return (c == SINGLEQTS || c == DOLLARSIGN);
-}
-
-static char *dollar2value(char *s, int start, int size)
-{
-    char    *var;
-    char    *var_name;
-    
-    var_name = ft_substr(s, start, size);
-    if (!var_name)
-        malloxit();
-    var = get_var(var_name);
-    if (!var)
-    {
-        var = ft_strdup("");
-        if (!var)
-            malloxit();            
-    }
-    free(var_name);
-    return (var);
 }
 
 /*
@@ -102,20 +83,4 @@ void check_quotes(t_shell *s, char **arg, int i)
         singleqts_stringify(arg, i);
     else if (s->var.double_qts)
         doubleqts_stringify(s, arg, i);
-}
-
-void check_echo(t_shell *s, char **arg, int i)
-{
-    char *tmp;
-
-    if (s->var.single_qts || s->var.double_qts)
-        return ;
-    if (!ft_strcmp(arg[0], "echo") && starts_with("$", arg[i])
-        && ft_strcmp("$", arg[i]))
-    {
-        tmp = dollar2value(arg[i], 1, sizeof(arg[i]));
-        if (!tmp)
-            malloxit();
-        str_replace(&arg[i], tmp);
-    }
 }
