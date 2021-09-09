@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:43:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/08 18:00:23 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/09 10:24:08 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 void	init_shell(t_shell *s, char **envp);
 int		parse_shell(t_shell *shell, char *line, char **envp);
 char	**parse_arg(t_shell *s, int i);
-void	precheck_redir(t_shell *s, int last);
+void	precheck_redir(t_shell *S, int last);
 void	check_quotes(t_shell *s, char **arg, int i);
 void    check_echo(t_shell *s, char **arg, int i);
 
@@ -78,15 +78,15 @@ void	handle_sigusr1(int sig);
 * ENVIRONMENT
 */ 
 
-int		change_var(char *var, char *value);
-char	*get_var(char *str);
+int		change_var(t_shell *shell, char *var, char *value);
+char	*get_var(t_shell *shell, char *str);
 void	enver(t_shell *shell);
-void	expoort(char *str);
-void	unset(char *str);
+void	expoort(t_shell *shell, char *str);
+void	unset(t_shell *shell, char *str);
 char	*get_val(char *str);
-int		alpharank(char *str);
-int		equal(char *str, int i, int j);
-void	ranker(void);
+int		alpharank(t_shell *shell, char *str);
+int		equal(t_shell *shell, char *str, int i, int j);
+void	ranker(t_shell *shell);
 
 /*
 * SIGNALS

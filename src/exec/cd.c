@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 07:35:18 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/08 11:52:03 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/09 10:23:18 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 /* goes to a specific directory, example: "cd some-directory" */
 
-static void	folder(char *cmd)
+static void	folder(t_shell *shell, char *cmd)
 {
 	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
 	if (!chdir(cmd))
 	{
-		change_var("OLDPWD", pwd);
+		change_var(shell, "OLDPWD", pwd);
 		pwd = getcwd(NULL, 0);
-		change_var("PWD", pwd);
+		change_var(shell, "PWD", pwd);
 	}
 	else
 		perror("cd command failed");
@@ -46,9 +46,9 @@ static void	tilde(t_shell *shell, char *cmd, char *str)
 	shell->tilde = cmd;
 	if (!chdir(nstr))
 	{
-		change_var("OLDPWD", pwd);
+		change_var(shell, "OLDPWD", pwd);
 		pwd = getcwd(NULL, 0);
-		change_var("PWD", pwd);
+		change_var(shell, "PWD", pwd);
 	}
 	else
 		perror("cd command failed");
@@ -56,16 +56,16 @@ static void	tilde(t_shell *shell, char *cmd, char *str)
 
 /* goes back to the home folder, example: "cd" */
 
-static void	homer(char *str)
+static void	homer(t_shell *shell, char *str)
 {
 	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
 	if (!chdir(str))
 	{
-		change_var("OLDPWD", pwd);
+		change_var(shell, "OLDPWD", pwd);
 		pwd = getcwd(NULL, 0);
-		change_var("PWD", pwd);
+		change_var(shell, "PWD", pwd);
 	}
 	else
 		perror("cd command failed");
@@ -78,7 +78,7 @@ static void	redirect(t_shell *shell, char *cmd, char *option, char *home)
 	if (starts_with("cd", cmd) && ft_strlen(cmd) == 2)
 	{
 		if (!option)
-			homer(home);
+			homer(shell, home);
 		else
 		{
 			if (starts_with("~/", option))
@@ -86,7 +86,7 @@ static void	redirect(t_shell *shell, char *cmd, char *option, char *home)
 			else if (starts_with("-", option) && ft_strlen(option) == 1)
 				tilde(shell, shell->tilde, home);
 			else
-				folder(option);
+				folder(shell, option);
 		}
 		shell->builtin = 1;
 	}
@@ -102,7 +102,7 @@ void	cd(t_shell *shell)
 	
 	if (shell->pipelen > 1)
 		return ;
-	str = get_var("HOME");
+	str = get_var(shell, "HOME");
 	tab = ft_split(shell->cmd[0], ' ');
 	if (!tab)
 		malloxit();

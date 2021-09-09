@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/08 18:00:24 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/09 10:51:06 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ static void	child_process(t_shell *s, char **arg, int i)
 	j = -1;
 	(void)i;
 	// line 89: in case the cmd already comes with absolute path, e.g. /bin/ls
-	execve(arg[READ], arg, environ); 
+	execve(arg[READ], arg, s->e.env); 
 	while (s->path[++j])
 	{
 		cmd = ft_join(s->path[j], arg[READ]);
 		if (!cmd)
 			return ;
-		execve(cmd, arg, environ);
+		execve(cmd, arg, s->e.env);
 		free(cmd);
 	}
 	// to add msg command not found

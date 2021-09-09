@@ -6,13 +6,13 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:13:39 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/08 18:06:10 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/09 10:22:24 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static char *dollar2value(char *s, int start, int size)
+static char *dollar2value(t_shell *shell, char *s, int start, int size)
 {
     char    *var;
     char    *var_name;
@@ -20,7 +20,7 @@ static char *dollar2value(char *s, int start, int size)
     var_name = ft_substr(s, start, size);
     if (!var_name)
         malloxit();
-    var = get_var(var_name);
+    var = get_var(shell, var_name);
     if (!var)
     {
         var = ft_strdup("");
@@ -69,7 +69,7 @@ void check_echo(t_shell *s, char **arg, int i)
     else if (!ft_strcmp(arg[0], "echo") && starts_with("$", arg[i])
         && ft_strcmp("$", arg[i])) // and it'n not only dollar sign, if it's only dollar sign you should print dollar sign
     {
-        tmp = dollar2value(arg[i], 1, sizeof(arg[i]));
+        tmp = dollar2value(s, arg[i], 1, sizeof(arg[i]));
         if (!tmp)
             malloxit();
         str_replace(&arg[i], tmp);

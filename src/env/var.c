@@ -6,22 +6,22 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 09:26:52 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/06 15:39:55 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/09 10:23:40 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-/* returns 1 if the environ table is alphabetically ranked, 0 if it isn't */
+/* returns 1 if the env table is alphabetically ranked, 0 if it isn't */
 
-static int	ranked(void)
+static int	ranked(t_shell *shell)
 {
 	int	i;
 
 	i = 1;
-	while (environ[i])
+	while (shell->e.env[i])
 	{
-		if (alpharank(environ[i - 1]) > alpharank(environ[i]))
+		if (alpharank(shell, shell->e.env[i - 1]) > alpharank(shell, shell->e.env[i]))
 			return (0);
 		i += 1;
 	}
@@ -30,7 +30,7 @@ static int	ranked(void)
 
 /* alphabetically ranks the environ array */
 
-void	ranker(void)
+void	ranker(t_shell *shell)
 {
 	int		i;
 	int		j;
@@ -39,21 +39,21 @@ void	ranker(void)
 
 	i = 0;
 	j = 0;
-	while (environ[i])
+	while (shell->e.env[i])
 		i += 1;
-	while (!ranked())
+	while (!ranked(shell))
 	{
 		j = 1;
 		while (j < i)
 		{
-			if (alpharank(environ[j - 1]) > alpharank(environ[j]))
+			if (alpharank(shell, shell->e.env[j - 1]) > alpharank(shell, shell->e.env[j]))
 			{
-				str1 = ft_strdup(environ[j - 1]);
-				str2 = ft_strdup(environ[j]);
-				free(environ[j - 1]);
-				free(environ[j]);
-				environ[j - 1] = str2;
-				environ[j] = str1;
+				str1 = ft_strdup(shell->e.env[j - 1]);
+				str2 = ft_strdup(shell->e.env[j]);
+				free(shell->e.env[j - 1]);
+				free(shell->e.env[j]);
+				shell->e.env[j - 1] = str2;
+				shell->e.env[j] = str1;
 			}
 			j += 1;
 		}
@@ -64,22 +64,22 @@ void	ranker(void)
 /* changes the value of the variable pointed to by *var to the value pointed */
 /* to by *value */
 
-int	change_var(char *var, char *value)
+int	change_var(t_shell *shell, char *var, char *value)
 {
 	int	i;
 
 	i = 0;
-	while (environ[i] && !(starts_with(var, environ[i])))
+	while (shell->e.env[i] && !(starts_with(var, shell->e.env[i])))
 		i += 1;
-	if (!environ[i])
+	if (!shell->e.env[i])
 		return (0);
-	free(environ[i]);
-	environ[i] = malloc(sizeof(char) * (ft_strlen(var) + ft_strlen(value) + 2));
-	if (!environ[i])
+	free(shell->e.env[i]);
+	shell->e.env[i] = malloc(sizeof(char) * (ft_strlen(var) + ft_strlen(value) + 2));
+	if (!shell->e.env[i])
 		return (0);
-	ft_strlcpy(environ[i], var, ft_strlen(var) + 1);
-	ft_strlcat(environ[i], "=", ft_strlen(environ[i]) + 2);
-	ft_strlcat(environ[i], value, ft_strlen(environ[i]) + ft_strlen(value) + 1);
+	ft_strlcpy(shell->e.env[i], var, ft_strlen(var) + 1);
+	ft_strlcat(shell->e.env[i], "=", ft_strlen(shell->e.env[i]) + 2);
+	ft_strlcat(shell->e.env[i], value, ft_strlen(shell->e.env[i]) + ft_strlen(value) + 1);
 	return (1);
 }
 
@@ -103,23 +103,23 @@ char	*get_val(char *str)
 /* returns a memory allocated string containing the value */
 /* of the environment variable */
 
-char	*get_var(char *str)
+char	*get_var(t_shell *shell, char *str)
 {
 	int		i;
 	int		j;
 	char	*var;
 
 	i = 0;
-	while (environ[i])
+	while (shell->e.env[i])
 	{
 		j = 0;
-		while (environ[i][j] && environ[i][j] != '=')
+		while (shell->e.env[i][j] && shell->e.env[i][j] != '=')
 			j += 1;
-		var = ft_substr(environ[i], 0, j);
+		var = ft_substr(shell->e.env[i], 0, j);
 		if (starts_with(str, var))
 		{
 			free(var);
-			return (ft_substr(environ[i], j + 1, ft_strlen(environ[i])));
+			return (ft_substr(shell->e.env[i], j + 1, ft_strlen(shell->e.env[i])));
 		}
 		free(var);
 		i += 1;

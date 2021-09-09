@@ -6,30 +6,11 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:42:58 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/08 17:21:01 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/09 11:32:26 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-static char **get_env(t_shell *s, char **env)
-{
-	int i;
-	char **tab;
-
-	i = -1;
-	tab = malloc(sizeof(char *) * MAX + 1);
-	if (!tab)
-		ft_exit(s);
-	while (env[++i])
-	{
-		tab[i] = ft_strdup(env[i]);
-		if (!tab[i])
-			ft_exit(s);
-	}
-	tab[i] = 0;
-	return (tab);
-}
 
 static char	**get_paths(char **ep)
 {
@@ -79,34 +60,36 @@ static void init_fileredir(t_shell *s)
 	s->file.errfile = 0;
 }
 
-static void	envinit(void)
+static void	envinit(t_shell *shell, char **envp)
 {
 	int		i;
 	char	**tmp;
 
 	i = 0;
-	while (environ[i])
+	while (envp[i])
 		i += 1;
 	tmp = malloc(sizeof(char *) * (i + 1));
 	if (!tmp)
 		return ;
 	i = 0;
-	while (environ[i])
+	while (envp[i])
 	{
-		tmp[i] = malloc(sizeof(char) * (ft_strlen(environ[i]) + 1));
+		tmp[i] = malloc(sizeof(char) * (ft_strlen(envp[i]) + 1));
 		if (!tmp[i])
 			return ;
-		ft_strlcpy(tmp[i], environ[i], ft_strlen(environ[i]) + 1);
+		ft_strlcpy(tmp[i], envp[i], ft_strlen(envp[i]) + 1);
 		i += 1;
 	}
 	tmp[i] = 0;
-	environ = tmp;
-	ranker();
+	shell->e.env = tmp;
+	ranker(shell);
+	shell->envinit = 1;
 }
 
 void	init_shell(t_shell *s, char **envp)
 {
-	envinit();
+	if (s->envinit != 1)
+		envinit(s, envp);
 	init_fileredir(s);
 	s->check.preredir = 0;
 	s->check.redir = 0;
@@ -117,10 +100,6 @@ void	init_shell(t_shell *s, char **envp)
     s->path = get_paths(envp);
 	if (!s->path)
 		ft_exit(s);
-	s->e.env = get_env(s, envp); // this parsing will have to be redone in a more accurate way
-	if (!s->e.env)			
-		ft_exit(s);
 	s->cmd = 0;
 	s->args = 0;
 }
-    

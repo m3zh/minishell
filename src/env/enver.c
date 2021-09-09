@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 10:13:13 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/03 12:06:54 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/09 11:27:39 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ static void	exporter(t_shell *shell)
 		j += 1;
 	var = ft_substr(str, 0, j);
 	value = ft_substr(str, j + 1, ft_strlen(str));
-	if (get_var(var) == NULL)
-		expoort(str);
+	if (get_var(shell, var) == NULL)
+		expoort(shell, str);
 	else
-		change_var(var, value);
+		change_var(shell, var, value);
 	free(value);
 	free(var);
 	free(str);
@@ -55,32 +55,32 @@ static void	unsetter(t_shell *shell)
 			|| shell->cmd[0][i] == ' ')
 		i += 1;
 	str = ft_substr(shell->cmd[0], i - 1, ft_strlen(shell->cmd[0]));
-	unset(str);
+	unset(shell, str);
 	free(str);
 }
 
 /* reproduces the behaviour of the "export" command */
 
-static void	exprint(void)
+static void	exprint(t_shell *shell)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (environ[i])
+	while (shell->e.env[i])
 	{
 		j = 0;
 		printf("declare -x ");
-		while (environ[i][j] != '=')
+		while (shell->e.env[i][j] != '=')
 		{
-			printf("%c", environ[i][j]);
+			printf("%c", shell->e.env[i][j]);
 			j += 1;
 		}
 		printf("%s", "=\"");
 		j += 1;
-		while (environ[i][j])
+		while (shell->e.env[i][j])
 		{
-			printf("%c", environ[i][j]);
+			printf("%c", shell->e.env[i][j]);
 			j += 1;
 		}
 		printf("%c\n", '"');
@@ -93,7 +93,7 @@ static void	exprint(void)
 static void	dollar(t_shell *shell)
 {
 	free(shell->cmd[0]);
-	shell->cmd[0] = get_var(
+	shell->cmd[0] = get_var(shell,
 			ft_substr(shell->cmd[0], 1, ft_strlen(shell->cmd[0])));
 }
 
@@ -108,16 +108,16 @@ void	enver(t_shell *shell)
 		dollar(shell);
 	else if (starts_with("env", shell->cmd[0]))
 	{
-		while (environ[i])
+		while (shell->e.env[i])
 		{
-			printf("%s\n", environ[i]);
+			printf("%s\n", shell->e.env[i]);
 			i += 1;
 		}
 	}
 	else if (starts_with("unset ", shell->cmd[0]))
 		unsetter(shell);
 	else if (starts_with("export", shell->cmd[0]) && ft_strlen(shell->cmd[0]) == 6)
-		exprint();
+		exprint(shell);
 	else if (starts_with("export ", shell->cmd[0]))
 		exporter(shell);
 	else
