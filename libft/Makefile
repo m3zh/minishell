@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/10 18:36:32 by mlazzare          #+#    #+#              #
-#    Updated: 2021/09/08 16:27:16 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/09/09 15:14:57 by maxdesall        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,16 +45,16 @@ RM = rm -f
 CFLAGS = -Wall -Wextra -Werror
 
 $(NAME): $(SRC)
-	$(CC) $(CFLAGS) -c $(SRC)
-	ar rcs $(NAME) $(OBJS)
+	@$(CC) $(CFLAGS) -c $(SRC)
+	@ar rcs $(NAME) $(OBJS)
 
 all: $(NAME)
 
 clean:
-	$(RM) $(OBJS) $(OBJB)
+	@$(RM) $(OBJS) $(OBJB)
 
 fclean: clean
-		$(RM) $(NAME)
+		@$(RM) $(NAME)
 
 re: fclean all
 

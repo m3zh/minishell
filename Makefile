@@ -6,11 +6,14 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 14:36:49 by mlazzare          #+#    #+#              #
-#    Updated: 2021/09/09 10:29:49 by maxdesall        ###   ########.fr        #
+#    Updated: 2021/09/09 15:19:14 by maxdesall        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
+
+ccgreen = "\033[0;92m"
+ccwhite = "\033[0;0m"
 
 CC = gcc -g3
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address
@@ -62,21 +65,34 @@ OBJ = $(SRC:.c=.o)
 LIBFT = ./libft/libft.a
 
 $(NAME): $(LIBFT) $(SRC)
-		$(CC) $(SRC) $(CFLAGS) $(LIB) $(HEADER) -o $(NAME)
+		@$(CC) $(SRC) $(CFLAGS) $(LIB) $(HEADER) -o $(NAME)
 
 all: $(NAME)
+	@printf $(ccgreen)
+	@echo "Successfully compiled"
+	@printf $(ccwhite)
 
 $(LIBFT):
-	$(MAKE) -C ./libft
+	@$(MAKE) -C ./libft
 
 clean:
-		rm -rf $(OBJ)
+		@rm -rf $(OBJ)
 		@cd libft && make clean
+		@printf $(ccgreen)
+		@echo "Successfully cleaned"
+		@printf $(ccwhite)
 
-fclean: clean
-		rm -rf $(NAME)
+fclean:
+		@rm -rf $(NAME)
 		@cd libft && make fclean
+		@printf $(ccgreen)
+		@echo "Successfully cleaned, including the executable"
+		@printf $(ccwhite)
 
-re:	fclean all
+fcleanre:
+	@rm -rf $(OBJ)
+	@rm -rf $(NAME)
 
-.PHONY: all clean fclean re
+re:	fcleanre all
+
+.PHONY: all clean fclean re fcleanre
