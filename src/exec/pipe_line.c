@@ -6,18 +6,18 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/09 10:51:06 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/09 14:55:24 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static void parent_waits(t_shell *s, pid_t proc)
+static void parent_waits(t_shell *s)
 {
 	int status;
 
 	(void)s;
-	waitpid(proc, &status, 0);
+	waitpid(g_proc, &status, 0);
 }
 
 static void swap_pipe(t_shell *s, int i)
@@ -87,12 +87,12 @@ void    pipe_line(t_shell *s)
 		arg = parse_arg(s, i);
 		swap_pipe(s, i);
 		reset_shell(s);
-		s->proc = fork();
-		if (s->proc < 0)
+		g_proc = fork();
+		if (g_proc < 0)
 			return (perror("Fork"));
-		if (!s->proc)
+		if (!g_proc)
 			child_process(s, arg, i);
-		else if (s->proc < 0 && !WIFEXITED(status))
-			parent_waits(s, s->proc);
+		else if (g_proc < 0 && !WIFEXITED(status))
+			parent_waits(s);
 	}
 }

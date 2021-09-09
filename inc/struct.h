@@ -6,12 +6,14 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:49:00 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/09 11:29:37 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/09 14:55:55 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
+pid_t	g_proc;
 
 typedef struct s_env
 {

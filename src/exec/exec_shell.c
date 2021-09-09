@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 10:47:26 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/08 17:37:53 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/09 14:55:33 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,6 @@ void	exec_shell(t_shell *s)
 		ft_exit(s);
     pipe_line(s);
 	close_fd(s);
-    waitpid(s->proc, &status, 0);
+    waitpid(g_proc, &status, 0);
 	free_struct(s);
 }

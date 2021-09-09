@@ -6,7 +6,7 @@
 /*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:47:45 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/08 16:48:06 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/09 15:05:59 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,24 @@
 
 void	handle_sigint(int sig)
 {
-	if (sig == SIGINT)
+	if (sig == SIGINT && g_proc != 0)
 	{
-		write(STDOUT, "\b \b\b \b", 6);
 		kill(getpid(), SIGCONT);
+		write(STDOUT, "\n", 1);
 	}
+	else if (sig == SIGINT && g_proc == 0)
+		write(STDOUT, "\n", 1);
 }
 
 void	handle_sigquit(int sig)
 {
-	if (sig == SIGQUIT)
+	if (sig == SIGQUIT && g_proc != 0)
 	{
-		write(STDOUT, "\b \b\b \b", 6);
-		write(STDOUT, "^\\Quit: 3\n", 11);
-		kill(getpid(), SIGCONT);
+		if (!kill(g_proc, SIGCONT))
+			write(STDOUT, "Quit: 3\n", 8);
 	}
+	else if (sig == SIGQUIT && g_proc == 0)
+		write(STDOUT, "\b\b  \b\b", 6);
 }
 
 void	handle_sigusr1(int sig)
