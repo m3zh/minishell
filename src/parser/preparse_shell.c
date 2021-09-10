@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:21:53 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/10 19:43:14 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/10 20:13:17 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int preparse_shell(t_shell *shell, char *line)
 
     // i = -1;
     reinit_shell(shell);
-    if (shell->cmd)
-        free_arr(shell->cmd);
+    // if (shell->cmd)
+    //     free_arr(shell->cmd);
     shell->cmd = ft_split(line, '|');
     if (!shell->cmd)
         return (ft_exit(shell));

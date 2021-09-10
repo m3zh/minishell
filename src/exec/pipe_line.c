@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/10 19:52:33 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/10 20:37:02 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void swap_pipe(t_shell *s, int i)
 	}
 	dup2(s->file.fdout, WRITE); // protecting this breaks up the pipe, to check
 	close(s->file.fdout);
-	free(s->cmd[i]);
+	// free(s->cmd[i]);
 }
 
 static void	child_process(t_shell *s, char **arg)
@@ -96,5 +96,5 @@ void    pipe_line(t_shell *s)
 		else if (g_proc > 0)
 			parent_waits(s, arg);
 	}
-	free(s->cmd);
+	free_arr(s->cmd);
 }

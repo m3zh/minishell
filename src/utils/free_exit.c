@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:36:31 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/10 19:22:09 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/10 20:32:50 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_free(char *s)
 	s = NULL;
 }
 
-int	free_arr(char **path)
+void	free_arr(char **path)
 {
 	int	i;
 
@@ -34,7 +34,6 @@ int	free_arr(char **path)
 		free(path[i++]);
 	if (path)
 		free(path);
-	return (0);
 }
 
 void	free_struct(t_shell *s)
