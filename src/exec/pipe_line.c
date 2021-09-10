@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/10 10:40:49 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/10 14:29:40 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void parent_waits(t_shell *s)
 {
 	int status;
 
-	waitpid(g_proc, &status, 0);
+	waitpid(g_proc, &status, WUNTRACED | WCONTINUED);
 	s->cmdretval = WEXITSTATUS(status);
 }
 
@@ -60,25 +60,25 @@ static void	child_process(t_shell *s, char **arg, int i)
 
 	j = -1;
 	(void)i;
-	// line 89: in case the cmd already comes with absolute path, e.g. /bin/ls
-	execve(arg[READ], arg, s->e.env); 
+	execve(arg[0], arg, s->e.env); // line 89: in case the cmd already comes with absolute path, e.g. /bin/ls
 	while (s->path[++j])
 	{
-		cmd = ft_join(s->path[j], arg[READ]);
+		cmd = ft_join(s->path[j], arg[0]);
 		if (!cmd)
 			return ;
 		execve(cmd, arg, s->e.env);
 		free(cmd);
+		s->cmdnotfound = 1;
 	}
-	// to add msg command not found
-	bash_error_wFilename(s, arg[READ]);
-	// exit(EXIT_FAILURE);
+	if (s->cmdnotfound)
+		bash_error_cmdNotFound(s, arg[0]);
+	free_arr(arg);
+	s->cmdnotfound = 0;
 }
 
 void    pipe_line(t_shell *s)
 {
 	int		i;
-	int		status;
     char	**arg;
 
     i = -1;
@@ -92,7 +92,7 @@ void    pipe_line(t_shell *s)
 			return (perror("Fork"));
 		if (!g_proc)
 			child_process(s, arg, i);
-		else if (g_proc < 0 && !WIFEXITED(status))
+		else if (g_proc > 0)
 			parent_waits(s);
 	}
 }

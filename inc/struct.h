@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:49:00 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/09 14:55:55 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/10 12:36:18 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_shell
 	int		pipefd[2];
 	int		cmdretval;
 	int		envinit;
+	int		cmdnotfound;
 	char	*tilde;
 	char	**cmd;
 	char	**path;

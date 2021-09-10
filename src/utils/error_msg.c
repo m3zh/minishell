@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 16:02:50 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/08 17:44:07 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/10 12:41:37 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,18 @@
 
 void bash_error_unexpectedToken(t_shell *s)
 {
-    // s->error_skip = 1;
     printf("-bash: syntax error near unexpected token `newline'\n");
-    // ft_exit(s);
     s->cmdretval = 2;
+}
+
+/* 
+* it reproduces the '-bash: cmd: command not found' message
+*/
+
+void bash_error_cmdNotFound(t_shell *s, char *cmd)
+{
+    printf("%s: command not found\n", cmd);
+    s->cmdretval = 127;
 }
 
 /* 
@@ -31,13 +39,6 @@ void bash_error_unexpectedToken(t_shell *s)
 
 void bash_error_wFilename(t_shell *s, char *file)
 {
-    (void)s;
-    // s->error_skip = 1;
     printf("-bash: %s: %s\n", file, strerror(errno));
-    // ft_exit(s);
-    s->cmdretval = 127;
+    s->cmdretval = errno;
 }
-
-
-// cmd not found $? 127
-// not such file or directory $? 1

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 10:56:49 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/08 15:41:59 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/10 12:31:17 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	stop(t_shell *shell)
 	if (!ft_strcmp("exit", shell->cmd[0]))
 	{
 		printf("exit\n");
-		exit(EXIT_SUCCESS);
+		ft_exit(shell);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
 	cmd = ft_split(shell->cmd[0], ' ');
 	if (!cmd)
@@ -35,12 +38,12 @@ void	stop(t_shell *shell)
 		{
 			printf("exit\n");
 			printf("bash: exit: %s: numeric argument required\n", cmd[1]);
-			exit(EXIT_SUCCESS);
+			ft_exit(shell);
 		}
 		else
 		{
 			printf("exit\n");
-			exit(EXIT_SUCCESS);
+			ft_exit(shell);
 		}
 	}
 	else if (ft_tablen(cmd) > 2)

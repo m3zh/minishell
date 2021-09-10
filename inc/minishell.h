@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:43:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/09 10:24:08 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/10 14:40:54 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/ioctl.h>
 # include <termios.h>
@@ -50,7 +51,7 @@
 */
 
 void	init_shell(t_shell *s, char **envp);
-int		parse_shell(t_shell *shell, char *line, char **envp);
+int		preparse_shell(t_shell *shell, char *line, char **envp);
 char	**parse_arg(t_shell *s, int i);
 void	precheck_redir(t_shell *S, int last);
 void	check_quotes(t_shell *s, char **arg, int i);
@@ -107,6 +108,7 @@ void	free_struct(t_shell *s);
 void	ft_free(char *s);
 void	bash_error_unexpectedToken(t_shell *s);
 void	bash_error_wFilename(t_shell *s, char *file);
+void    bash_error_cmdNotFound(t_shell *s, char *cmd);
 void	str_replace(char **dst, char *src);
 void	malloxit(void);
 

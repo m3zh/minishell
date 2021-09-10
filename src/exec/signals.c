@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:47:45 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/09 15:05:59 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/10 14:35:00 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ void	handle_sigint(int sig)
 	}
 	else if (sig == SIGINT && g_proc == 0)
 		write(STDOUT, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 void	handle_sigquit(int sig)
@@ -32,6 +35,9 @@ void	handle_sigquit(int sig)
 	}
 	else if (sig == SIGQUIT && g_proc == 0)
 		write(STDOUT, "\b\b  \b\b", 6);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();	
 }
 
 void	handle_sigusr1(int sig)

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:36:31 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/08 15:28:59 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/10 12:30:35 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ void	free_struct(t_shell *s)
 int	ft_exit(t_shell *shell)
 {
 	free_struct(shell);
-	exit(EXIT_FAILURE);
+	exit(EXIT_SUCCESS);
 }

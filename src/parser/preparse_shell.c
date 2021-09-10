@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:21:53 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/07 09:30:37 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/10 11:49:49 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void preparsing(t_shell *s, int last)
     s->file.preparsing = 0;
 }
 
-int parse_shell(t_shell *shell, char *line, char **envp)
+int preparse_shell(t_shell *shell, char *line, char **envp)
 {
     int i;
 
