@@ -39,14 +39,41 @@ int	ft_history(char *str, char *cmd)
 	return (0);
 }
 
+static char	*prefix(t_shell *shell)
+{
+	char	*s1;
+	char	*s2;
+	char	*s3;
+
+	s1 = get_var(shell, "USER");
+	if (!s1)
+		return (NULL);
+	s2 = ft_join("\033[1m\033[32m", s1);
+	free(s1);
+	s3 = ft_join(s2, "@");
+	free(s2);
+	s2 = ft_join(s3, "\033[0m:\033[1m\033[34m");
+	free(s3);
+	s1 = get_var(shell, "PWD");
+	s3 = ft_join(s2, s1);
+	free(s1);
+	free(s2);
+	s1 = ft_join(s3, "\033[0m$ ");
+	free(s3);
+	return (s1);
+}
+	
 static void	prompt(t_shell *shell, char **envp)
 {
 	char	*input;
 	char	str[MAX];
-
-    while (BASH)
-    {
-		input = readline("minishell$ ");
+	char	*tmp;
+	
+	while (BASH)
+	{
+		tmp = prefix(shell);
+		input = readline(tmp);
+		free(tmp);
 		if (!input)
 			handle_sigusr1(SIGUSR1);
 		ft_history(str, input);
