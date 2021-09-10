@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:43:12 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/10 18:56:13 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/10 19:32:18 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,13 @@ static int	checker(t_shell *shell)
 	return (1);
 }
 
-int	ft_history(char *str, char *cmd)
+void	ft_history(char *str, char *cmd)
 {
 	if (ft_strlen(cmd) != 0)
 	{
-		(void)str;
 		add_history(cmd);
 		ft_strncpy(str, cmd, ft_strlen(cmd));
-		return (0);
 	}
-	return (0);
 }
 
 static char	*prefix(t_shell *shell)
