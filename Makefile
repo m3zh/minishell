@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 14:36:49 by mlazzare          #+#    #+#              #
-#    Updated: 2021/09/09 15:19:14 by maxdesall        ###   ########.fr        #
+#    Updated: 2021/09/10 10:43:15 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,6 @@ SRC = \
 		./src/utils/reset.c \
 		./src/utils/error_msg.c \
 		./src/utils/strings.c \
-		./src/utils/signals.c \
 		./src/utils/exit.c \
 		./src/main.c \
 

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/09 14:55:24 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/10 10:40:49 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void parent_waits(t_shell *s)
 {
 	int status;
 
-	(void)s;
 	waitpid(g_proc, &status, 0);
+	s->cmdretval = WEXITSTATUS(status);
 }
 
 static void swap_pipe(t_shell *s, int i)

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 10:47:26 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/09 14:55:33 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/10 10:43:48 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ void	exec_shell(t_shell *s)
     int status;
     
     if (s->pipelen <= 1)
-        exec_builtins(s);
+		exec_builtins(s);
 	if (s->builtin)
-        return ;        
+		return ;        
 	open_fd(s);
 	if (pipe(s->pipefd) < 0)
 		ft_exit(s);
