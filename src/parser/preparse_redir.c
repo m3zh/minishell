@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stderr_end_builtins.c                              :+:      :+:    :+:   */
+/*   preparse_redir.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 15:21:00 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/06 11:04:51 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/10 18:58:53 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ void precheck_redir(t_shell *s, int last)
             s->cmd[last] = ft_concat(arg);
         }  
     }
+    free_arr(arg);
     reset_shell(s);
 }

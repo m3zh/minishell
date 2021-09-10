@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:43:12 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/10 14:20:22 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/10 18:56:13 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static char	*prefix(t_shell *shell)
 	return (s1);
 }
 	
-static void	prompt(t_shell *shell, char **envp)
+static void	prompt(t_shell *shell)
 {
 	char	*input;
 	char	str[MAX];
@@ -77,7 +77,7 @@ static void	prompt(t_shell *shell, char **envp)
 		if (!input)
 			handle_sigusr1(SIGUSR1);
 		ft_history(str, input);
-		preparse_shell(shell, input, envp);
+		preparse_shell(shell, input);
 		if (checker(shell))
 			exec_shell(shell);
 		// system("leaks minishell");
@@ -95,7 +95,7 @@ int main(int ac, char **ag, char **envp)
 	signal(SIGINT, handle_sigint);
 	signal(SIGUSR1, handle_sigusr1);
 	signal(SIGQUIT, handle_sigquit);
-	shell.cmdretval = 0;
-	prompt(&shell, envp);
+	prompt(&shell);
+    rl_clear_history();
 	return (0);
 }

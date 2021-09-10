@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:21:53 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/10 11:49:49 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/10 18:36:47 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ static void preparsing(t_shell *s, int last)
     s->file.preparsing = 0;
 }
 
-int preparse_shell(t_shell *shell, char *line, char **envp)
+int preparse_shell(t_shell *shell, char *line)
 {
     int i;
 
     i = -1;
-    init_shell(shell, envp);
+    reinit_shell(shell);
     shell->cmd = ft_split(line, '|');
     if (!shell->cmd)
         return (ft_exit(shell));
@@ -47,5 +47,6 @@ int preparse_shell(t_shell *shell, char *line, char **envp)
             return (ft_exit(shell)); // the free inside the function should be updated
     }
     preparsing(shell, i - 1);
+    free(line);
     return (0);
 }

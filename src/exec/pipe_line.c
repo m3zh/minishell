@@ -6,16 +6,17 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/10 15:37:00 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/10 19:02:13 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static void parent_waits(t_shell *s)
+static void parent_waits(t_shell *s, char **arg)
 {
 	int status;
 
+	free_arr(arg);
 	waitpid(g_proc, &status, WUNTRACED | WCONTINUED);
 	s->cmdretval = WEXITSTATUS(status);
 }
@@ -92,6 +93,6 @@ void    pipe_line(t_shell *s)
 		if (!g_proc)
 			child_process(s, arg);
 		else if (g_proc > 0)
-			parent_waits(s);
+			parent_waits(s, arg);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:42:58 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/10 12:36:03 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/10 18:30:49 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ static void	envinit(t_shell *shell, char **envp)
 
 void	init_shell(t_shell *s, char **envp)
 {
-	if (s->envinit != 1)
-		envinit(s, envp);
+	// if (s->envinit != 1)
+	envinit(s, envp);
 	init_fileredir(s);
 	s->check.preredir = 0;
 	s->check.redir = 0;
@@ -98,9 +98,25 @@ void	init_shell(t_shell *s, char **envp)
 	s->pipelen = 0;
 	s->builtin = 0;
 	s->cmdnotfound = 0;
+	s->cmdretval = 0;
     s->path = get_paths(envp);
 	if (!s->path)
 		ft_exit(s);
+	s->cmd = 0;
+	s->args = 0;
+}
+
+void	reinit_shell(t_shell *s)
+{
+	// envinit(s, envp);
+	init_fileredir(s);
+	s->check.preredir = 0;
+	s->check.redir = 0;
+	s->var.single_qts = 0;
+	s->var.double_qts = 0;
+	s->pipelen = 0;
+	s->builtin = 0;
+	s->cmdnotfound = 0;
 	s->cmd = 0;
 	s->args = 0;
 }
