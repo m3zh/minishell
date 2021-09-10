@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 10:47:26 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/10 19:03:05 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/10 20:09:12 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void exec_builtins(t_shell *shell) // still need to test if this works as
     stop(shell);
     cd(shell);
     enver(shell);
+	free_arr(shell->cmd); // to check
 }
 
 void	exec_shell(t_shell *s)
@@ -66,5 +67,4 @@ void	exec_shell(t_shell *s)
     pipe_line(s);
 	close_fd(s);
     waitpid(g_proc, &status, 0);
-	// free_struct(s);
 }

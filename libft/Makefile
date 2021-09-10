@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/10 18:36:32 by mlazzare          #+#    #+#              #
-#    Updated: 2021/09/09 15:14:57 by maxdesall        ###   ########.fr        #
+#    Updated: 2021/09/10 20:00:00 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,6 @@ SRC	=	ft_splitpath.c			\
 		ft_trim.c				\
 		ft_space.c				\
 		ft_concat.c				\
-		ft_strcat.c				\
 		ft_putstr_fd.c			\
 		ft_isalpha.c			\
 		ft_isword.c				\

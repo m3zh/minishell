@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:48:11 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/08 16:26:56 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/10 20:02:56 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int                 ft_isword(char *s);
 int                 ft_numlen(long n);
 size_t				ft_strlen(const char *s);
 size_t              ft_tablen(char **str);
-char                *ft_strcat(char **dst, const char *src, int k);
+char                *ft_strcat(char *dst, const char *src, int k);
 char                *ft_trim(char *s);
 char                *ft_strncpy(char *dest, const char *src, size_t n);
 char                *ft_concat(char **arg);

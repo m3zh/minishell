@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 07:35:18 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/10 19:13:35 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/10 20:08:53 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	tilde(t_shell *shell, char *cmd, char *str)
 	nstr = ft_join(str, tmp);
 	if (!nstr)
 		malloxit();
-	if (shell->tilde)
+	if (!shell->tilde)
 		free(shell->tilde);
 	shell->tilde = cmd;
 	if (!chdir(nstr))
@@ -59,7 +59,10 @@ static void	tilde(t_shell *shell, char *cmd, char *str)
 		change_var(shell, "PWD", pwd);
 	}
 	else
-		perror("cd command failed");
+		printf("bash: cd: %s: %s\n", nstr, strerror(errno)); 
+	free(pwd);
+	free(tmp);
+	free(nstr);
 }
 
 /* goes back to the home folder, example: "cd" */
@@ -77,6 +80,7 @@ static void	homer(t_shell *shell, char *str)
 	}
 	else
 		perror("cd command failed");
+	free(pwd);
 }
 
 /* redirects to the right functions */
