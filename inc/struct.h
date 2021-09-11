@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:49:00 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/10 12:36:18 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/11 20:53:07 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 # define STRUCT_H
 
 pid_t	g_proc;
-
-typedef struct s_env
-{
-	char	**env;
-}	        t_env;
 
 typedef struct s_var 
 {
@@ -62,11 +57,11 @@ typedef struct s_shell
 	int		envinit;
 	int		cmdnotfound;
 	char	*tilde;
+	char	**minienv;
 	char	**cmd;
 	char	**path;
 	char	**args;
 	pid_t	proc;
-	t_env	e;
 	t_redir	file;
 	t_var	var;
 	t_check	check;

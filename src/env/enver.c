@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 10:13:13 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/09 11:27:39 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/11 20:53:35 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,20 @@ static void	exprint(t_shell *shell)
 	int	j;
 
 	i = 0;
-	while (shell->e.env[i])
+	while (shell->minienv[i])
 	{
 		j = 0;
 		printf("declare -x ");
-		while (shell->e.env[i][j] != '=')
+		while (shell->minienv[i][j] != '=')
 		{
-			printf("%c", shell->e.env[i][j]);
+			printf("%c", shell->minienv[i][j]);
 			j += 1;
 		}
 		printf("%s", "=\"");
 		j += 1;
-		while (shell->e.env[i][j])
+		while (shell->minienv[i][j])
 		{
-			printf("%c", shell->e.env[i][j]);
+			printf("%c", shell->minienv[i][j]);
 			j += 1;
 		}
 		printf("%c\n", '"');
@@ -108,9 +108,9 @@ void	enver(t_shell *shell)
 		dollar(shell);
 	else if (starts_with("env", shell->cmd[0]))
 	{
-		while (shell->e.env[i])
+		while (shell->minienv[i])
 		{
-			printf("%s\n", shell->e.env[i]);
+			printf("%s\n", shell->minienv[i]);
 			i += 1;
 		}
 	}

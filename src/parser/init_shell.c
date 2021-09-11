@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:42:58 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/10 20:05:03 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/11 20:53:35 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	envinit(t_shell *shell, char **envp)
 		i += 1;
 	}
 	tmp[i] = 0;
-	shell->e.env = tmp;
+	shell->minienv = tmp;
 	ranker(shell);
 	shell->envinit = 1;
 }

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:36:31 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/10 20:32:50 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/11 20:53:22 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	free_struct(t_shell *s)
 	free_arr(s->cmd);
 	free_arr(s->path);
 	free_arr(s->args);
-	free_arr(s->e.env);
+	free_arr(s->minienv);
 	if (s->path)
 		free(s->path);
 	if (s->file.stopword)
