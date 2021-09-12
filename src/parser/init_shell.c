@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:42:58 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/11 20:53:35 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/12 13:14:33 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ static void init_fileredir(t_shell *s)
 	s->file.input = 0;
 	s->file.here_doc = 0;
 	s->file.stopword = 0;
-	s->file.lastErr = 0;
-	s->file.allErr = 0;
+	s->file.err = 0;
+	s->file.err_out = 0;
 	s->file.more = 0;
 	s->file.preparsing = 0;
 	s->file.infile = 0;
@@ -118,6 +118,8 @@ void	reinit_shell(t_shell *s)
 	s->pipelen = 0;
 	s->builtin = 0;
 	s->cmdnotfound = 0;
+	if (g_proc == -505)
+		s->cmdnotfound = 130;
 	s->cmd = 0;
 	s->args = 0;
 }

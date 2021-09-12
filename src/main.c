@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:43:12 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/10 19:32:18 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/12 13:18:06 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ static void	prompt(t_shell *shell)
 		preparse_shell(shell, input);
 		if (checker(shell))
 			exec_shell(shell);
-		// system("leaks minishell");
 	}
 }
 
@@ -85,13 +84,11 @@ int main(int ac, char **ag, char **envp)
 {
 	t_shell	shell;
 
+	(void)ag;
 	if (ac > 1)
 		return (printf("Error\nInvalid number of arguments\n"));
-	(void)ag;
 	init_shell(&shell, envp);
-	signal(SIGINT, handle_sigint);
-	signal(SIGUSR1, handle_sigusr1);
-	signal(SIGQUIT, handle_sigquit);
+	shell_signal();
 	prompt(&shell);
     rl_clear_history();
 	return (0);

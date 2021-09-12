@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:49:00 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/11 20:53:07 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/12 11:08:57 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct s_redir
 	int		ow; // overwrite >
 	int		input; // file input <
 	int		here_doc; // <<
-	int		lastErr;
-	int		allErr;
+	int		err; // redirect stderr
+	int		err_out; //redirect stderr and stdout
 	int		more; // check if there is more after <,<<,>>,>
 	int		preparsing;
 	char	*stopword;
