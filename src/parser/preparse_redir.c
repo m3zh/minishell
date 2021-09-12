@@ -6,11 +6,20 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 15:21:00 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/10 18:58:53 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/12 09:38:40 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+static void swap_rfile(char *file, char **arg, int i)
+{
+    if (file)
+        free(file);
+    file = ft_strdup(arg[i]);
+    if (!file)
+        malloxit();
+}
 
 static char **pre_infile(t_shell *s, char **arg, int i)
 {
@@ -18,13 +27,15 @@ static char **pre_infile(t_shell *s, char **arg, int i)
 
     file = i + 1;
     if (arg[file] && s->file.input)
-        s->file.infile = ft_strdup(arg[file]);
+        swap_rfile(s->file.infile, arg, file);
     else if (arg[file] && s->file.here_doc)
-        s->file.stopword = ft_strdup(arg[file]);
+        swap_rfile(s->file.stopword, arg, file);
     if (!s->file.infile && !s->file.stopword) // check leaks
         ft_exit(s);
     reset_string(arg, i);
     reset_string(arg, file);
+    if (!ft_strcmp(arg[++file], "<"))
+        pre_infile(s, arg, file);
     while (arg[++file])
     {
         s->file.more = 1;

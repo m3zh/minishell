@@ -6,11 +6,20 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 10:31:59 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/08 11:49:04 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/12 10:05:22 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+static void swap_file(char **file, char **arg, int i)
+{
+    if (*file)
+        free(*file);
+    *file = ft_strdup(arg[i]);
+    if (!*file)
+        malloxit();
+}
 
 // getoutfile and getinfile are 90% the same, could be merged into a single function
 // waiting a bit to see if it's a good idea or there are exceptions to handle
@@ -21,11 +30,9 @@ static void get_outfile(t_shell *s, char **arg, int i)
 
     file = i + 1;
     if (arg[file])
-        s->file.outfile = ft_strdup(arg[file]);
+        swap_file(&s->file.outfile, arg, file);
     else if (!s->file.preparsing)
         return (bash_error_unexpectedToken(s));
-    if (!s->file.outfile)
-        ft_exit(s);
     reset_string(arg, i);
     reset_string(arg, file);
     while (arg[++file])
@@ -45,15 +52,15 @@ static void get_infile(t_shell *s, char **arg, int i)
 
     file = i + 1;
     if (arg[file] && s->file.input)
-        s->file.infile = ft_strdup(arg[file]);
+        swap_file(&s->file.infile, arg, file);
     else if (arg[file] && s->file.here_doc)
-        s->file.stopword = ft_strdup(arg[file]);
+        swap_file(&s->file.stopword, arg, file);
     else if (!s->file.preparsing)
         return (bash_error_unexpectedToken(s));
-    if (!s->file.infile && !s->file.stopword) // check leaks
-        ft_exit(s);
     reset_string(arg, i);
     reset_string(arg, file);
+    if (arg[file + 1] && !ft_strcmp(arg[file + 1], "<"))
+        get_infile(s, arg, file + 1);
     while (arg[++file])
     {
         s->file.more = 1;

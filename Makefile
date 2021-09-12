@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 14:36:49 by mlazzare          #+#    #+#              #
-#    Updated: 2021/09/10 19:04:26 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/09/12 10:15:48 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,7 @@ $(LIBFT):
 
 clean:
 		@rm -rf $(OBJ)
-		@cd libft && make clean
+		@cd libft && make clean 
 		@printf $(ccgreen)
 		@echo "Successfully cleaned"
 		@printf $(ccwhite)
