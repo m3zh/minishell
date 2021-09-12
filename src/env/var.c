@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 09:26:52 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/11 20:53:35 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/12 14:39:07 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	change_var(t_shell *shell, char *var, char *value)
 	free(shell->minienv[i]);
 	shell->minienv[i] = malloc(sizeof(char) * (ft_strlen(var) + ft_strlen(value) + 2));
 	if (!shell->minienv[i])
-		return (0);
+		malloxit();
 	ft_strlcpy(shell->minienv[i], var, ft_strlen(var) + 1);
 	ft_strlcat(shell->minienv[i], "=", ft_strlen(shell->minienv[i]) + 2);
 	ft_strlcat(shell->minienv[i], value, ft_strlen(shell->minienv[i]) + ft_strlen(value) + 1);

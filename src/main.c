@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:43:12 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/12 13:18:06 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/12 14:10:49 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,24 @@ static char	*prefix(t_shell *shell)
 
 	s1 = get_var(shell, "USER");
 	if (!s1)
-		return (NULL);
+		malloxit();
 	s2 = ft_join("\033[1m\033[32m", s1);
+	if (!s2)
+		malloxit();
 	free(s1);
-	s3 = ft_join(s2, "@");
+	s3 = ft_join(s2, "@\033[0m:\033[1m\033[34m");
 	free(s2);
-	s2 = ft_join(s3, "\033[0m:\033[1m\033[34m");
-	free(s3);
 	s1 = get_var(shell, "PWD");
-	s3 = ft_join(s2, s1);
+	if (!s1)
+		malloxit();
+	s2 = ft_join(s3, s1);
+	if (!s2)
+		malloxit();
 	free(s1);
+	s1 = ft_join(s2, "\033[0m$ ");
+	if (!s1)
+		malloxit();
 	free(s2);
-	s1 = ft_join(s3, "\033[0m$ ");
 	free(s3);
 	return (s1);
 }
