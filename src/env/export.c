@@ -6,25 +6,21 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 09:28:31 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/13 12:05:41 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/13 15:20:46 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-/* returns 1 if all the characters until j are equal between the two strings */
-
-int	equal(t_shell *shell, char *str, int i, int j)
+int	sorter(char *s1, char *s2)
 {
-	int	k;
+	int	i;
 
-	k = 0;
-	while (k < j && shell->minienv[i][k] && str[k] && shell->minienv[i][k] != '=' && str[k] != '=')
-	{
-		if (str[k] != shell->minienv[i][k])
-			return (0);
-		k += 1;
-	}
+	i = 0;
+	while (s1[i] && s1[i] != '=' && s1[i] == s2[i])
+		i += 1;
+	if (s1[i] > s2[i])
+		return (0);
 	return (1);
 }
 
@@ -33,17 +29,13 @@ int	equal(t_shell *shell, char *str, int i, int j)
 int	alpharank(t_shell *shell, char *str)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	while (shell->minienv[i] && str[0] > shell->minienv[i][0])
-		i += 1;
-	while (j < (int)ft_strlen(str) && shell->minienv[i])
+	while (shell->minienv[i])
 	{
-		while (equal(shell, str, i, j) && str[j] > shell->minienv[i][j])
-			i += 1;
-		j += 1;
+		if (sorter(str, shell->minienv[i]))
+			return (i);
+		i += 1;
 	}
 	return (i);
 }

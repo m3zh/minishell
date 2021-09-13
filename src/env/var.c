@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 09:26:52 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/13 11:39:53 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/13 15:21:00 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ranked(t_shell *shell)
 	i = 1;
 	while (shell->minienv[i])
 	{
-		if (alpharank(shell, shell->minienv[i - 1]) > alpharank(shell, shell->minienv[i]))
+		if (!sorter(shell->minienv[i - 1], shell->minienv[i]))
 			return (0);
 		i += 1;
 	}
@@ -43,7 +43,7 @@ void	ranker(t_shell *shell)
 		j = 1;
 		while (j < i)
 		{
-			if (alpharank(shell, shell->minienv[j - 1]) > alpharank(shell, shell->minienv[j]))
+			if (!sorter(shell->minienv[j - 1], shell->minienv[j]))
 			{
 				tmp = ft_strdup(shell->minienv[j - 1]);
 				if (!tmp)
@@ -56,7 +56,7 @@ void	ranker(t_shell *shell)
 				shell->minienv[j] = ft_strdup(tmp);
 				if (!shell->minienv[j])
 					malloxit();
-				free(tmp);	
+				free(tmp);
 			}
 			j += 1;
 		}

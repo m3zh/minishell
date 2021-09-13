@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 10:13:13 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/13 12:11:01 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/13 15:15:09 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,36 +18,35 @@
 static void	exporter(t_shell *shell)
 {
 	int		i;
-	int		j;
 	char	*str;
 	char	*var;
 	char	*value;
-	char	*v;
+	char	*newv;
 
-	j = 0;
 	i = starts_with("export ", shell->cmd[0]);
 	while (shell->cmd[0] && ft_space(shell->cmd[0][i]))
 		i += 1;
 	str = ft_substr(shell->cmd[0], i - 1, ft_strlen(shell->cmd[0]));
 	if (!str)
 		malloxit();
-	while (str[j] && str[j] != '=')
-		j += 1;
-	var = ft_substr(str, 0, j);
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i += 1;
+	var = ft_substr(str, 0, i);
 	if (!var)
 		malloxit();
-	value = ft_substr(str, j + 1, ft_strlen(str));
+	value = ft_substr(str, i + 1, ft_strlen(str));
 	if (!value)
 		malloxit();
-	v = get_var(shell, var);
-	if (v == NULL)
+	newv = get_var(shell, var);
+	if (newv == NULL)
 		expoort(shell, str);
 	else
 		change_var(shell, var, value);
 	free(value);
 	free(var);
 	free(str);
-	free(v);
+	free(newv);
 }
 
 /* prepares the variables for the unset function */
