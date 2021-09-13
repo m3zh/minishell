@@ -6,11 +6,26 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 10:38:24 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/13 17:39:06 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/13 18:33:44 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+/* if the var is not in env, we return */
+
+static int	not_inEnv(t_shell *shell, char *var)
+{
+	int i;
+
+	i = -1;
+	while (shell->minienv[++i])
+	{
+		if (starts_with(var, shell->minienv[i]))
+			return (0);
+	}
+	return (1);
+}
 
 /* mallocs each environment table line and copies the string over */
 /* to the new table */
@@ -44,7 +59,6 @@ static void	assign(t_shell *shell, char *str, char **tmp)
 	tmp[j] = 0;
 	free_arr(shell->minienv);
 	shell->minienv = malloc(sizeof(char *) * ft_tablen(tmp) + 1);
-	shell->minienv[0] = 0;
 	j = -1;
 	while (shell->minienv[++j])
 	{
@@ -53,7 +67,6 @@ static void	assign(t_shell *shell, char *str, char **tmp)
 			malloxit();
 	}
 	shell->minienv[j] = 0;
-	free_arr(tmp);
 }
 
 /* mallocs the new environment table and calls the assign function */
@@ -63,9 +76,12 @@ void	unset(t_shell *shell, char *str)
 	int		i;
 	char	**tmp;
 
+	if (not_inEnv(shell, str))
+		return ;
 	i = ft_tablen(shell->minienv);
 	tmp = malloc(sizeof(char *) * i);
 	if (!tmp)
 		malloxit();
 	assign(shell, str, tmp);
+	free_arr(tmp);
 }

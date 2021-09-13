@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:36:31 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/11 20:53:22 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/13 18:22:24 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	free_arr(char **path)
 		free(path[i++]);
 	if (path)
 		free(path);
+	path = 0;
 }
 
 void	free_struct(t_shell *s)
