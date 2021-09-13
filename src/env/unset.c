@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 10:38:24 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/13 18:33:44 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/13 18:57:31 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ static void	assign(t_shell *shell, char *str, char **tmp)
 	}
 	tmp[j] = 0;
 	free_arr(shell->minienv);
-	shell->minienv = malloc(sizeof(char *) * ft_tablen(tmp) + 1);
-	j = -1;
-	while (shell->minienv[++j])
+	shell->minienv = malloc(sizeof(char *) * j);
+	shell->minienv[--j] = 0;
+	i = -1;
+	while (++i < j)
 	{
-		shell->minienv[j] = ft_strdup(tmp[j]);
-		if (!shell->minienv[j])
+		shell->minienv[i] = ft_strdup(tmp[i]);
+		if (!shell->minienv[i])
 			malloxit();
-	}
-	shell->minienv[j] = 0;
+	}	
 }
 
 /* mallocs the new environment table and calls the assign function */
