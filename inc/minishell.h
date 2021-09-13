@@ -87,8 +87,8 @@ void	expoort(t_shell *shell, char *str);
 void	unset(t_shell *shell, char *str);
 char	*get_val(char *str);
 int		alpharank(t_shell *shell, char *str);
-int		equal(t_shell *shell, char *str, int i, int j);
 void	ranker(t_shell *shell);
+int		sorter(char *s1, char *s2);
 
 /*
 * SIGNALS

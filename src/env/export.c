@@ -12,19 +12,15 @@
 
 #include "../../inc/minishell.h"
 
-/* returns 1 if all the characters until j are equal between the two strings */
-
-int	equal(t_shell *shell, char *str, int i, int j)
+int	sorter(char *s1, char *s2)
 {
-	int	k;
+	int	i;
 
-	k = 0;
-	while (k < j && shell->e.env[i][k] && str[k] && shell->e.env[i][k] != '=' && str[k] != '=')
-	{
-		if (str[k] != shell->e.env[i][k])
-			return (0);
-		k += 1;
-	}
+	i = 0;
+	while (s1[i] && s1[i] != '=' && s1[i] == s2[i])
+		i += 1;
+	if (s1[i] > s2[i])
+		return (0);
 	return (1);
 }
 
@@ -33,17 +29,13 @@ int	equal(t_shell *shell, char *str, int i, int j)
 int	alpharank(t_shell *shell, char *str)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	while (shell->e.env[i] && str[0] > shell->e.env[i][0])
-		i += 1;
-	while (j < (int)ft_strlen(str) && shell->e.env[i])
+	while (shell->e.env[i])
 	{
-		while (equal(shell, str, i, j) && str[j] > shell->e.env[i][j])
-			i += 1;
-		j += 1;
+		if (sorter(str, shell->e.env[i]))
+			return (i);
+		i += 1;
 	}
 	return (i);
 }

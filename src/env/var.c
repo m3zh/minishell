@@ -21,7 +21,7 @@ static int	ranked(t_shell *shell)
 	i = 1;
 	while (shell->e.env[i])
 	{
-		if (alpharank(shell, shell->e.env[i - 1]) > alpharank(shell, shell->e.env[i]))
+		if (!sorter(shell->e.env[i - 1], shell->e.env[i]))
 			return (0);
 		i += 1;
 	}
@@ -34,8 +34,7 @@ void	ranker(t_shell *shell)
 {
 	int		i;
 	int		j;
-	char	*str1;
-	char	*str2;
+	char	*tmp;
 
 	i = 0;
 	j = 0;
@@ -46,14 +45,11 @@ void	ranker(t_shell *shell)
 		j = 1;
 		while (j < i)
 		{
-			if (alpharank(shell, shell->e.env[j - 1]) > alpharank(shell, shell->e.env[j]))
+			if (!sorter(shell->e.env[j - 1], shell->e.env[j]))
 			{
-				str1 = ft_strdup(shell->e.env[j - 1]);
-				str2 = ft_strdup(shell->e.env[j]);
-				free(shell->e.env[j - 1]);
-				free(shell->e.env[j]);
-				shell->e.env[j - 1] = str2;
-				shell->e.env[j] = str1;
+				tmp = shell->e.env[j - 1];
+				shell->e.env[j - 1] = shell->e.env[j];
+				shell->e.env[j] = tmp;
 			}
 			j += 1;
 		}
