@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 10:13:13 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/11 20:53:35 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/13 12:11:01 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,32 @@ static void	exporter(t_shell *shell)
 	char	*str;
 	char	*var;
 	char	*value;
+	char	*v;
 
 	j = 0;
 	i = starts_with("export ", shell->cmd[0]);
-	while (shell->cmd[0] && ((shell->cmd[0][i] >= 9
-				&& shell->cmd[0][i] <= 13)
-			|| shell->cmd[0][i] == ' '))
+	while (shell->cmd[0] && ft_space(shell->cmd[0][i]))
 		i += 1;
 	str = ft_substr(shell->cmd[0], i - 1, ft_strlen(shell->cmd[0]));
+	if (!str)
+		malloxit();
 	while (str[j] && str[j] != '=')
 		j += 1;
 	var = ft_substr(str, 0, j);
+	if (!var)
+		malloxit();
 	value = ft_substr(str, j + 1, ft_strlen(str));
-	if (get_var(shell, var) == NULL)
+	if (!value)
+		malloxit();
+	v = get_var(shell, var);
+	if (v == NULL)
 		expoort(shell, str);
 	else
 		change_var(shell, var, value);
 	free(value);
 	free(var);
 	free(str);
+	free(v);
 }
 
 /* prepares the variables for the unset function */
@@ -55,6 +62,8 @@ static void	unsetter(t_shell *shell)
 			|| shell->cmd[0][i] == ' ')
 		i += 1;
 	str = ft_substr(shell->cmd[0], i - 1, ft_strlen(shell->cmd[0]));
+	if (!str)
+		malloxit();
 	unset(shell, str);
 	free(str);
 }
@@ -90,11 +99,16 @@ static void	exprint(t_shell *shell)
 
 /* executes environment variable commands */
 
-static void	dollar(t_shell *shell)
+static void	dollar(t_shell *shell) // to check
 {
+	char *tmp;
+
+	tmp = ft_substr(shell->cmd[0], 1, ft_strlen(shell->cmd[0]));
+	if (!tmp)
+		malloxit();
 	free(shell->cmd[0]);
-	shell->cmd[0] = get_var(shell,
-			ft_substr(shell->cmd[0], 1, ft_strlen(shell->cmd[0])));
+	shell->cmd[0] = get_var(shell, tmp);
+	free(tmp);
 }
 
 /* redirects to the right functions */

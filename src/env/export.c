@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 09:28:31 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/11 20:53:35 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/13 12:05:41 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,21 @@ void	expoort(t_shell *shell, char *str)
 	int		i;
 	char	**tmp;
 
-	i = 0;
-	while (shell->minienv[i])
-		i += 1;
+	i = ft_tablen(shell->minienv);
 	tmp = malloc(sizeof(char *) * (i + 2));
 	if (!tmp)
 		malloxit();
 	assign(shell, str, tmp);
 	tmp[i + 1] = 0;
-	free(shell->minienv);
-	shell->minienv = tmp;
+	free_arr(shell->minienv);
+	shell->minienv = malloc(sizeof(char *) * (i + 2));
+	shell->minienv[i + 1] = 0;
+	while (i >= 0)
+	{
+		shell->minienv[i] = ft_strdup(tmp[i]);
+		if (!shell->minienv[i])
+			malloxit();
+		i--;
+	}
+	free_arr(tmp);
 }

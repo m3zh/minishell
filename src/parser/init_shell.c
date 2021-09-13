@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:42:58 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/12 13:14:33 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/13 11:45:07 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,34 +63,28 @@ static void init_fileredir(t_shell *s)
 static void	envinit(t_shell *shell, char **envp)
 {
 	int		i;
-	char	**tmp;
 
-	i = 0;
-	while (envp[i])
-		i += 1;
-	tmp = malloc(sizeof(char *) * (i + 1));
-	if (!tmp)
-		return ;
+	i = ft_tablen(envp);
+	shell->minienv = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!shell->minienv)
+		malloxit();
+	shell->minienv[0] = 0;
 	i = 0;
 	while (envp[i])
 	{
-		tmp[i] = malloc(sizeof(char) * (ft_strlen(envp[i]) + 1));
-		if (!tmp[i])
-			return ;
-		ft_strlcpy(tmp[i], envp[i], ft_strlen(envp[i]) + 1);
+		shell->minienv[i] = ft_strdup(envp[i]);
+		if (!shell->minienv[i])
+			malloxit();
 		i += 1;
 	}
-	tmp[i] = 0;
-	shell->minienv = tmp;
-	ranker(shell);
+	shell->minienv[i] = 0;
+	// ranker(shell);
 	shell->envinit = 1;
 }
 
 void	init_shell(t_shell *s, char **envp)
 {
-	// if (s->envinit != 1)
-	envinit(s, envp);
-	init_fileredir(s);
+	s->minienv = 0;
 	s->check.preredir = 0;
 	s->check.redir = 0;
 	s->var.single_qts = 0;
@@ -100,6 +94,8 @@ void	init_shell(t_shell *s, char **envp)
 	s->cmdnotfound = 0;
 	s->cmdretval = 0;
 	s->tilde = 0;
+	envinit(s, envp);
+	init_fileredir(s);
     s->path = get_paths(envp);
 	if (!s->path)
 		ft_exit(s);
@@ -109,7 +105,6 @@ void	init_shell(t_shell *s, char **envp)
 
 void	reinit_shell(t_shell *s)
 {
-	// envinit(s, envp);
 	init_fileredir(s);
 	s->check.preredir = 0;
 	s->check.redir = 0;
@@ -117,9 +112,6 @@ void	reinit_shell(t_shell *s)
 	s->var.double_qts = 0;
 	s->pipelen = 0;
 	s->builtin = 0;
-	s->cmdnotfound = 0;
-	if (g_proc == -505)
-		s->cmdnotfound = 130;
 	s->cmd = 0;
 	s->args = 0;
 }

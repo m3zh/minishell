@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 09:26:52 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/12 14:39:07 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/13 11:39:53 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,10 @@ void	ranker(t_shell *shell)
 {
 	int		i;
 	int		j;
-	char	*str1;
-	char	*str2;
+	char	*tmp;
 
-	i = 0;
 	j = 0;
-	while (shell->minienv[i])
-		i += 1;
+	i = ft_tablen(shell->minienv);
 	while (!ranked(shell))
 	{
 		j = 1;
@@ -48,12 +45,18 @@ void	ranker(t_shell *shell)
 		{
 			if (alpharank(shell, shell->minienv[j - 1]) > alpharank(shell, shell->minienv[j]))
 			{
-				str1 = ft_strdup(shell->minienv[j - 1]);
-				str2 = ft_strdup(shell->minienv[j]);
+				tmp = ft_strdup(shell->minienv[j - 1]);
+				if (!tmp)
+					malloxit();
 				free(shell->minienv[j - 1]);
+				shell->minienv[j - 1] = ft_strdup(shell->minienv[j]);
+				if (!shell->minienv[j - 1])
+					malloxit();
 				free(shell->minienv[j]);
-				shell->minienv[j - 1] = str2;
-				shell->minienv[j] = str1;
+				shell->minienv[j] = ft_strdup(tmp);
+				if (!shell->minienv[j])
+					malloxit();
+				free(tmp);	
 			}
 			j += 1;
 		}
@@ -116,10 +119,15 @@ char	*get_var(t_shell *shell, char *str)
 		while (shell->minienv[i][j] && shell->minienv[i][j] != '=')
 			j += 1;
 		var = ft_substr(shell->minienv[i], 0, j);
+		if (!var)
+			malloxit();
 		if (starts_with(str, var))
 		{
 			free(var);
-			return (ft_substr(shell->minienv[i], j + 1, ft_strlen(shell->minienv[i])));
+			var = ft_substr(shell->minienv[i], j + 1, ft_strlen(shell->minienv[i]) - j); // to check
+			if (!var)
+				malloxit();
+			return (var);
 		}
 		free(var);
 		i += 1;
