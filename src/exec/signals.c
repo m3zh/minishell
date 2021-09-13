@@ -36,10 +36,11 @@ void	handle_sigquit(int sig)
 			write(STDOUT, "Quit: 3\n", 8);
 	}
 	else if (sig == SIGQUIT && g_proc == 0)
-		write(STDOUT, "\b \b\b \b", 6);
-/*	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();	*/
+	{
+		rl_on_new_line();
+		rl_replace_line("  " , 0);
+		rl_redisplay();
+	}
 }
 
 void	handle_sigusr1(int sig)
