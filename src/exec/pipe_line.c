@@ -19,6 +19,7 @@ static void parent_waits(t_shell *s, char **arg)
 	free_arr(arg);
 	waitpid(g_proc, &status, WUNTRACED | WCONTINUED);
 	s->cmdretval = WEXITSTATUS(status);
+	g_proc = 0;
 }
 
 static void swap_pipe(t_shell *s, int i)
