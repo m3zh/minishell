@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:08:28 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/01 08:47:50 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/13 14:24:46 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void    get_heredoc(t_shell *s)
             write(s->file.tmpfd, word, ft_strlen(word));
             write(s->file.tmpfd, "\n", 1);
         }
+        free(word);
     }
     redir_heredoc(s);
+    ft_free(word);
     s->file.more = 0;
-    s->file.stopword = 0;
+    // before here we had s->file.stopword = 0;
 }

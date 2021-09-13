@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 11:24:04 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/10 19:20:57 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/13 14:22:58 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ void    reset_string(char **s, int i)
 
 void    reset_shell(t_shell *s)
 {
-	s->file.infile = 0;
-	s->file.outfile = 0;
-	s->file.errfile = 0;
+	ft_free(s->file.infile);
+	ft_free(s->file.outfile);
+	ft_free(s->file.errfile);
+	ft_free(s->file.stopword);
 	s->file.ow = 0;
 	s->file.ap = 0;
 	s->file.input = 0;
