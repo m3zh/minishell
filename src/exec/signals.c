@@ -30,6 +30,9 @@ void	handle_sigint(int sig)
 
 void	handle_sigquit(int sig)
 {
+	char	c;
+
+	c = 127;
 	if (sig == SIGQUIT && g_proc != 0)
 	{
 		if (!kill(g_proc, SIGCONT))
@@ -38,7 +41,7 @@ void	handle_sigquit(int sig)
 	else if (sig == SIGQUIT && g_proc == 0)
 	{
 		rl_on_new_line();
-		rl_replace_line("  " , 0);
+		rl_replace_line("" , 0);
 		rl_redisplay();
 	}
 }

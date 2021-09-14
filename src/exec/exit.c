@@ -38,21 +38,20 @@ void	stop(t_shell *s)
 		{
 			printf("exit\n");
 			printf("bash: exit: %s: numeric argument required\n", cmd[1]);
-			free_arr(cmd);
+			/* free_arr(cmd); */
 			ft_exit(s);
 		}
 		else
 		{
 			printf("exit\n");
-			free_arr(cmd);
-			ft_exit(s);
+			exit(ft_atoi(cmd[1]));
 		}
 	}
 	else if (ft_tablen(cmd) > 2)
 	{
 		printf("exit\n");
 		printf("bash: exit: too many arguments\n");
-		free_arr(cmd);
+		/* free_arr(cmd); */
 		// free_arr(s->cmd);
 		s->builtin = 1;
 	}	

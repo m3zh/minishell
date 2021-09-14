@@ -43,6 +43,8 @@ static void	tilde(t_shell *shell, char *cmd, char *str)
 	char	*nstr;
 
 	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		exit(EXIT_FAILURE);
 	tmp = ft_substr(cmd, 1, ft_strlen(cmd));
 	if (!tmp)
 		malloxit();
@@ -54,9 +56,13 @@ static void	tilde(t_shell *shell, char *cmd, char *str)
 	shell->tilde = cmd;
 	if (!chdir(nstr))
 	{
-		change_var(shell, "OLDPWD", pwd);
+		if (!change_var(shell, "OLDPWD", pwd))
+			exit(EXIT_FAILURE);
 		pwd = getcwd(NULL, 0);
-		change_var(shell, "PWD", pwd);
+		if (!pwd)
+			exit(EXIT_FAILURE);
+		if (!change_var(shell, "PWD", pwd))
+			exit(EXIT_FAILURE);
 	}
 	else
 		printf("bash: cd: %s: %s\n", nstr, strerror(errno)); 
@@ -72,11 +78,17 @@ static void	homer(t_shell *shell, char *str)
 	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		exit(EXIT_FAILURE);
 	if (!chdir(str))
 	{
-		change_var(shell, "OLDPWD", pwd);
+		if (!change_var(shell, "OLDPWD", pwd))
+			exit(EXIT_FAILURE);
 		pwd = getcwd(NULL, 0);
-		change_var(shell, "PWD", pwd);
+		if (!pwd)
+			exit(EXIT_FAILURE);
+		if (!change_var(shell, "PWD", pwd))
+			exit(EXIT_FAILURE);
 	}
 	else
 		perror("cd command failed");
@@ -115,6 +127,11 @@ void	cd(t_shell *shell)
 	if (shell->pipelen > 1)
 		return ;
 	str = get_var(shell, "HOME");
+	if (!str)
+	{
+		printf("minishell: cd: home directory not set\n");
+		exit(EXIT_FAILURE);
+	}
 	tab = ft_split(shell->cmd[0], ' ');
 	if (!tab)
 		malloxit();

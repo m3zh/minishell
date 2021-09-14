@@ -34,10 +34,13 @@ static void	exporter(t_shell *shell)
 		j += 1;
 	var = ft_substr(str, 0, j);
 	value = ft_substr(str, j + 1, ft_strlen(str));
-	if (get_var(shell, var) == NULL)
+	if (!get_var(shell, var))
 		expoort(shell, str);
 	else
-		change_var(shell, var, value);
+	{
+		if (!change_var(shell, var, value))
+			exit(EXIT_FAILURE);
+	}
 	free(value);
 	free(var);
 	free(str);
@@ -95,6 +98,8 @@ static void	dollar(t_shell *shell)
 	free(shell->cmd[0]);
 	shell->cmd[0] = get_var(shell,
 			ft_substr(shell->cmd[0], 1, ft_strlen(shell->cmd[0])));
+	if (!shell->cmd[0])
+		exit(EXIT_FAILURE);
 }
 
 /* redirects to the right functions */

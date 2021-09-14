@@ -112,7 +112,9 @@ char	*get_var(t_shell *shell, char *str)
 		while (shell->e.env[i][j] && shell->e.env[i][j] != '=')
 			j += 1;
 		var = ft_substr(shell->e.env[i], 0, j);
-		if (starts_with(str, var))
+		if (!var)
+			exit(EXIT_FAILURE);
+		if (starts_with(str, var) && (int)ft_strlen(str) == j)
 		{
 			free(var);
 			return (ft_substr(shell->e.env[i], j + 1, ft_strlen(shell->e.env[i])));
