@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 10:13:13 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/09 11:27:39 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/13 15:15:09 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,28 @@
 static void	exporter(t_shell *shell)
 {
 	int		i;
-	int		j;
 	char	*str;
 	char	*var;
 	char	*value;
+	char	*newv;
 
-	j = 0;
 	i = starts_with("export ", shell->cmd[0]);
-	while (shell->cmd[0] && ((shell->cmd[0][i] >= 9
-				&& shell->cmd[0][i] <= 13)
-			|| shell->cmd[0][i] == ' '))
+	while (shell->cmd[0] && ft_space(shell->cmd[0][i]))
 		i += 1;
 	str = ft_substr(shell->cmd[0], i - 1, ft_strlen(shell->cmd[0]));
-	while (str[j] && str[j] != '=')
-		j += 1;
-	var = ft_substr(str, 0, j);
-	value = ft_substr(str, j + 1, ft_strlen(str));
-	if (!get_var(shell, var))
+	if (!str)
+		malloxit();
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i += 1;
+	var = ft_substr(str, 0, i);
+	if (!var)
+		malloxit();
+	value = ft_substr(str, i + 1, ft_strlen(str));
+	if (!value)
+		malloxit();
+	newv = get_var(shell, var);
+	if (newv == NULL)
 		expoort(shell, str);
 	else
 	{
@@ -44,6 +49,7 @@ static void	exporter(t_shell *shell)
 	free(value);
 	free(var);
 	free(str);
+	free(newv);
 }
 
 /* prepares the variables for the unset function */
@@ -58,6 +64,8 @@ static void	unsetter(t_shell *shell)
 			|| shell->cmd[0][i] == ' ')
 		i += 1;
 	str = ft_substr(shell->cmd[0], i - 1, ft_strlen(shell->cmd[0]));
+	if (!str)
+		malloxit();
 	unset(shell, str);
 	free(str);
 }
@@ -70,20 +78,20 @@ static void	exprint(t_shell *shell)
 	int	j;
 
 	i = 0;
-	while (shell->e.env[i])
+	while (shell->minienv[i])
 	{
 		j = 0;
 		printf("declare -x ");
-		while (shell->e.env[i][j] != '=')
+		while (shell->minienv[i][j] != '=')
 		{
-			printf("%c", shell->e.env[i][j]);
+			printf("%c", shell->minienv[i][j]);
 			j += 1;
 		}
 		printf("%s", "=\"");
 		j += 1;
-		while (shell->e.env[i][j])
+		while (shell->minienv[i][j])
 		{
-			printf("%c", shell->e.env[i][j]);
+			printf("%c", shell->minienv[i][j]);
 			j += 1;
 		}
 		printf("%c\n", '"');
@@ -93,13 +101,19 @@ static void	exprint(t_shell *shell)
 
 /* executes environment variable commands */
 
-static void	dollar(t_shell *shell)
+static void	dollar(t_shell *shell) // to check
 {
+	char *tmp;
+
+	tmp = ft_substr(shell->cmd[0], 1, ft_strlen(shell->cmd[0]));
+	if (!tmp)
+		malloxit();
 	free(shell->cmd[0]);
 	shell->cmd[0] = get_var(shell,
 			ft_substr(shell->cmd[0], 1, ft_strlen(shell->cmd[0])));
 	if (!shell->cmd[0])
 		exit(EXIT_FAILURE);
+	free(tmp);
 }
 
 /* redirects to the right functions */
@@ -113,9 +127,9 @@ void	enver(t_shell *shell)
 		dollar(shell);
 	else if (starts_with("env", shell->cmd[0]))
 	{
-		while (shell->e.env[i])
+		while (shell->minienv[i])
 		{
-			printf("%s\n", shell->e.env[i]);
+			printf("%s\n", shell->minienv[i]);
 			i += 1;
 		}
 	}

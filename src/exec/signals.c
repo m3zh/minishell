@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:47:45 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/10 14:35:00 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/13 13:14:38 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,11 @@ void	handle_sigusr1(int sig)
 		write(STDOUT, "exit\n", 5);
 		exit(EXIT_SUCCESS);
 	}
+}
+
+void	shell_signal()
+{
+	signal(SIGINT, handle_sigint);
+	signal(SIGUSR1, handle_sigusr1);
+	signal(SIGQUIT, handle_sigquit);
 }

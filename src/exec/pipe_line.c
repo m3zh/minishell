@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/10 20:37:02 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/11 20:53:22 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ static void	child_process(t_shell *s, char **arg)
 	char *cmd;
 
 	j = -1;
-	execve(arg[0], arg, s->e.env); // line 89: in case the cmd already comes with absolute path, e.g. /bin/ls
+	execve(arg[0], arg, s->minienv); // line 89: in case the cmd already comes with absolute path, e.g. /bin/ls
 	while (s->path[++j])
 	{
 		cmd = ft_join(s->path[j], arg[0]);
 		if (!cmd)
 			return ;
-		execve(cmd, arg, s->e.env);
+		execve(cmd, arg, s->minienv);
 		free(cmd);
 		s->cmdnotfound = 1;
 	}

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 09:26:52 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/09 10:23:40 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/13 15:41:34 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static int	ranked(t_shell *shell)
 	int	i;
 
 	i = 1;
-	while (shell->e.env[i])
+	while (shell->minienv[i])
 	{
-		if (!sorter(shell->e.env[i - 1], shell->e.env[i]))
+		if (!sorter(shell->minienv[i - 1], shell->minienv[i]))
 			return (0);
 		i += 1;
 	}
@@ -36,20 +36,27 @@ void	ranker(t_shell *shell)
 	int		j;
 	char	*tmp;
 
-	i = 0;
 	j = 0;
-	while (shell->e.env[i])
-		i += 1;
+	i = ft_tablen(shell->minienv);
 	while (!ranked(shell))
 	{
 		j = 1;
 		while (j < i)
 		{
-			if (!sorter(shell->e.env[j - 1], shell->e.env[j]))
+			if (!sorter(shell->minienv[j - 1], shell->minienv[j]))
 			{
-				tmp = shell->e.env[j - 1];
-				shell->e.env[j - 1] = shell->e.env[j];
-				shell->e.env[j] = tmp;
+				tmp = ft_strdup(shell->minienv[j - 1]);
+				if (!tmp)
+					malloxit();
+				free(shell->minienv[j - 1]);
+				shell->minienv[j - 1] = ft_strdup(shell->minienv[j]);
+				if (!shell->minienv[j - 1])
+					malloxit();
+				free(shell->minienv[j]);
+				shell->minienv[j] = ft_strdup(tmp);
+				if (!shell->minienv[j])
+					malloxit();
+				free(tmp);
 			}
 			j += 1;
 		}
@@ -65,17 +72,17 @@ int	change_var(t_shell *shell, char *var, char *value)
 	int	i;
 
 	i = 0;
-	while (shell->e.env[i] && !(starts_with(var, shell->e.env[i])))
+	while (shell->minienv[i] && !(starts_with(var, shell->minienv[i])))
 		i += 1;
-	if (!shell->e.env[i])
+	if (!shell->minienv[i])
 		return (0);
-	free(shell->e.env[i]);
-	shell->e.env[i] = malloc(sizeof(char) * (ft_strlen(var) + ft_strlen(value) + 2));
-	if (!shell->e.env[i])
-		return (0);
-	ft_strlcpy(shell->e.env[i], var, ft_strlen(var) + 1);
-	ft_strlcat(shell->e.env[i], "=", ft_strlen(shell->e.env[i]) + 2);
-	ft_strlcat(shell->e.env[i], value, ft_strlen(shell->e.env[i]) + ft_strlen(value) + 1);
+	free(shell->minienv[i]);
+	shell->minienv[i] = malloc(sizeof(char) * (ft_strlen(var) + ft_strlen(value) + 2));
+	if (!shell->minienv[i])
+		malloxit();
+	ft_strlcpy(shell->minienv[i], var, ft_strlen(var) + 1);
+	ft_strlcat(shell->minienv[i], "=", ft_strlen(shell->minienv[i]) + 2);
+	ft_strlcat(shell->minienv[i], value, ft_strlen(shell->minienv[i]) + ft_strlen(value) + 1);
 	return (1);
 }
 
@@ -106,18 +113,21 @@ char	*get_var(t_shell *shell, char *str)
 	char	*var;
 
 	i = 0;
-	while (shell->e.env[i])
+	while (shell->minienv[i])
 	{
 		j = 0;
-		while (shell->e.env[i][j] && shell->e.env[i][j] != '=')
+		while (shell->minienv[i][j] && shell->minienv[i][j] != '=')
 			j += 1;
-		var = ft_substr(shell->e.env[i], 0, j);
+		var = ft_substr(shell->minienv[i], 0, j);
 		if (!var)
-			exit(EXIT_FAILURE);
+			malloxit();
 		if (starts_with(str, var) && (int)ft_strlen(str) == j)
 		{
 			free(var);
-			return (ft_substr(shell->e.env[i], j + 1, ft_strlen(shell->e.env[i])));
+			var = ft_substr(shell->minienv[i], j + 1, ft_strlen(shell->minienv[i]) - j); // to check
+			if (!var)
+				malloxit();
+			return (var);
 		}
 		free(var);
 		i += 1;

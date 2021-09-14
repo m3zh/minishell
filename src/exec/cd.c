@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 07:35:18 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/10 20:08:53 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/12 14:38:57 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,13 @@ static void	folder(t_shell *shell, char *cmd)
 	if (!chdir(cmd))
 	{
 		change_var(shell, "OLDPWD", pwd);
+		free(pwd);
 		pwd = getcwd(NULL, 0);
 		change_var(shell, "PWD", pwd);
-		free(pwd);
 	}
 	else
-	{
-		free(pwd);
 		printf("bash: cd: %s: %s\n", cmd, strerror(errno));
-	}
+	free(pwd);
 }
 
 /* goes to a specific directory when using the tilde */

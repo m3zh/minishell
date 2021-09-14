@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:43:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/10 20:33:11 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/12 13:15:14 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ int		sorter(char *s1, char *s2);
 * SIGNALS
 */
 
-void    shell_signal();
+void	shell_signal();
 
 /*
 * UTILS
 */
 
-void     free_arr(char **path);
+void    free_arr(char **path);
 int		ft_exit(t_shell *shell);
 int		starts_with(char *s1, char *s2);
 void	reset_string(char **s, int i);
@@ -111,6 +111,7 @@ void	bash_error_unexpectedToken(t_shell *s);
 void	bash_error_wFilename(t_shell *s, char *file);
 void    bash_error_cmdNotFound(t_shell *s, char *cmd);
 void	str_replace(char **dst, char *src);
+void    swap_file(char **file, char **arg, int i);
 void	malloxit(void);
 
 #endif

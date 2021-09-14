@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxdesalle <mdesalle@student.s19.be>       +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 09:28:31 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/09 11:26:51 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/13 15:45:40 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	alpharank(t_shell *shell, char *str)
 	int	i;
 
 	i = 0;
-	while (shell->e.env[i])
+	while (shell->minienv[i])
 	{
-		if (sorter(str, shell->e.env[i]))
+		if (sorter(str, shell->minienv[i]))
 			return (i);
 		i += 1;
 	}
@@ -45,10 +45,10 @@ int	alpharank(t_shell *shell, char *str)
 
 static void	tooler(t_shell *shell, char **tmp, int i, int j)
 {
-	tmp[j] = malloc(sizeof(char) * (ft_strlen(shell->e.env[i]) + 1));
+	tmp[j] = malloc(sizeof(char) * (ft_strlen(shell->minienv[i]) + 1));
 	if (!tmp[j])
 		malloxit();
-	ft_strlcpy(tmp[j], shell->e.env[i], ft_strlen(shell->e.env[i]) + 1);
+	ft_strlcpy(tmp[j], shell->minienv[i], ft_strlen(shell->minienv[i]) + 1);
 }
 
 /* iterates through the environment table and assigns the right values */
@@ -62,7 +62,7 @@ static void	assign(t_shell *shell, char *str, char **tmp)
 	i = 0;
 	j = 0;
 	alpha = alpharank(shell, str);
-	while (shell->e.env[i])
+	while (shell->minienv[i])
 	{
 		if (i != alpha)
 		{
@@ -88,14 +88,21 @@ void	expoort(t_shell *shell, char *str)
 	int		i;
 	char	**tmp;
 
-	i = 0;
-	while (shell->e.env[i])
-		i += 1;
+	i = ft_tablen(shell->minienv);
 	tmp = malloc(sizeof(char *) * (i + 2));
 	if (!tmp)
 		malloxit();
 	assign(shell, str, tmp);
 	tmp[i + 1] = 0;
-	free(shell->e.env);
-	shell->e.env = tmp;
+	free_arr(shell->minienv);
+	shell->minienv = malloc(sizeof(char *) * (i + 2));
+	shell->minienv[i + 1] = 0;
+	while (i >= 0)
+	{
+		shell->minienv[i] = ft_strdup(tmp[i]);
+		if (!shell->minienv[i])
+			malloxit();
+		i--;
+	}
+	free_arr(tmp);
 }

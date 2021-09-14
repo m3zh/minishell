@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 11:45:12 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/07 09:28:04 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/12 11:55:10 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,13 @@ void	str_replace(char **dst, char *src)
     if (!*dst)
         malloxit();
     free(src);
+}
+
+void swap_file(char **file, char **arg, int i)
+{
+    if (*file)
+        free(*file);
+    *file = ft_strdup(arg[i]);
+    if (!*file)
+        malloxit();
 }

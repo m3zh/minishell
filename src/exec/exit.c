@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 10:56:49 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/10 19:27:25 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/13 11:57:17 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ void	stop(t_shell *s)
 	{
 		printf("exit\n");
 		printf("bash: exit: too many arguments\n");
-		/* free_arr(cmd); */
-		// free_arr(s->cmd);
+		free_arr(cmd);
 		s->builtin = 1;
 	}	
 }
