@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:47:45 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/13 13:14:38 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/14 15:21:52 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ void	handle_sigint(int sig)
 
 void	handle_sigquit(int sig)
 {
-	char	c;
-
-	c = 127;
 	if (sig == SIGQUIT && g_proc != 0)
 	{
 		if (!kill(g_proc, SIGCONT))

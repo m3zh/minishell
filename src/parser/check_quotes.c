@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 10:31:59 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/14 15:13:08 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/14 18:48:01 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 
 static int  is_specialchar(char c)
 {
-    return (c == SINGLEQTS || c == DOLLARSIGN || c == DOUBLEQTS);
+    return (c == SINGLEQTS || c == DOLLARSIGN || c == DOUBLEQTS || c == BACKSLASH);
 }
 
 int not_doublequote(char *s, int j)
 {
-    return ((j == 0 && s[j] != DOUBLEQTS)
-        || (j > 0 && is_specialchar(s[j]) && s[j - 1] == BACKSLASH)
-        || (j > 0 && s[j] == BACKSLASH && s[j - 1] == BACKSLASH)
-        || (!is_specialchar(s[j])));
+    return ((is_specialchar(s[j]) && s[j - 1] == BACKSLASH)
+        || !is_specialchar(s[j]));
 }
 
 /*
@@ -39,18 +37,17 @@ static void doubleqts_stringify(t_shell *s, char **arg, int i)
     while (arg[i])
     {
         k = 0;
-        j = -1;
+        j = 0;
         tmp = malloc(sizeof(char) * MAX + 1);
         if (!tmp)
             malloxit();
-        while (arg[i][++j])
+        while (arg[i][j++])
             if (not_doublequote(arg[i], j))
                 tmp[k++] = arg[i][j];
         tmp[k] = 0;
         str_replace(&arg[i], tmp);
         i++;
     }
-    printf("db %s\n", arg[i - 1]);
     s->var.double_qts = 0;
 }
 
