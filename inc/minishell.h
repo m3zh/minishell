@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:43:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/14 18:24:22 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/14 18:59:42 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define DOLLARSIGN 36
 # define DOUBLEQTS 34
 # define BACKSLASH 92
+# define LEN 100
 # define MAX 1000
 
 # define TMPFILE "tmpfile"

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 10:56:49 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/13 11:57:17 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/14 19:40:06 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,13 @@ void	stop(t_shell *s)
 		{
 			printf("exit\n");
 			printf("bash: exit: %s: numeric argument required\n", cmd[1]);
-			/* free_arr(cmd); */
+			free_arr(cmd);
 			ft_exit(s);
 		}
 		else
 		{
 			printf("exit\n");
+			free_arr(cmd);
 			exit(ft_atoi(cmd[1]));
 		}
 	}

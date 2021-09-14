@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/14 10:04:31 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/14 19:38:06 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ static void parent_waits(t_shell *s, char **arg)
 {
 	int status;
 
-	free_arr(arg);
 	waitpid(g_proc, &status, WUNTRACED | WCONTINUED);
 	s->cmdretval = WEXITSTATUS(status);
 	g_proc = 0;
+	free_arr(arg);
+	// reset_shell(s);
 }
 
 static void swap_pipe(t_shell *s, int i)
@@ -62,7 +63,7 @@ static void	child_process(t_shell *s, char **arg, int i)
 
 	j = -1;
 	swap_pipe(s, i);
-	reset_shell(s);
+	// reset_shell(s);
 	execve(arg[0], arg, s->minienv); // line 89: in case the cmd already comes with absolute path, e.g. /bin/ls
 	while (s->path[++j])
 	{
@@ -90,7 +91,10 @@ void    pipe_line(t_shell *s)
 		arg = parse_arg(s, i);
 		g_proc = fork();
 		if (g_proc < 0)
+		{
+			free_arr(arg);
 			return (perror("Fork"));
+		}
 		if (!g_proc)
 			child_process(s, arg, i);
 		else if (g_proc > 0)
