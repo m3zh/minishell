@@ -42,7 +42,10 @@ static void	exporter(t_shell *shell)
 	if (newv == NULL)
 		expoort(shell, str);
 	else
-		change_var(shell, var, value);
+	{
+		if (!change_var(shell, var, value))
+			exit(EXIT_FAILURE);
+	}
 	free(value);
 	free(var);
 	free(str);
@@ -106,7 +109,10 @@ static void	dollar(t_shell *shell) // to check
 	if (!tmp)
 		malloxit();
 	free(shell->cmd[0]);
-	shell->cmd[0] = get_var(shell, tmp);
+	shell->cmd[0] = get_var(shell,
+			ft_substr(shell->cmd[0], 1, ft_strlen(shell->cmd[0])));
+	if (!shell->cmd[0])
+		exit(EXIT_FAILURE);
 	free(tmp);
 }
 

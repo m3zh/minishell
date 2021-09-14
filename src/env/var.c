@@ -121,7 +121,7 @@ char	*get_var(t_shell *shell, char *str)
 		var = ft_substr(shell->minienv[i], 0, j);
 		if (!var)
 			malloxit();
-		if (starts_with(str, var))
+		if (starts_with(str, var) && (int)ft_strlen(str) == j)
 		{
 			free(var);
 			var = ft_substr(shell->minienv[i], j + 1, ft_strlen(shell->minienv[i]) - j); // to check

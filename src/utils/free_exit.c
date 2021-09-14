@@ -58,6 +58,7 @@ void	free_struct(t_shell *s)
 
 int	ft_exit(t_shell *shell)
 {
-	free_struct(shell);
+	/* free_struct(shell); */
+	shell->pipelen = 0; /* stupid thing to avoid the compiler being angry */
 	exit(EXIT_SUCCESS);
 }
