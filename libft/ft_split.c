@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 08:54:37 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/10 19:42:10 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/14 11:08:23 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ char		**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	words = word_count(s, c);
-	if (!(arr = (char **)malloc(sizeof(char *) * (words + 1))))
+	arr = (char **)malloc(sizeof(char *) * (words + 1));
+	if (!arr)
 		return (NULL);
 	arr = fill_arr(words, s, c, arr);
 	return (arr);

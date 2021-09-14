@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/11 20:53:22 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/14 10:04:31 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,16 @@ static void swap_pipe(t_shell *s, int i)
 	}
 	dup2(s->file.fdout, WRITE); // protecting this breaks up the pipe, to check
 	close(s->file.fdout);
-	// free(s->cmd[i]);
 }
 
-static void	child_process(t_shell *s, char **arg)
+static void	child_process(t_shell *s, char **arg, int i)
 {
 	int j;
 	char *cmd;
 
 	j = -1;
+	swap_pipe(s, i);
+	reset_shell(s);
 	execve(arg[0], arg, s->minienv); // line 89: in case the cmd already comes with absolute path, e.g. /bin/ls
 	while (s->path[++j])
 	{
@@ -87,13 +88,11 @@ void    pipe_line(t_shell *s)
 	while (s->cmd[++i])
 	{
 		arg = parse_arg(s, i);
-		swap_pipe(s, i);
-		reset_shell(s);
 		g_proc = fork();
 		if (g_proc < 0)
 			return (perror("Fork"));
 		if (!g_proc)
-			child_process(s, arg);
+			child_process(s, arg, i);
 		else if (g_proc > 0)
 			parent_waits(s, arg);
 	}

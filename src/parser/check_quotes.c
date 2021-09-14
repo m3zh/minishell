@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 10:31:59 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/08 16:56:45 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/14 15:13:08 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,15 @@
 
 static int  is_specialchar(char c)
 {
-    return (c == SINGLEQTS || c == DOLLARSIGN);
+    return (c == SINGLEQTS || c == DOLLARSIGN || c == DOUBLEQTS);
+}
+
+int not_doublequote(char *s, int j)
+{
+    return ((j == 0 && s[j] != DOUBLEQTS)
+        || (j > 0 && is_specialchar(s[j]) && s[j - 1] == BACKSLASH)
+        || (j > 0 && s[j] == BACKSLASH && s[j - 1] == BACKSLASH)
+        || (!is_specialchar(s[j])));
 }
 
 /*
@@ -28,22 +36,21 @@ static void doubleqts_stringify(t_shell *s, char **arg, int i)
     int     k;
     char    *tmp;
 
-    while (arg[i])  // singlequotes ascii code is 39
+    while (arg[i])
     {
         k = 0;
         j = -1;
-        tmp = malloc(sizeof(char) * MAX + 1); // to check for leaks ?
+        tmp = malloc(sizeof(char) * MAX + 1);
         if (!tmp)
             malloxit();
         while (arg[i][++j])
-            if ((arg[i][j] != DOUBLEQTS
-                && !(arg[i][j] == BACKSLASH && arg[i][j + 1] && is_specialchar(arg[i][j + 1]))) // horrible, to refactor in a function is_specialchar
-                || (j > 0 && arg[i][j] == DOUBLEQTS && arg[i][j - 1] == BACKSLASH))
+            if (not_doublequote(arg[i], j))
                 tmp[k++] = arg[i][j];
         tmp[k] = 0;
         str_replace(&arg[i], tmp);
         i++;
     }
+    printf("db %s\n", arg[i - 1]);
     s->var.double_qts = 0;
 }
 
