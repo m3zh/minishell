@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 10:38:24 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/13 18:57:31 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 12:35:04 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static int	not_inEnv(t_shell *shell, char *var)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (shell->minienv[++i])
@@ -30,31 +30,37 @@ static int	not_inEnv(t_shell *shell, char *var)
 /* mallocs each environment table line and copies the string over */
 /* to the new table */
 
-static void	tooler(t_shell *shell, char *str, char **tmp, int i, int *j)
+static char	*tooler(t_shell *shell, char *str, int i)
 {
+	char	*tmp;
+
+	tmp = NULL;
 	if (!(starts_with(str, shell->minienv[i])))
 	{
-		tmp[*j] = malloc(sizeof(char) * (ft_strlen(shell->minienv[i]) + 1));
-		if (!tmp[*j])
+		tmp = malloc(sizeof(char) * (ft_strlen(shell->minienv[i]) + 1));
+		if (!tmp)
 			malloxit();
-		ft_strlcpy(tmp[*j], shell->minienv[i], ft_strlen(shell->minienv[i]) + 1);
-		*j += 1;
+		ft_strlcpy(tmp, shell->minienv[i],
+			ft_strlen(shell->minienv[i]) + 1);
 	}
+	return (tmp);
 }
 
 /* iterates through the environment table and assigns the right values */
 
 static void	assign(t_shell *shell, char *str, char **tmp)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	char	*s;
 
-	i = 0;
-	j = 0;
-	while (shell->minienv[i])
+	i = -1;
+	j = -1;
+	while (shell->minienv[++i])
 	{
-		tooler(shell, str, tmp, i, &j);
-		i += 1;
+		s = tooler(shell, str, i);
+		if (s)
+			tmp[++j] = s;
 	}
 	tmp[j] = 0;
 	free_arr(shell->minienv);

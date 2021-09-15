@@ -3,14 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
+#    By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/08/04 14:36:49 by mlazzare          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2021/09/15 12:00:38 by mdesalle         ###   ########.fr        #
-=======
-#    Updated: 2021/09/15 11:15:16 by mlazzare         ###   ########.fr        #
->>>>>>> dev
+#    Created: 2021/09/15 12:21:19 by mdesalle          #+#    #+#              #
+#    Updated: 2021/09/15 12:38:48 by mdesalle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,21 +45,19 @@ SRC = \
 		./src/exec/exit.c \
 		./src/exec/cd.c \
 		./src/env/var.c \
+		./src/env/expoorter.c \
 		./src/env/unset.c \
 		./src/env/export.c \
 		./src/env/enver.c \
-<<<<<<< HEAD
-=======
 		./src/utils/ft_specialsplit.c \
 		./src/utils/ft_specialsplit_utils.c \
->>>>>>> dev
 		./src/utils/free_exit.c \
 		./src/utils/reset.c \
 		./src/utils/error_msg.c \
 		./src/utils/strings.c \
 		./src/main.c \
-		./src/utils/ft_specialsplit.c \
 		./src/env/dsh.c \
+		./src/env/ranker.c \
 
 OBJ = $(SRC:.c=.o)
 

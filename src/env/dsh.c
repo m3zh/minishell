@@ -6,7 +6,7 @@
 /*   By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 11:41:46 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/15 12:00:56 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/15 12:19:56 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 /* executes environment variable commands */
 
-void	dollar(t_shell *shell) // to check
+void	dollar(t_shell *shell)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = ft_substr(shell->cmd[0], 1, ft_strlen(shell->cmd[0]));
 	if (!tmp)
@@ -28,6 +28,8 @@ void	dollar(t_shell *shell) // to check
 		exit(EXIT_FAILURE);
 	free(tmp);
 }
+
+/* increments by one the SHLVL environment variable */
 
 void	sheller(t_shell *shell)
 {

@@ -6,51 +6,11 @@
 /*   By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:37 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/15 12:16:40 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/15 12:27:07 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-/* prepares the variables for the expoort function or the change_var */
-/* function if the variable already exists */
-
-static void	exporter(t_shell *shell)
-{
-	int		i;
-	char	*str;
-	char	*var;
-	char	*value;
-	char	*newv;
-
-	i = starts_with("export ", shell->cmd[0]);
-	while (shell->cmd[0] && ft_space(shell->cmd[0][i]))
-		i += 1;
-	str = ft_substr(shell->cmd[0], i - 1, ft_strlen(shell->cmd[0]));
-	if (!str)
-		malloxit();
-	i = 0;
-	while (str[i] && str[i] != '=')
-		i += 1;
-	var = ft_substr(str, 0, i);
-	if (!var)
-		malloxit();
-	value = ft_substr(str, i + 1, ft_strlen(str));
-	if (!value)
-		malloxit();
-	newv = get_var(shell, var);
-	if (newv == NULL)
-		expoort(shell, str);
-	else
-	{
-		if (!change_var(shell, var, value))
-			exit(EXIT_FAILURE);
-	}
-	free(value);
-	free(var);
-	free(str);
-	free(newv);
-}
 
 /* prepares the variables for the unset function */
 
@@ -100,7 +60,7 @@ static void	exprint(t_shell *shell)
 }
 
 /* redirects to the right functions */
-	
+
 void	enver(t_shell *shell)
 {
 	int	i;
