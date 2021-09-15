@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:20:20 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/15 14:11:42 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 14:12:55 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	exporter(t_shell *shell, int l)
 	while (shell->cmd[0][l] && !ft_space(shell->cmd[0][l]))
 		l += 1;
 	str = ft_substr(shell->cmd[0], start, l - start);
-	printf("str %s\n", str);
 	if (!str)
 		malloxit();
 	i = 0;
