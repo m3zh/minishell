@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:49:00 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/12 11:08:57 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:24:12 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 
 pid_t	g_proc;
 
-typedef struct s_var 
+typedef struct s_var
 {
 	int	single_qts;
-	int double_qts;
-} t_var;
+	int	double_qts;
+}				t_var;
 
-typedef struct s_check 
+typedef struct s_check
 {
 	int	preredir;
-	int redir;
-} t_check;
+	int	redir;
+}				t_check;
 
 typedef struct s_redir
 {
@@ -34,19 +34,19 @@ typedef struct s_redir
 	int		tmpfd;
 	int		fdin;
 	int		fdout;
-	int		ap; // append >>
-	int		ow; // overwrite >
-	int		input; // file input <
-	int		here_doc; // <<
-	int		err; // redirect stderr
-	int		err_out; //redirect stderr and stdout
-	int		more; // check if there is more after <,<<,>>,>
+	int		ap;
+	int		ow;
+	int		input;
+	int		here_doc;
+	int		err;
+	int		err_out;
+	int		more;
 	int		preparsing;
 	char	*stopword;
 	char	*infile;
 	char	*outfile;
 	char	*errfile;
-}	        t_redir;
+}				t_redir;
 
 typedef struct s_shell
 {
@@ -65,12 +65,11 @@ typedef struct s_shell
 	t_redir	file;
 	t_var	var;
 	t_check	check;
-}	        t_shell;
+}				t_shell;
 
 typedef struct s_signal
 {
 	int	ctrl_c;
-	//int	ctrl_d;
 }				t_signal;
 
 #endif

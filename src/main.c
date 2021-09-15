@@ -6,7 +6,7 @@
 /*   By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:26 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/15 12:16:27 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:18:03 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	prompt(t_shell *shell)
 {
 	char	*input;
 	char	str[MAX];
-	
+
 	while (BASH)
 	{
 		signal(SIGQUIT, SIG_IGN);
@@ -54,7 +54,7 @@ static void	prompt(t_shell *shell)
 	}
 }
 
-int main(int ac, char **ag, char **envp)
+int	main(int ac, char **ag, char **envp)
 {
 	t_shell	shell;
 
@@ -65,7 +65,7 @@ int main(int ac, char **ag, char **envp)
 	sheller(&shell);
 	shell_signal();
 	prompt(&shell);
-    rl_clear_history();
+	rl_clear_history();
 //	system("leaks minishell");
 	return (0);
 }

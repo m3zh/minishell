@@ -6,15 +6,15 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/15 12:05:10 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:04:18 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static void parent_waits(t_shell *s, char **arg)
+static void	parent_waits(t_shell *s, char **arg)
 {
-	int status;
+	int	status;
 
 	waitpid(g_proc, &status, WUNTRACED | WCONTINUED);
 	s->cmdretval = WEXITSTATUS(status);
@@ -23,7 +23,7 @@ static void parent_waits(t_shell *s, char **arg)
 	// reset_shell(s);
 }
 
-static void swap_pipe(t_shell *s, int i)
+static void	swap_pipe(t_shell *s, int i)
 {
 	if (s->file.stopword) // this is for cmd such as 'echo << stopword'
 		get_heredoc(s);
@@ -58,8 +58,8 @@ static void swap_pipe(t_shell *s, int i)
 
 static void	child_process(t_shell *s, char **arg)
 {
-	int j;
-	char *cmd;
+	int		j;
+	char	*cmd;
 
 	j = -1;
 	execve(arg[0], arg, s->minienv); // line 89: in case the cmd already comes with absolute path, e.g. /bin/ls
@@ -67,7 +67,7 @@ static void	child_process(t_shell *s, char **arg)
 	{
 		cmd = ft_join(s->path[j], arg[0]);
 		if (!cmd)
-			malloxit() ;
+			malloxit();
 		execve(cmd, arg, s->minienv);
 		free(cmd);
 		s->cmdnotfound = 1;
@@ -78,12 +78,12 @@ static void	child_process(t_shell *s, char **arg)
 	s->cmdnotfound = 0;
 }
 
-void    pipe_line(t_shell *s)
+void	pipe_line(t_shell *s)
 {
 	int		i;
-    char	**arg;
+	char	**arg;
 
-    i = -1;
+	i = -1;
 	while (s->cmd[++i])
 	{
 		arg = parse_arg(s, i);

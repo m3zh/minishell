@@ -6,34 +6,34 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:08:28 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/13 14:26:02 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:01:02 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void    get_heredoc(t_shell *s)
+void	get_heredoc(t_shell *s)
 {
-    char	*word;
+	char	*word;
 
-    word = 0;
-    s->file.tmpfd = open(TMPFILE, O_RDWR | O_CREAT | O_TRUNC, 0644);
-    if (s->file.tmpfd < 0)
-        ft_exit(s);
-    while (1)
-    {
+	word = 0;
+	s->file.tmpfd = open(TMPFILE, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	if (s->file.tmpfd < 0)
+		ft_exit(s);
+	while (1)
+	{
 		word = readline("> ");
-        if (!ft_strcmp(word, s->file.stopword))
-            break ;
-        if (!s->file.more)
-        {
-            write(s->file.tmpfd, word, ft_strlen(word));
-            write(s->file.tmpfd, "\n", 1);
-        }
-        free(word);
-    }
-    redir_heredoc(s);
-    ft_free(word);
-    s->file.more = 0;
-    // before here we had s->file.stopword = 0; now moved to reset_shell
+		if (!ft_strcmp(word, s->file.stopword))
+			break ;
+		if (!s->file.more)
+		{
+			write(s->file.tmpfd, word, ft_strlen(word));
+			write(s->file.tmpfd, "\n", 1);
+		}
+		free(word);
+	}
+	redir_heredoc(s);
+	ft_free(word);
+	s->file.more = 0;
+	// before here we had s->file.stopword = 0; now moved to reset_shell
 }

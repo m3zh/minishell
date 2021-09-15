@@ -6,7 +6,7 @@
 /*   By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:15:12 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/15 12:16:16 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:15:31 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	is_quotes(char *s, int i, int QUOTES)
 		&& (s[i - 1] != BACKSLASH || !s[i + 1]));
 }
 
-static int get_quoteCount(char *s, int i, int QUOTES, int *count)
+static int	get_quoteCount(char *s, int i, int QUOTES, int *count)
 {
 	i++;
 	while (s[i] && !is_quotes(s, i, QUOTES))
@@ -44,7 +44,8 @@ static int	word_count(char *s, char c)
 			i = get_quoteCount(s, i, SINGLEQTS, &count);
 		else if (s[i] == DOUBLEQTS)
 			i = get_quoteCount(s, i, DOUBLEQTS, &count);
-		else if ((s[i] != c && s[i + 1] == c) || (s[i] != c && s[i + 1] == '\0'))
+		else if ((s[i] != c && s[i + 1] == c) || (s[i] != c
+				&& s[i + 1] == '\0'))
 			count++;
 	}
 	return (count);
@@ -52,14 +53,15 @@ static int	word_count(char *s, char c)
 
 static char	**fill_arr(int words, char *s, char c, char **arr)
 {
-	int i;
-	int k;
+	int	i;
+	int	k;
 
 	i = 0;
 	k = 0;
 	while (k < words)
 	{
-		if (!(arr[k] = (char *)malloc(sizeof(char) * LEN)))
+		arr[k] = (char *)malloc(sizeof(char) * LEN);
+		if (!arr[k])
 		{
 			free_arr(arr);
 			return (NULL);
@@ -78,7 +80,7 @@ static char	**fill_arr(int words, char *s, char c, char **arr)
 	return (arr);
 }
 
-char		**ft_specialsplit(char *s, char c)
+char	**ft_specialsplit(char *s, char c)
 {
 	char	**arr;
 	int		words;

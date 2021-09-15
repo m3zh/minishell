@@ -6,21 +6,21 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 15:20:02 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/08 15:36:24 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:31:54 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_isword(char *s)
+int	ft_isword(char *s)
 {
-    int i;
+	int	i;
 
-    i = -1;
-    while (s[++i])
-    {
-        if (!ft_isalpha(s[i]))
-            return (0);
-    }
-    return (1);
+	i = -1;
+	while (s[++i])
+	{
+		if (!ft_isalpha(s[i]))
+			return (0);
+	}
+	return (1);
 }

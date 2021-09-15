@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 07:35:18 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/12 14:38:57 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 12:55:56 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,44 +29,6 @@ static void	folder(t_shell *shell, char *cmd)
 	else
 		printf("bash: cd: %s: %s\n", cmd, strerror(errno));
 	free(pwd);
-}
-
-/* goes to a specific directory when using the tilde */
-/* example: "cd ~/some-directory" */
-
-static void	tilde(t_shell *shell, char *cmd, char *str)
-{
-	char	*pwd;
-	char	*tmp;
-	char	*nstr;
-
-	pwd = getcwd(NULL, 0);
-	if (!pwd)
-		exit(EXIT_FAILURE);
-	tmp = ft_substr(cmd, 1, ft_strlen(cmd));
-	if (!tmp)
-		malloxit();
-	nstr = ft_join(str, tmp);
-	if (!nstr)
-		malloxit();
-	if (!shell->tilde)
-		free(shell->tilde);
-	shell->tilde = cmd;
-	if (!chdir(nstr))
-	{
-		if (!change_var(shell, "OLDPWD", pwd))
-			exit(EXIT_FAILURE);
-		pwd = getcwd(NULL, 0);
-		if (!pwd)
-			exit(EXIT_FAILURE);
-		if (!change_var(shell, "PWD", pwd))
-			exit(EXIT_FAILURE);
-	}
-	else
-		printf("bash: cd: %s: %s\n", nstr, strerror(errno)); 
-	free(pwd);
-	free(tmp);
-	free(nstr);
 }
 
 /* goes back to the home folder, example: "cd" */
@@ -121,7 +83,7 @@ void	cd(t_shell *shell)
 {
 	char	*str;
 	char	**tab;
-	
+
 	if (shell->pipelen > 1)
 		return ;
 	str = get_var(shell, "HOME");

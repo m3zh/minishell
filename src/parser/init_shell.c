@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:42:58 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/13 15:16:07 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:10:00 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	**get_paths(char **ep)
 	return (NULL);
 }
 
-static void init_fileredir(t_shell *s)
+static void	init_fileredir(t_shell *s)
 {
 	s->file.tmpin = 0;
 	s->file.tmpout = 0;
@@ -96,7 +96,7 @@ void	init_shell(t_shell *s, char **envp)
 	s->tilde = 0;
 	envinit(s, envp);
 	init_fileredir(s);
-    s->path = get_paths(envp);
+	s->path = get_paths(envp);
 	if (!s->path)
 		ft_exit(s);
 	s->cmd = 0;

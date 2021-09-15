@@ -6,7 +6,7 @@
 #    By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 12:21:19 by mdesalle          #+#    #+#              #
-#    Updated: 2021/09/15 12:38:48 by mdesalle         ###   ########.fr        #
+#    Updated: 2021/09/15 12:54:15 by mdesalle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC = \
 		./src/exec/file_redir.c \
 		./src/exec/here_doc.c \
 		./src/exec/signals.c \
+		./src/exec/tilde.c \
 		./src/exec/exit.c \
 		./src/exec/cd.c \
 		./src/env/var.c \
