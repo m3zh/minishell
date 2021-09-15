@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 10:31:59 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/14 18:23:56 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 11:27:05 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ char    **parse_arg(t_shell *s, int j)
         check_quotes(s, arg, i);
         check_echo(s, arg, i);
         check_redir(s, arg, i);
+		/* enver(s); */
         // check_user(s, arg, i);
     }
     s->var.single_qts = 0; // reset shell

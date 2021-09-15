@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 10:13:13 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/13 15:15:09 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 12:13:34 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,23 +99,6 @@ static void	exprint(t_shell *shell)
 	}
 }
 
-/* executes environment variable commands */
-
-static void	dollar(t_shell *shell) // to check
-{
-	char *tmp;
-
-	tmp = ft_substr(shell->cmd[0], 1, ft_strlen(shell->cmd[0]));
-	if (!tmp)
-		malloxit();
-	free(shell->cmd[0]);
-	shell->cmd[0] = get_var(shell,
-			ft_substr(shell->cmd[0], 1, ft_strlen(shell->cmd[0])));
-	if (!shell->cmd[0])
-		exit(EXIT_FAILURE);
-	free(tmp);
-}
-
 /* redirects to the right functions */
 	
 void	enver(t_shell *shell)
@@ -135,7 +118,7 @@ void	enver(t_shell *shell)
 	}
 	else if (starts_with("unset ", shell->cmd[0]))
 		unsetter(shell);
-	else if (starts_with("export", shell->cmd[0]) && ft_strlen(shell->cmd[0]) == 6)
+	else if (!ft_strcmp("export", shell->cmd[0]))
 		exprint(shell);
 	else if (starts_with("export ", shell->cmd[0]))
 		exporter(shell);

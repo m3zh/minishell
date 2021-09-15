@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/10 18:36:32 by mlazzare          #+#    #+#              #
-#    Updated: 2021/09/12 10:10:14 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/09/15 12:02:14 by mdesalle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,8 @@ SRC	=	ft_splitpath.c			\
 		ft_isalpha.c			\
 		ft_isword.c				\
 		ft_atoi.c				\
+		ft_itoa.c				\
+		ft_intlen.c				\
 
 OBJS = $(SRC:%.c=%.o)
 

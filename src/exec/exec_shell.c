@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 10:47:26 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/14 19:34:39 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 11:28:05 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,16 @@ void	exec_shell(t_shell *s)
     int status;
     
     if (s->pipelen <= 1)
+	{
+		signal(SIGQUIT, handle_sigquit);
 		exec_builtins(s);
+	}
 	if (s->builtin)
 		return (free_arr(s->cmd));        
 	open_fd(s);
 	if (pipe(s->pipefd) < 0)
 		ft_exit(s);
+	signal(SIGQUIT, handle_sigquit);
     pipe_line(s);
 	close_fd(s);
     waitpid(g_proc, &status, 0);

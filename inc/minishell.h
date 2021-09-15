@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:43:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/14 18:59:42 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 11:59:21 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ char	*get_val(char *str);
 int		alpharank(t_shell *shell, char *str);
 void	ranker(t_shell *shell);
 int		sorter(char *s1, char *s2);
+void	dollar(t_shell *shell);
+void	sheller(t_shell *shell);
 
 /*
 * SIGNALS

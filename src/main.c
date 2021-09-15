@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:43:12 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/14 09:00:14 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 12:11:51 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static void	prompt(t_shell *shell)
 	
 	while (BASH)
 	{
+		signal(SIGQUIT, SIG_IGN);
 		input = readline("minishell$ ");
 		if (!input)
 			handle_sigusr1(SIGUSR1);
@@ -61,6 +62,7 @@ int main(int ac, char **ag, char **envp)
 	if (ac > 1)
 		return (printf("Error\nInvalid number of arguments\n"));
 	init_shell(&shell, envp);
+	sheller(&shell);
 	shell_signal();
 	prompt(&shell);
     rl_clear_history();
