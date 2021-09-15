@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/15 12:21:08 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:17:13 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ranker(t_shell *shell);
 int		sorter(char *s1, char *s2);
 void	dollar(t_shell *shell);
 void	sheller(t_shell *shell);
-void	exporter(t_shell *shell);
+void	exporter(t_shell *shell, int l);
 
 /*
 * SIGNALS

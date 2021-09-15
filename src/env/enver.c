@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enver.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/15 12:16:37 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/15 12:27:07 by mdesalle         ###   ########.fr       */
+/*   Created: 2021/08/31 10:13:13 by maxdesall         #+#    #+#             */
+/*   Updated: 2021/09/15 12:47:22 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,13 @@ void	enver(t_shell *shell)
 	else if (!ft_strcmp("export", shell->cmd[0]))
 		exprint(shell);
 	else if (starts_with("export ", shell->cmd[0]))
-		exporter(shell);
+		exporter(shell, 7);
 	else
 		return ;
+	i = 0;
+	while (shell->cmd[++i])
+	{
+
+	}
 	shell->builtin = 1;
 }
