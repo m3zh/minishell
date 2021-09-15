@@ -6,7 +6,7 @@
 /*   By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 11:34:55 by mdesalle          #+#    #+#             */
-/*   Updated: 2020/11/30 16:36:46 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:32:43 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 long	ft_atoi(const char *nptr)
 {
-	int	sign;
+	int		sign;
 	long	result;
 
 	sign = 1;

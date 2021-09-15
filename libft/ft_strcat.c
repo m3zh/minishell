@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 18:17:01 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/10 20:10:21 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:29:12 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 * function has been modified to return src length only
 */
 
-char *ft_strcat(char *dst, const char *src, int k)
+char	*ft_strcat(char *dst, const char *src, int k)
 {
 	size_t	j;
 
@@ -25,5 +25,5 @@ char *ft_strcat(char *dst, const char *src, int k)
 	while (dst[k] && src[j])
 		dst[k++] = src[j++];
 	dst[k] = '\0';
-	return (dst); 
+	return (dst);
 }

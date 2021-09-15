@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 08:54:37 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/14 11:08:23 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 13:30:57 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	word_count(const char *s, char c)
 
 static int	words_len(const char *s, char c, int i)
 {
-	int l;
+	int	l;
 
 	l = 0;
 	while (s[i] && s[i] == c)
@@ -41,7 +41,7 @@ static int	words_len(const char *s, char c, int i)
 
 static char	**freetab(char **arr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (arr[i])
@@ -52,16 +52,17 @@ static char	**freetab(char **arr)
 
 static char	**fill_arr(int words, const char *s, char c, char **arr)
 {
-	int i;
-	int j;
-	int k;
+	int	i;
+	int	j;
+	int	k;
 
 	i = 0;
 	k = 0;
 	while (k < words)
 	{
 		j = 0;
-		if (!(arr[k] = (char *)malloc(sizeof(char) * (words_len(s, c, i) + 1))))
+		arr[k] = (char *)malloc(sizeof(char) * (words_len(s, c, i) + 1));
+		if (!arr[k])
 			return (freetab(arr));
 		while (s[i] && s[i] == c)
 			i++;
@@ -74,10 +75,10 @@ static char	**fill_arr(int words, const char *s, char c, char **arr)
 	return (arr);
 }
 
-char		**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
-	char	**arr;
 	int		words;
+	char	**arr;
 
 	if (!s)
 		return (NULL);
