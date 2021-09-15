@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 16:02:50 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/15 15:34:05 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 15:37:57 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	bash_error_wFilename(t_shell *s, char *file)
 	write(2, ": ", 2);
 	write(2, "wrong file\n", 11);
 	write(2, "\n", 1);
-	free(s);
 	s->cmdretval = errno;
 }
 
