@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/06 15:43:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/15 11:59:21 by mdesalle         ###   ########.fr       */
+/*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
+/*   Updated: 2021/09/15 12:16:51 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	**parse_arg(t_shell *s, int i);
 void	precheck_redir(t_shell *S, int last);
 void	check_quotes(t_shell *s, char **arg, int i);
 void    check_echo(t_shell *s, char **arg, int i);
+void    check_user(t_shell *s, char **arg, int i);
 
 
 /*
@@ -107,6 +108,8 @@ void    free_arr(char **path);
 int		ft_exit(t_shell *shell);
 int		starts_with(char *s1, char *s2);
 int     not_doublequote(char *s, int j);
+int	    cpystr_wQuotes(char *s, char *arr, int i);
+int	    cpystr_wChar(char *s, char *arr, int i, int c);
 void	reset_string(char **s, int i);
 void    reset_shell(t_shell *s);
 void	free_struct(t_shell *s);

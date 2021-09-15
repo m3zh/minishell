@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/06 15:43:12 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/15 12:11:51 by mdesalle         ###   ########.fr       */
+/*   Created: 2021/09/15 12:16:26 by mdesalle          #+#    #+#             */
+/*   Updated: 2021/09/15 12:16:27 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ int main(int ac, char **ag, char **envp)
 	shell_signal();
 	prompt(&shell);
     rl_clear_history();
+//	system("leaks minishell");
 	return (0);
 }

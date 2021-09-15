@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:13:39 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/14 18:23:34 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 11:45:57 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,19 @@ void check_echo(t_shell *s, char **arg, int i)
         get_lastRetValue(*s, arg, i);
     else if (!ft_strcmp(arg[0], "echo") && starts_with("$", arg[i])
         && ft_strcmp("$", arg[i])) // and it'n not only dollar sign, if it's only dollar sign you should print dollar sign
+    {
+        tmp = dollar2value(s, arg[i], 1, sizeof(arg[i]));
+        if (!tmp)
+            malloxit();
+        str_replace(&arg[i], tmp);
+    }
+}
+
+void check_user(t_shell *s, char **arg, int i)
+{
+    char *tmp;
+
+    if (starts_with("$USER", arg[i]) || !ft_strcmp("$USER", arg[i]))
     {
         tmp = dollar2value(s, arg[i], 1, sizeof(arg[i]));
         if (!tmp)

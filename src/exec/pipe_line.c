@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/14 19:38:06 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 12:05:10 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,18 @@ static void swap_pipe(t_shell *s, int i)
 	close(s->file.fdout);
 }
 
-static void	child_process(t_shell *s, char **arg, int i)
+static void	child_process(t_shell *s, char **arg)
 {
 	int j;
 	char *cmd;
 
 	j = -1;
-	swap_pipe(s, i);
-	// reset_shell(s);
 	execve(arg[0], arg, s->minienv); // line 89: in case the cmd already comes with absolute path, e.g. /bin/ls
 	while (s->path[++j])
 	{
 		cmd = ft_join(s->path[j], arg[0]);
 		if (!cmd)
-			return ;
+			malloxit() ;
 		execve(cmd, arg, s->minienv);
 		free(cmd);
 		s->cmdnotfound = 1;
@@ -89,6 +87,7 @@ void    pipe_line(t_shell *s)
 	while (s->cmd[++i])
 	{
 		arg = parse_arg(s, i);
+		swap_pipe(s, i);
 		g_proc = fork();
 		if (g_proc < 0)
 		{
@@ -96,7 +95,7 @@ void    pipe_line(t_shell *s)
 			return (perror("Fork"));
 		}
 		if (!g_proc)
-			child_process(s, arg, i);
+			child_process(s, arg);
 		else if (g_proc > 0)
 			parent_waits(s, arg);
 	}

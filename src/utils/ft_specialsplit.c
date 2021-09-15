@@ -5,17 +5,28 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/15 09:04:29 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/15 09:04:45 by mdesalle         ###   ########.fr       */
+/*   Created: 2021/09/15 12:15:12 by mdesalle          #+#    #+#             */
+/*   Updated: 2021/09/15 12:16:16 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static int	is_dbquotes(char *s, int i)
+static int	is_quotes(char *s, int i, int QUOTES)
 {
-	return (s[i] == DOUBLEQTS
+	return (s[i] == QUOTES
 		&& (s[i - 1] != BACKSLASH || !s[i + 1]));
+}
+
+static int get_quoteCount(char *s, int i, int QUOTES, int *count)
+{
+	i++;
+	while (s[i] && !is_quotes(s, i, QUOTES))
+		i++;
+	if (!s[i])
+		bash_syntaxError(); // need to add free shell?
+	*count += 1;
+	return (i);
 }
 
 static int	word_count(char *s, char c)
@@ -28,43 +39,26 @@ static int	word_count(char *s, char c)
 	i = -1;
 	count = 0;
 	while (s[++i])
-		if (s[i] == DOUBLEQTS) // if you find a quote
-		{
-			i++;
-			while (s[i] && !is_dbquotes(s, i))
-				i++;
-			if (!s[i])
-				bash_syntaxError(); // need to add free shell?
-			count++;
-		}
+	{
+		if (s[i] == SINGLEQTS)
+			i = get_quoteCount(s, i, SINGLEQTS, &count);
+		else if (s[i] == DOUBLEQTS)
+			i = get_quoteCount(s, i, DOUBLEQTS, &count);
 		else if ((s[i] != c && s[i + 1] == c) || (s[i] != c && s[i + 1] == '\0'))
 			count++;
+	}
 	return (count);
 }
-
-// static int	words_len(char *s, char c, int i)
-// {
-// 	int l;
-
-// 	l = 0;
-// 	while (s[i] && s[i] == c)
-// 		i++;
-// 	while (s[i] && s[i++] != c)
-// 		l++;
-// 	return (l);
-// }
 
 static char	**fill_arr(int words, char *s, char c, char **arr)
 {
 	int i;
-	int j;
 	int k;
 
 	i = 0;
 	k = 0;
 	while (k < words)
 	{
-		j = 0;
 		if (!(arr[k] = (char *)malloc(sizeof(char) * LEN)))
 		{
 			free_arr(arr);
@@ -72,18 +66,12 @@ static char	**fill_arr(int words, char *s, char c, char **arr)
 		}
 		while (s[i] && s[i] == c)
 			i++;
-		if (s[i] && s[i] == DOUBLEQTS)
-		{
-			while (s[++i])
-				if (not_doublequote(s, i))
-					arr[k][j++] = s[i];
-		}
+		if (s[i] && s[i] == SINGLEQTS)
+			i = cpystr_wQuotes(s, arr[k], i);
+		else if (s[i] && s[i] == DOUBLEQTS)
+			i = cpystr_wQuotes(s, arr[k], i);
 		else
-		{
-			while (s[i] && s[i] != c)
-				arr[k][j++] = s[i++];
-		}
-		arr[k][j] = '\0';
+			i = cpystr_wChar(s, arr[k], i, c);
 		k++;
 	}
 	arr[k] = 0;
@@ -101,6 +89,5 @@ char		**ft_specialsplit(char *s, char c)
 	arr = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!arr)
 		return (NULL);
-	arr = fill_arr(words, s, c, arr);
-	return (arr);
+	return (fill_arr(words, s, c, arr));
 }

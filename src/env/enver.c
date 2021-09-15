@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enver.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/31 10:13:13 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/15 12:13:34 by mdesalle         ###   ########.fr       */
+/*   Created: 2021/09/15 12:16:37 by mdesalle          #+#    #+#             */
+/*   Updated: 2021/09/15 12:16:40 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	enver(t_shell *shell)
 	int	i;
 
 	i = 0;
-	if (starts_with("$", shell->cmd[0]))
+	if (starts_with("$", shell->cmd[0]) && ft_strcmp("$USER", shell->cmd[0]))
 		dollar(shell);
 	else if (starts_with("env", shell->cmd[0]))
 	{
