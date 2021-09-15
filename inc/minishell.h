@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:43:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/14 18:59:42 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 11:14:52 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ void    free_arr(char **path);
 int		ft_exit(t_shell *shell);
 int		starts_with(char *s1, char *s2);
 int     not_doublequote(char *s, int j);
+int	    cpystr_wQuotes(char *s, char *arr, int i);
+int	    cpystr_wChar(char *s, char *arr, int i, int c);
 void	reset_string(char **s, int i);
 void    reset_shell(t_shell *s);
 void	free_struct(t_shell *s);

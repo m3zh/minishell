@@ -6,22 +6,11 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 10:31:59 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/14 18:48:01 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 11:09:06 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-static int  is_specialchar(char c)
-{
-    return (c == SINGLEQTS || c == DOLLARSIGN || c == DOUBLEQTS || c == BACKSLASH);
-}
-
-int not_doublequote(char *s, int j)
-{
-    return ((is_specialchar(s[j]) && s[j - 1] == BACKSLASH)
-        || !is_specialchar(s[j]));
-}
 
 /*
 *  This function removes double quotes from the string

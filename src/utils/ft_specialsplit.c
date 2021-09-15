@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 08:54:37 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/15 10:50:15 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 11:13:34 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,12 @@ static int	word_count(char *s, char c)
 static char	**fill_arr(int words, char *s, char c, char **arr)
 {
 	int i;
-	int j;
 	int k;
 
 	i = 0;
 	k = 0;
 	while (k < words)
 	{
-		j = 0;
 		if (!(arr[k] = (char *)malloc(sizeof(char) * LEN)))
 		{
 			free_arr(arr);
@@ -69,23 +67,11 @@ static char	**fill_arr(int words, char *s, char c, char **arr)
 		while (s[i] && s[i] == c)
 			i++;
 		if (s[i] && s[i] == SINGLEQTS)
-		{
-			while (s[++i])
-				if (not_doublequote(s, i))
-					arr[k][j++] = s[i];
-		}
+			i = cpystr_wQuotes(s, arr[k], i);
 		else if (s[i] && s[i] == DOUBLEQTS)
-		{
-			while (s[++i])
-				if (not_doublequote(s, i))
-					arr[k][j++] = s[i];
-		}
+			i = cpystr_wQuotes(s, arr[k], i);
 		else
-		{
-			while (s[i] && s[i] != c)
-				arr[k][j++] = s[i++];
-		}
-		arr[k][j] = '\0';
+			i = cpystr_wChar(s, arr[k], i, c);
 		k++;
 	}
 	arr[k] = 0;
