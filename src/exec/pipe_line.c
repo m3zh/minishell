@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/14 19:38:06 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/14 19:53:10 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	child_process(t_shell *s, char **arg, int i)
 	{
 		cmd = ft_join(s->path[j], arg[0]);
 		if (!cmd)
-			return ;
+			malloxit() ;
 		execve(cmd, arg, s->minienv);
 		free(cmd);
 		s->cmdnotfound = 1;
