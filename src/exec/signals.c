@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:47:45 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/15 10:29:32 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/15 12:56:33 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	handle_sigquit(int sig)
 	else if (sig == SIGQUIT && g_proc == 0)
 	{
 		rl_on_new_line();
-		rl_replace_line("" , 0);
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }
@@ -53,7 +53,7 @@ void	handle_sigusr1(int sig)
 	}
 }
 
-void	shell_signal()
+void	shell_signal(void)
 {
 	signal(SIGINT, handle_sigint);
 	signal(SIGUSR1, handle_sigusr1);
