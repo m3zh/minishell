@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 16:02:50 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/14 18:49:26 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 11:46:03 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void bash_error_unexpectedToken(t_shell *s)
 
 void bash_error_cmdNotFound(t_shell *s, char *cmd)
 {
-    printf("%s: command not found\n", cmd);
+    printf("bash: %s: command not found\n", cmd);
     s->cmdretval = 127;
 }
 

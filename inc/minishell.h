@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:43:27 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/15 11:14:52 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 11:31:05 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	**parse_arg(t_shell *s, int i);
 void	precheck_redir(t_shell *S, int last);
 void	check_quotes(t_shell *s, char **arg, int i);
 void    check_echo(t_shell *s, char **arg, int i);
+void    check_user(t_shell *s, char **arg, int i);
 
 
 /*

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 10:31:59 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/15 10:52:08 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 11:45:25 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ static void check_redir(t_shell *s, char **arg, int i)
     //     get_errfile(s, arg, i);
 }
 
+/* parse each cmd and splits into args for execve */
+
 char    **parse_arg(t_shell *s, int j)
 {
     int i;
@@ -104,7 +106,7 @@ char    **parse_arg(t_shell *s, int j)
         // check_quotes(s, arg, i);
         check_echo(s, arg, i);
         check_redir(s, arg, i);
-        // check_user(s, arg, i);
+        check_user(s, arg, i);
     }
     s->var.single_qts = 0; // reset shell
     return (arg);  

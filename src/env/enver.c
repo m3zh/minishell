@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 10:13:13 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/13 15:15:09 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 11:42:30 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	enver(t_shell *shell)
 	int	i;
 
 	i = 0;
-	if (starts_with("$", shell->cmd[0]))
+	if (starts_with("$", shell->cmd[0]) && ft_strcmp("$USER", shell->cmd[0]))
 		dollar(shell);
 	else if (starts_with("env", shell->cmd[0]))
 	{
