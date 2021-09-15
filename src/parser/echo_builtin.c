@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:13:39 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/15 13:13:07 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/15 15:01:04 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	get_lastRetValue(t_shell s, char **arg, int i)
 		tmp[--l] = s.cmdretval % 10 + '0';
 		s.cmdretval /= 10;
 	}
-	while (arg[i][j]) // the char after $?, which is at index 2
+	while (arg[i][j])
 		tmp[k++] = arg[i][j++];
 	tmp[k] = 0;
 	str_replace(&arg[i], tmp);
@@ -65,8 +65,8 @@ void	check_echo(t_shell *s, char **arg, int i)
 		return ;
 	if (!ft_strcmp(arg[0], "echo") && !ft_strncmp("$?", arg[i], 2))
 		get_lastRetValue(*s, arg, i);
-	else if (!ft_strcmp(arg[0], "echo") && starts_with("$", arg[i])
-		&& ft_strcmp("$", arg[i])) // and it'n not only dollar sign, if it's only dollar sign you should print dollar sign
+	else if (!ft_strcmp(arg[0], "echo")
+		&& starts_with("$", arg[i]) && ft_strcmp("$", arg[i]))
 	{
 		tmp = dollar2value(s, arg[i], 1, sizeof(arg[i]));
 		if (!tmp)

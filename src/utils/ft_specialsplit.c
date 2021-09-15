@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_specialsplit.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:15:12 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/15 13:15:31 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/15 14:55:50 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	get_quoteCount(char *s, int i, int QUOTES, int *count)
 	while (s[i] && !is_quotes(s, i, QUOTES))
 		i++;
 	if (!s[i])
-		bash_syntaxError(); // need to add free shell?
+		bash_syntaxError();
 	*count += 1;
 	return (i);
 }

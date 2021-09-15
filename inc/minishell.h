@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/15 14:14:15 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/15 15:16:46 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	ranker(t_shell *shell);
 int		sorter(char *s1, char *s2);
 void	dollar(t_shell *shell);
 void	sheller(t_shell *shell);
-void	exporter(t_shell *shell, int l);
+void	exporter(t_shell *shell, int l, int start);
 void	tilde(t_shell *shell, char *cmd, char *str);
 
 /*

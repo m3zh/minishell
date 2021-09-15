@@ -6,11 +6,23 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/15 13:04:18 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/15 15:03:45 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+static void	last_pipe(t_shell *s)
+{
+	if (s->file.outfile)
+		redir_output(s);
+	else
+	{
+		s->file.fdout = dup(s->file.tmpout);
+		if (!s->file.fdout)
+			ft_exit(s);
+	}
+}
 
 static void	parent_waits(t_shell *s, char **arg)
 {
@@ -20,28 +32,18 @@ static void	parent_waits(t_shell *s, char **arg)
 	s->cmdretval = WEXITSTATUS(status);
 	g_proc = 0;
 	free_arr(arg);
-	// reset_shell(s);
 }
 
 static void	swap_pipe(t_shell *s, int i)
 {
-	if (s->file.stopword) // this is for cmd such as 'echo << stopword'
+	if (s->file.stopword)
 		get_heredoc(s);
 	if (s->file.infile)
 		redir_input(s);
-	dup2(s->file.fdin, READ); // protecting this breaks up the pipe, to check
+	dup2(s->file.fdin, READ);
 	close(s->file.fdin);
 	if (i == s->pipelen - 1)
-	{
-		if (s->file.outfile)
-			redir_output(s);
-		else
-		{
-			s->file.fdout = dup(s->file.tmpout);
-			if (!s->file.fdout)
-				ft_exit(s);
-		}
-	}		
+		last_pipe(s);
 	else
 	{
 		if (s->file.outfile)
@@ -52,7 +54,7 @@ static void	swap_pipe(t_shell *s, int i)
 			s->file.fdin = s->pipefd[READ];
 		}
 	}
-	dup2(s->file.fdout, WRITE); // protecting this breaks up the pipe, to check
+	dup2(s->file.fdout, WRITE);
 	close(s->file.fdout);
 }
 
@@ -62,7 +64,7 @@ static void	child_process(t_shell *s, char **arg)
 	char	*cmd;
 
 	j = -1;
-	execve(arg[0], arg, s->minienv); // line 89: in case the cmd already comes with absolute path, e.g. /bin/ls
+	execve(arg[0], arg, s->minienv);
 	while (s->path[++j])
 	{
 		cmd = ft_join(s->path[j], arg[0]);
