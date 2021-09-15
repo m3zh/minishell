@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 16:02:50 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/15 13:13:52 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/15 15:34:05 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 void	bash_error_unexpectedToken(t_shell *s)
 {
-	printf("-bash: syntax error near unexpected token `newline'\n");
+	write(2, "-bash: syntax error near unexpected token `newline'\n", 52);
 	s->cmdretval = 2;
 }
 
@@ -29,7 +29,9 @@ void	bash_error_unexpectedToken(t_shell *s)
 
 void	bash_error_cmdNotFound(t_shell *s, char *cmd)
 {
-	printf("bash: %s: command not found\n", cmd);
+	write(2, "bash: ", 6);
+	write(2, cmd, ft_strlen(cmd));
+	write(2, ": command not found\n", 20);
 	s->cmdretval = 127;
 }
 
@@ -39,7 +41,12 @@ void	bash_error_cmdNotFound(t_shell *s, char *cmd)
 
 void	bash_error_wFilename(t_shell *s, char *file)
 {
-	printf("-bash: %s: %s\n", file, strerror(errno));
+	write(2, "bash: ", 6);
+	write(2, file, ft_strlen(file));
+	write(2, ": ", 2);
+	write(2, "wrong file\n", 11);
+	write(2, "\n", 1);
+	free(s);
 	s->cmdretval = errno;
 }
 
@@ -47,5 +54,5 @@ void	bash_error_wFilename(t_shell *s, char *file)
 
 void	bash_syntaxError(void)
 {
-	printf("bash: quotes: parsing error\n");
+	write(2, "bash: quotes: parsing error\n", 28);
 }
