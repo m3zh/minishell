@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/16 10:43:34 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/16 15:15:30 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	**parse_arg(t_shell *s, int i);
 void	precheck_redir(t_shell *S, int last);
 void	check_quotes(t_shell *s, char **arg, int i);
 void	check_echo(t_shell *s, char **arg, int i);
-void	check_user(t_shell *s, char **arg, int i);
+void	check_dollar(t_shell *s, char **arg, int i);
 void    check_quotes(t_shell *s, char **arg, int i);
 
 /*
@@ -110,8 +110,7 @@ void	free_arr(char **path);
 int		ft_exit(t_shell *shell);
 int		starts_with(char *s1, char *s2);
 int		not_doublequote(char *s, int j);
-int		cpystr_wQuotes(char *s, char *arr, int i);
-int		cpystr_wChar(char *s, char *arr, int i, int c);
+int     get_quoteCount(char *s, int i, int QUOTES, int *count);
 void	reset_string(char **s, int i);
 void	reset_shell(t_shell *s);
 void	free_struct(t_shell *s);
@@ -123,6 +122,7 @@ void	bash_syntaxError(void);
 void	str_replace(char **dst, char *src);
 void	swap_file(char **file, char **arg, int i);
 void	malloxit(void);
+char	**ft_presplit(char *s, char c);
 char	**ft_specialsplit(char *s, char c);
 
 #endif

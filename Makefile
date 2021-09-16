@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 12:21:19 by mdesalle          #+#    #+#              #
-#    Updated: 2021/09/16 10:45:12 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/09/16 14:10:28 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,8 +50,9 @@ SRC = \
 		./src/env/unset.c \
 		./src/env/export.c \
 		./src/env/enver.c \
+		./src/utils/ft_presplit.c \
 		./src/utils/ft_specialsplit.c \
-		./src/utils/ft_specialsplit_utils.c \
+		./src/utils/ft_split_utils.c \
 		./src/utils/free_exit.c \
 		./src/utils/reset.c \
 		./src/utils/error_msg.c \

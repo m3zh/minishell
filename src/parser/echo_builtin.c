@@ -6,18 +6,22 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:13:39 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/16 10:21:21 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/16 16:06:07 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static char	*dollar2value(t_shell *shell, char *s, int start, int size)
+static char	*dollar2value(t_shell *shell, char *s, int start)
 {
+	int		i;
 	char	*var;
 	char	*var_name;
 
-	var_name = ft_substr(s, start, size);
+	i = start;
+	while (s[i] && !ft_space(s[i]))
+		i++;
+	var_name = ft_substr(s, start, i - start);
 	if (!var_name)
 		malloxit();
 	var = get_var(shell, var_name);
@@ -63,29 +67,30 @@ void	check_echo(t_shell *s, char **arg, int i)
 
 	if (s->var.single_qts || s->var.double_qts)
 		return ;
-	if (!ft_strcmp(arg[0], "echo") && !ft_strncmp("$?", arg[i], 2))
+	if (!ft_strncmp("$?", arg[i], 2))
 		get_lastRetValue(*s, arg, i);
-	else if (!ft_strcmp(arg[0], "echo")
-		&& starts_with("$", arg[i]) && ft_strcmp("$", arg[i]))
+	else if (starts_with("$", arg[i]) && ft_strcmp("$", arg[i]))
 	{
-		tmp = dollar2value(s, arg[i], 1, sizeof(arg[i]));
+		tmp = dollar2value(s, arg[i], 1);
 		if (!tmp)
 			malloxit();
 		str_replace(&arg[i], tmp);
 	}
 }
 
-void	check_user(t_shell *s, char **arg, int i)
-{
-	char	*tmp;
+// void	check_dollar(t_shell *s, char **arg, int i)
+// {
+// 	char	*tmp;
 
-	if (i > 0)
-		return ;
-	if (starts_with("$USER", arg[i]) || !ft_strcmp("$USER", arg[i]))
-	{
-		tmp = dollar2value(s, arg[i], 1, sizeof(arg[i]));
-		if (!tmp)
-			malloxit();
-		str_replace(&arg[i], tmp);
-	}
-}
+// 	if (i > 0)
+// 		return ;
+// 	if (!ft_strcmp(arg[i], "$?"))
+// 		get_lastRetValue(*s, arg, i);
+// 	else if (starts_with("$", arg[i]) && ft_strcmp("$", arg[i]))
+// 	{
+// 		tmp = dollar2value(s, arg[i], 1);
+// 		if (!tmp)
+// 			malloxit();
+// 		str_replace(&arg[i], tmp);
+// 	}
+// }

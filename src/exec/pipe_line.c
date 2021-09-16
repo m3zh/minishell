@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/15 15:03:45 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/16 20:55:13 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,21 @@ static void	last_pipe(t_shell *s)
 		if (!s->file.fdout)
 			ft_exit(s);
 	}
+	s->file.fdin = s->pipefd[READ];
+	close(s->file.fdin);
 }
 
 static void	parent_waits(t_shell *s, char **arg)
 {
 	int	status;
 
-	waitpid(g_proc, &status, WUNTRACED | WCONTINUED);
+	waitpid(g_proc, &status, 0);
+	close(s->pipefd[WRITE]);
+	s->file.fdin = s->pipefd[READ];
 	s->cmdretval = WEXITSTATUS(status);
 	g_proc = 0;
 	free_arr(arg);
+	reset_shell(s);
 }
 
 static void	swap_pipe(t_shell *s, int i)
@@ -58,12 +63,13 @@ static void	swap_pipe(t_shell *s, int i)
 	close(s->file.fdout);
 }
 
-static void	child_process(t_shell *s, char **arg)
+static void	child_process(t_shell *s, char **arg, int i)
 {
 	int		j;
 	char	*cmd;
 
 	j = -1;
+	swap_pipe(s, i);
 	execve(arg[0], arg, s->minienv);
 	while (s->path[++j])
 	{
@@ -88,8 +94,10 @@ void	pipe_line(t_shell *s)
 	i = -1;
 	while (s->cmd[++i])
 	{
+		if (pipe(s->pipefd) < 0)
+			ft_exit(s);
+		signal(SIGQUIT, handle_sigquit);
 		arg = parse_arg(s, i);
-		swap_pipe(s, i);
 		g_proc = fork();
 		if (g_proc < 0)
 		{
@@ -97,7 +105,7 @@ void	pipe_line(t_shell *s)
 			return (perror("Fork"));
 		}
 		if (!g_proc)
-			child_process(s, arg);
+			child_process(s, arg, i);
 		else if (g_proc > 0)
 			parent_waits(s, arg);
 	}
