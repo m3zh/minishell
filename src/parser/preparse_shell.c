@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:21:53 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/16 15:47:52 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/16 20:58:05 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	preparse_shell(t_shell *shell, char *line)
 {
 	reinit_shell(shell);
-	shell->cmd = ft_presplit(line, '|');
+	shell->cmd = ft_split(line, '|');
 	if (!shell->cmd)
 		return (ft_exit(shell));
 	shell->pipelen = ft_tablen(shell->cmd);
