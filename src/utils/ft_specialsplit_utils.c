@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 08:54:37 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/15 13:17:19 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/16 11:03:34 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 static int	is_specialchar(char c)
 {
 	return (c == SINGLEQTS
-		|| c == DOLLARSIGN || c == DOUBLEQTS || c == BACKSLASH);
+		|| c == DOUBLEQTS || c == BACKSLASH);
 }
 
 int	not_doublequote(char *s, int j)
 {
 	return ((is_specialchar(s[j]) && s[j - 1] == BACKSLASH)
-		|| !is_specialchar(s[j]));
+		|| !is_specialchar(s[j])
+		|| (s[j] == BACKSLASH && s[j + 1] == DOLLARSIGN));
 }
 
 int	cpystr_wQuotes(char *s, char *arr, int i)
@@ -29,10 +30,12 @@ int	cpystr_wQuotes(char *s, char *arr, int i)
 	int	j;
 
 	j = 0;
+	arr[j++] = s[i];
 	while (s[++i])
 		if (not_doublequote(s, i))
 			arr[j++] = s[i];
-	arr[j] = '\0';
+	arr[j] = s[i];
+	arr[j + 1] = '\0';
 	return (i);
 }
 
