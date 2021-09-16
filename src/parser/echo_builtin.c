@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:13:39 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/15 15:01:04 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/16 10:21:21 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	check_user(t_shell *s, char **arg, int i)
 {
 	char	*tmp;
 
+	if (i > 0)
+		return ;
 	if (starts_with("$USER", arg[i]) || !ft_strcmp("$USER", arg[i]))
 	{
 		tmp = dollar2value(s, arg[i], 1, sizeof(arg[i]));
