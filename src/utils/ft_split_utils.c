@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static int	is_quotes(char *s, int i, int QUOTES)
+int	is_quotes(char *s, int i, int QUOTES)
 {
 	return ((s[i] == QUOTES && s[i - 1] != BACKSLASH)
 		|| (s[i] == QUOTES && !s[i + 1]));
@@ -20,9 +20,9 @@ static int	is_quotes(char *s, int i, int QUOTES)
 
 int	get_quoteCount(char *s, int i, int QUOTES, int *count)
 {
-	i++;
+	i += 1;
 	while (s[i] && !is_quotes(s, i, QUOTES))
-		i++;
+		i += 1;
 	if (!s[i])
 		bash_syntaxError();
 	*count += 1;
