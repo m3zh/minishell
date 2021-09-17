@@ -6,20 +6,20 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:15:12 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/16 15:14:28 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/17 13:38:27 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	cpystr_wQuotes(char *s, char *arr, int i)
+int	cpystr_wQuotes(char *s, char *arr, int i, int Q)
 {
 	int	j;
 
 	j = 0;
 	arr[j++] = s[i];
 	while (s[++i])
-		if (not_doublequote(s, i))
+		if (Q == SINGLEQTS || valid_dbquote(s, i, Q))
 			arr[j++] = s[i];
 	arr[j] = s[i];
 	arr[j + 1] = '\0';
@@ -77,9 +77,9 @@ static char	**fill_arr(int words, char *s, char c, char **arr)
 		while (s[i] && s[i] == c)
 			i++;
 		if ((s[i] && s[i] == SINGLEQTS))
-			i = cpystr_wQuotes(s, arr[k], i);
+			i = cpystr_wQuotes(s, arr[k], i, SINGLEQTS);
 		else if ((s[i] && s[i] == DOUBLEQTS))
-			i = cpystr_wQuotes(s, arr[k], i);
+			i = cpystr_wQuotes(s, arr[k], i, DOUBLEQTS);
 		else
 			i = cpystr_wChar(s, arr[k], i, c);
 		k++;
