@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 08:54:37 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/17 13:47:02 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/17 15:03:56 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,14 @@ int	not_doublequote(char *s, int j)
 		|| (s[j] == BACKSLASH && s[j + 1] == DOLLARSIGN));
 }
 
+int	db_or_bs(char c)
+{
+	return (c == DOUBLEQTS || c == BACKSLASH);
+}
+
 int	valid_dbquote(char *s, int j, int Q)
 {
-	return (((s[j] == DOUBLEQTS || s[j] == BACKSLASH) && s[j - 1] == BACKSLASH)
+	return ((db_or_bs(s[j]) && s[j - 1] == BACKSLASH)
 		|| !(s[j] == Q || s[j] == BACKSLASH)
 		|| (s[j] == BACKSLASH && s[j + 1] == DOLLARSIGN));
 }
