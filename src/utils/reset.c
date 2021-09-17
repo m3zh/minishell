@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 11:24:04 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/16 20:55:59 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/17 11:57:28 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,12 @@ void	reset_shell(t_shell *s)
 {
 	// ft_free(s->file.infile);
 	// ft_free(s->file.outfile);
-	ft_free(s->file.errfile);
-	ft_free(s->file.stopword);
+	// ft_free(s->file.errfile);
+	// ft_free(s->file.stopword);
+	s->file.infile = 0;
+	s->file.outfile = 0;
+	s->file.errfile = 0;
+	s->file.stopword = 0;
 	s->file.ow = 0;
 	s->file.ap = 0;
 	s->file.input = 0;
