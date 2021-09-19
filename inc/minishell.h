@@ -112,6 +112,7 @@ int		starts_with(char *s1, char *s2);
 int	    valid_dbquote(char *s, int j, int Q);
 int		not_doublequote(char *s, int j);
 int     get_quoteCount(char *s, int i, int QUOTES, int *count);
+int		is_quotes(char *s, int i, int QUOTES);
 void	reset_string(char **s, int i);
 void	reset_shell(t_shell *s);
 void	free_struct(t_shell *s);

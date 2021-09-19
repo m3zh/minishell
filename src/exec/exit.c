@@ -19,7 +19,7 @@ static void	tabtwo(t_shell *shell, char **cmd)
 	{
 		printf("exit\n");
 		printf("bash: exit: %s: numeric argument required\n", cmd[1]);
-		exit(2);
+		exit(EXIT_FAILURE);
 	}
 	else
 	{
@@ -56,6 +56,6 @@ void	stop(t_shell *s)
 		printf("bash: exit: too many arguments\n");
 		free_arr(cmd);
 		s->builtin = 1;
-		exit(2);
+		exit(EXIT_FAILURE);
 	}	
 }

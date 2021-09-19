@@ -12,6 +12,16 @@
 
 #include "../../inc/minishell.h"
 
+static int	get_quoteCounter(char *s, int i, int QUOTES)
+{
+	i += 1;
+	while (s[i] && !is_quotes(s, i, QUOTES))
+		i += 1;
+	if (!s[i])
+		bash_syntaxError();
+	return (i);
+}
+
 int	cpystr_wCharQuotes(char *s, char *arr, int i, int c)
 {
 	int	j;
@@ -19,9 +29,9 @@ int	cpystr_wCharQuotes(char *s, char *arr, int i, int c)
 
 	j = 0;
 	q = 0;
-	while (s[i] && s[i] != c && !(q&1))
+	while (s[i] && s[i] != c && !(q & 1))
 	{
-		if (s[i] == DOUBLEQTS || s[i] == SINGLEQTS)
+		if (s[i - 1] != BACKSLASH && (s[i] == DOUBLEQTS || s[i] == SINGLEQTS))
 			q++;
 		arr[j++] = s[i++];
 	}		
@@ -41,9 +51,9 @@ static int	word_count(char *s, char c)
 	while (s[++i])
 	{
 		if (s[i] == SINGLEQTS)
-			i = get_quoteCount(s, i, SINGLEQTS, &count);
+			i = get_quoteCounter(s, i, SINGLEQTS);
 		else if (s[i] == DOUBLEQTS)
-			i = get_quoteCount(s, i, DOUBLEQTS, &count);
+			i = get_quoteCounter(s, i, DOUBLEQTS);
 		else if ((s[i] != c && s[i + 1] == c) || (s[i] != c
 				&& s[i + 1] == '\0'))
 			count++;
