@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 10:56:49 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/16 10:39:34 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/19 21:59:54 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@ void	stop(t_shell *s)
 	{
 		printf("exit\n");
 		exit(EXIT_SUCCESS);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
 	}
 	cmd = ft_split(s->cmd[0], ' ');
 	if (!cmd)
