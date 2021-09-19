@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/17 13:38:27 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/19 17:09:56 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define BASH 1
 # define PATH 5
 # define START 6
+# define PIPE 124
 # define SINGLEQTS 39
 # define DOLLARSIGN 36
 # define DOUBLEQTS 34

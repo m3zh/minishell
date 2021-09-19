@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 08:54:37 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/19 16:29:55 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/19 17:04:40 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int	is_quotes(char *s, int i, int QUOTES)
 {
-	return ((s[i] == QUOTES && s[i - 1] != BACKSLASH)
-		|| (s[i] == QUOTES && !s[i + 1]));
+	return (s[i] == QUOTES && s[i - 1] != BACKSLASH);
 }
 
 int	get_quoteCount(char *s, int i, int QUOTES, int *count)
