@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:15:12 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/19 20:54:01 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/19 21:13:19 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,27 @@
 
 static int	skip_ahead2pipe(char *s, int i, int QUOTES)
 {
-	int q;
+	int	q;
 
 	q = 1;
-	
 	i += 1;
 	while (s[i])
 	{
 		if (is_quotes(s, i, QUOTES))
 			q++;
-		if ((s[i + 1] == PIPE && !(q&1)) || !s[i + 1])
+		if ((s[i + 1] == PIPE && !(q & 1)) || !s[i + 1])
 			break ;
 		i++;
 	}
-	if (q&1)
+	if (q & 1)
 		bash_syntaxError();
 	return (i);
 }
 
 char	*cpystr_wCharQuotes(char *s, int *i)
 {
-	int end;
-	int	start;
+	int		end;
+	int		start;
 	char	*dst;
 
 	start = *i;

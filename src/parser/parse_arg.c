@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:25:07 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/16 16:06:21 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/19 21:02:30 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ char	**parse_arg(t_shell *s, int j)
 		check_quotes(s, arg, i);
 		check_echo(s, arg, i);
 		check_redir(s, arg, i);
-		// check_dollar(s, arg, i);
 	}
 	s->var.single_qts = 0;
 	return (arg);
