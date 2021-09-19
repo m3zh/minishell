@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 08:54:37 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/17 15:03:56 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/19 16:29:55 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ int	not_doublequote(char *s, int j)
 		|| !is_specialchar(s[j])
 		|| (s[j] == BACKSLASH && s[j + 1] == DOLLARSIGN));
 }
+
+/*
+* doublequote or backslash
+*/
 
 int	db_or_bs(char c)
 {

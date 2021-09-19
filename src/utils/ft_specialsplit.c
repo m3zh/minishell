@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:15:12 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/17 13:38:27 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/19 11:08:07 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static char	**fill_arr(int words, char *s, char c, char **arr)
 	k = 0;
 	while (k < words)
 	{
-		arr[k] = (char *)malloc(sizeof(char) * LEN);
+		arr[k] = (char *)malloc(sizeof(char) * (LEN + 1));
 		if (!arr[k])
 		{
 			free_arr(arr);
