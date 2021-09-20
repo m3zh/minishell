@@ -6,11 +6,11 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 10:45:52 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/20 10:40:05 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 11:05:50 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 static int	is_dollar(char *s, int i)
 {
