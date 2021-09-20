@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 16:02:50 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/19 22:01:31 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 10:59:06 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 
 void	bash_error_unexpectedToken(t_shell *s)
 {
-	write(STDERR_FILENO, "-bash: syntax error near unexpected token `newline'\n", 52);
+	write(STDERR_FILENO,
+		"-bash: syntax error near unexpected token `newline'\n", 52);
 	s->cmdretval = 2;
 }
 

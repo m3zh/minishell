@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/19 17:09:56 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 10:57:57 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	precheck_redir(t_shell *S, int last);
 void	check_quotes(t_shell *s, char **arg, int i);
 void	check_echo(t_shell *s, char **arg, int i);
 void	check_dollar(t_shell *s, char **arg, int i);
-void    check_quotes(t_shell *s, char **arg, int i);
+void	check_quotes(t_shell *s, char **arg, int i);
 
 /*
  * EXECUTION
@@ -110,9 +110,9 @@ void	shell_signal(void);
 void	free_arr(char **path);
 int		ft_exit(t_shell *shell);
 int		starts_with(char *s1, char *s2);
-int	    valid_dbquote(char *s, int j, int Q);
+int		valid_dbquote(char *s, int j, int Q);
 int		not_doublequote(char *s, int j);
-int     get_quoteCount(char *s, int i, int QUOTES, int *count);
+int		get_quoteCount(char *s, int i, int QUOTES, int *count);
 int		is_quotes(char *s, int i, int QUOTES);
 void	reset_string(char **s, int i);
 void	reset_shell(t_shell *s);
