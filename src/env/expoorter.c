@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:20:20 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/15 15:16:31 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 08:08:12 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,16 +99,17 @@ void	exporter(t_shell *shell, int l, int start)
 	if (!str)
 		malloxit();
 	i = 0;
-	if (!valid_export(str, i))
-		check_nextExport(shell, l);
-	i = up_to_equalSign(shell, str, i);
-	if (!str[i])
-		return ;
-	var = ft_substr(str, 0, i);
-	if (!var)
-		malloxit();
-	assistant(shell, str, var, i);
-	free(var);
-	free(str);
+	if (valid_export(str, i))
+	{
+		i = up_to_equalSign(shell, str, i);
+		if (!str[i])
+			return ;
+		var = ft_substr(str, 0, i);
+		if (!var)
+			malloxit();
+		assistant(shell, str, var, i);
+		free(var);
+		free(str);
+	}
 	check_nextExport(shell, l);
 }
