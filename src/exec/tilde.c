@@ -30,6 +30,16 @@ static void	change_dir(t_shell *shell, char *pwd, char *nstr)
 		printf("bash: cd: %s: %s\n", nstr, strerror(errno));
 }
 
+void	mallocer(char **tmp, char *str, char *cmd, char **nstr)
+{
+		*tmp = ft_substr(cmd, 1, ft_strlen(cmd));
+		if (!*tmp)
+			malloxit();
+		*nstr = ft_join(str, *tmp);
+		if (!*nstr)
+			malloxit();
+}
+
 /* goes to a specific directory when using the tilde */
 /* example: "cd ~/some-directory" */
 
@@ -39,20 +49,21 @@ void	tilde(t_shell *shell, char *cmd, char *str)
 	char	*tmp;
 	char	*nstr;
 
+	tmp = NULL;
+	nstr = NULL;
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		exit(EXIT_FAILURE);
-	tmp = ft_substr(cmd, 1, ft_strlen(cmd));
-	if (!tmp)
-		malloxit();
-	nstr = ft_join(str, tmp);
-	if (!nstr)
-		malloxit();
+	if (!cmd)
+		nstr = ft_strdup(str);
+	else
+		mallocer(&tmp, str, cmd, &nstr);
 	if (!shell->tilde)
 		free(shell->tilde);
 	shell->tilde = cmd;
 	change_dir(shell, pwd, nstr);
 	free(pwd);
-	free(tmp);
+	if (tmp)
+		free(tmp);
 	free(nstr);
 }

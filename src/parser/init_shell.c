@@ -89,10 +89,10 @@ void	init_shell(t_shell *s, char **envp)
 	s->var.single_qts = 0;
 	s->var.double_qts = 0;
 	s->pipelen = 0;
+	s->tilde = 0;
 	s->builtin = 0;
 	s->cmdnotfound = 0;
 	s->cmdretval = 0;
-	s->tilde = 0;
 	s->error_skip = 0;
 	envinit(s, envp);
 	init_fileredir(s);

@@ -65,7 +65,7 @@ static void	redirect(t_shell *shell, char *cmd, char *option, char *home)
 			homer(shell, home);
 		else
 		{
-			if (starts_with("~/", option))
+			if (starts_with("~", option))
 				tilde(shell, option, home);
 			else if (starts_with("-", option) && ft_strlen(option) == 1)
 				tilde(shell, shell->tilde, home);
@@ -97,5 +97,5 @@ void	cd(t_shell *shell)
 		malloxit();
 	redirect(shell, tab[0], tab[1], str);
 	free(str);
-	free_arr(tab);
+	free(tab[0]);
 }
