@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:52:33 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/20 19:09:31 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 22:46:32 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ static void	change_dir(t_shell *shell, char *pwd, char *nstr)
 
 void	mallocer(char **tmp, char *str, char *cmd, char **nstr)
 {
-		*tmp = ft_substr(cmd, 1, ft_strlen(cmd));
-		if (!*tmp)
-			malloxit();
-		*nstr = ft_join(str, *tmp);
-		if (!*nstr)
-			malloxit();
+	*tmp = ft_substr(cmd, 1, ft_strlen(cmd));
+	if (!*tmp)
+		malloxit();
+	*nstr = ft_join(str, *tmp);
+	if (!*nstr)
+		malloxit();
 }
 
 /* goes to a specific directory when using the tilde */

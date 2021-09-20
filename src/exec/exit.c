@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 10:56:49 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/20 21:03:20 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 22:51:44 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@ static void	tabtwo(t_shell *shell, char **cmd)
 	{
 		printf("exit\n");
 		printf("bash: exit: %s: numeric argument required\n", cmd[1]);
+		free_arr(shell->cmd);
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
 		printf("exit\n");
+		free_arr(shell->cmd);
 		exit(ft_atoi(cmd[1]));
 	}
 }
@@ -41,7 +43,6 @@ void	stop(t_shell *s)
 	{
 		write(2, "exit\n", 5);
 		free_arr(s->cmd);
-		free_arr(s->arg);
 		exit(EXIT_SUCCESS);
 	}
 	cmd = ft_split(s->cmd[0], ' ');
@@ -54,7 +55,6 @@ void	stop(t_shell *s)
 		write(2, "exit\n", 5);
 		write(2, "bash: exit: too many arguments\n", 31);
 		free_arr(s->cmd);
-		free_arr(s->arg);
 		free_arr(cmd);
 		s->builtin = 1;
 		exit(EXIT_FAILURE);

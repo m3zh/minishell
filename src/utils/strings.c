@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 11:45:12 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/19 15:48:44 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 22:57:30 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,20 @@ void	swap_file(char **file, char **arg, int i)
 	*file = ft_strdup(arg[i]);
 	if (!*file)
 		malloxit();
+}
+
+/*
+* doublequote or backslash
+*/
+
+static int	db_or_bs(char c)
+{
+	return (c == DOUBLEQTS || c == BACKSLASH);
+}
+
+int	valid_dbquote(char *s, int j, int Q)
+{
+	return ((db_or_bs(s[j]) && s[j - 1] == BACKSLASH)
+		|| (s[j] == BACKSLASH && !db_or_bs(s[j + 1]))
+		|| !(s[j] == Q || s[j] == BACKSLASH));
 }

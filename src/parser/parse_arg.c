@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:25:07 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/20 22:41:06 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 22:56:19 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static void	get_outfile(t_shell *s, char **arg, int i)
 	reset_string(arg, file);
 	while (arg[++file])
 	{
+		if (arg[i])
+			free(arg[i]);
 		arg[i] = ft_strdup(arg[file]);
 		if (!arg[i])
 			ft_exit(s);
@@ -39,11 +41,8 @@ static void	get_outfile(t_shell *s, char **arg, int i)
 	s->check.redir = 1;
 }
 
-static void	get_infile(t_shell *s, char **arg, int i)
+static void	get_infile(t_shell *s, char **arg, int file)
 {
-	int	file;
-
-	file = i + 1;
 	if (arg[file] && s->file.input)
 		swap_file(&s->file.infile, arg, file);
 	else if (arg[file] && s->file.here_doc)
@@ -65,11 +64,8 @@ static void	get_infile(t_shell *s, char **arg, int i)
 		i++;
 	}
 	arg[file] = 0;
-	while (i < file)
-	{
-		reset_string(arg, i);
-		i++;
-	}
+	while (i++ < file)
+		reset_string(arg, i - 1);
 	s->check.redir = 1;
 }
 
@@ -89,7 +85,7 @@ static void	check_redir(t_shell *s, char **arg, int i)
 		get_outfile(s, arg, i);
 	else if ((s->file.input && !s->file.infile)
 		|| (s->file.here_doc && !s->file.stopword))
-		get_infile(s, arg, i);
+		get_infile(s, arg, i, i + 1);
 }
 
 char	**parse_arg(t_shell *s, int j)
