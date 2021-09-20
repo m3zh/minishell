@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:49:00 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/20 11:21:45 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 14:50:23 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct s_redir
 	int		err;
 	int		err_out;
 	int		more;
-	int		preparsing;
 	int		skip_error;
 	char	*stopword;
 	char	*infile;

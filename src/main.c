@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:26 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/20 12:10:40 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 15:16:16 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ static int	checker(t_shell *shell)
 	int	i;
 
 	i = 0;
+	if (shell->error_skip)
+		return (0);
 	if (!shell->cmd[0])
 		return (0);
 	while (shell->cmd[0][i]
 			&& ft_space(shell->cmd[0][i]))
 		i += 1;
 	if (shell->cmd[0][i] == '\0')
-		return (0);
-	if (shell->error_skip)
 		return (0);
 	return (1);
 }

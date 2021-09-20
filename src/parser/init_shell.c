@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:42:58 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/20 12:13:01 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 14:49:59 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static void	init_fileredir(t_shell *s)
 	s->file.err = 0;
 	s->file.err_out = 0;
 	s->file.more = 0;
-	s->file.preparsing = 0;
 	s->file.infile = 0;
 	s->file.outfile = 0;
 	s->file.errfile = 0;

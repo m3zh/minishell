@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/17 11:58:38 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 15:02:50 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	pipe_line(t_shell *s)
 	char	**arg;
 
 	i = -1;
-	while (s->cmd[++i])
+	while (s->cmd[++i] && !s->error_skip)
 	{
 		if (pipe(s->pipefd) < 0)
 			ft_exit(s);
