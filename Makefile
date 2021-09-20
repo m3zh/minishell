@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 12:21:19 by mdesalle          #+#    #+#              #
-#    Updated: 2021/09/16 14:10:28 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/09/20 11:05:32 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,6 @@ ifeq ($(OS), Linux)
 else
 	LIB = -L/Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include -lreadline -L./libft -lft	
 endif
-
-HEADER = -I./inc \
 
 SRC = \
 		./src/parser/init_shell.c \
@@ -69,7 +67,7 @@ OBJ = $(SRC:.c=.o)
 LIBFT = ./libft/libft.a
 
 $(NAME): $(LIBFT) $(SRC)
-		@$(CC) $(SRC) $(CFLAGS) $(LIB) $(HEADER) -o $(NAME)
+		@$(CC) $(SRC) $(CFLAGS) $(LIB) -o $(NAME)
 
 all: $(NAME)
 	@printf $(ccgreen)
