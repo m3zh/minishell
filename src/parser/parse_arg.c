@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:25:07 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/19 21:02:30 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 12:02:56 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	**parse_arg(t_shell *s, int j)
 	char	**arg;
 
 	i = -1;
-	arg = ft_specialsplit(s->cmd[j], ' ');
+	arg = ft_specialsplit(s, s->cmd[j], ' ');
 	if (!arg)
 		ft_exit(s);
 	while (arg[++i])

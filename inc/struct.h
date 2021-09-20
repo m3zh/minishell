@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:49:00 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/15 13:24:12 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/20 11:21:45 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_redir
 	int		err_out;
 	int		more;
 	int		preparsing;
+	int		skip_error;
 	char	*stopword;
 	char	*infile;
 	char	*outfile;
@@ -56,20 +57,15 @@ typedef struct s_shell
 	int		cmdretval;
 	int		envinit;
 	int		cmdnotfound;
+	int		error_skip;
 	char	*tilde;
 	char	**minienv;
 	char	**cmd;
 	char	**path;
 	char	**args;
-	pid_t	proc;
 	t_redir	file;
 	t_var	var;
 	t_check	check;
 }				t_shell;
-
-typedef struct s_signal
-{
-	int	ctrl_c;
-}				t_signal;
 
 #endif
