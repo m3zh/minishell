@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:25:07 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/20 22:10:28 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 22:41:06 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ static void	get_outfile(t_shell *s, char **arg, int i)
 		i++;
 	}
 	arg[file] = 0;
+	while (i < file)
+	{
+		reset_string(arg, i);
+		i++;
+	}
 	s->check.redir = 1;
 }
 
@@ -60,6 +65,11 @@ static void	get_infile(t_shell *s, char **arg, int i)
 		i++;
 	}
 	arg[file] = 0;
+	while (i < file)
+	{
+		reset_string(arg, i);
+		i++;
+	}
 	s->check.redir = 1;
 }
 

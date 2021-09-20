@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/20 22:02:32 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 22:26:58 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	last_pipe(t_shell *s)
 	close(s->file.fdin);
 }
 
-static void	parent_waits(t_shell *s, char **arg)
+static void	parent_waits(t_shell *s)
 {
 	int	status;
 
@@ -35,7 +35,7 @@ static void	parent_waits(t_shell *s, char **arg)
 	s->file.fdin = s->pipefd[READ];
 	s->cmdretval = WEXITSTATUS(status);
 	g_proc = 0;
-	free_arr(arg);
+	free_arr(s->arg);
 	reset_shell(s);
 }
 
@@ -63,26 +63,25 @@ static void	swap_pipe(t_shell *s, int i)
 	close(s->file.fdout);
 }
 
-static void	child_process(t_shell *s, char **arg, int i)
+static void	child_process(t_shell *s)
 {
 	int		j;
 	char	*cmd;
 
 	j = -1;
-	(void)i;
-	execve(arg[0], arg, s->minienv);
+	execve(s->arg[0], s->arg, s->minienv);
 	while (s->path[++j])
 	{
-		cmd = ft_join(s->path[j], arg[0]);
+		cmd = ft_join(s->path[j], s->arg[0]);
 		if (!cmd)
 			malloxit();
-		execve(cmd, arg, s->minienv);
+		execve(cmd, s->arg, s->minienv);
 		free(cmd);
 		s->cmdnotfound = 1;
 	}
 	if (s->cmdnotfound)
-		bash_error_cmdNotFound(s, arg[0]);
-	free_arr(arg);
+		bash_error_cmdNotFound(s, s->arg[0]);
+	free_arr(s->arg);
 	s->cmdnotfound = 0;
 }
 
@@ -106,9 +105,9 @@ void	pipe_line(t_shell *s)
 			return (perror("Fork"));
 		}
 		if (!g_proc)
-			child_process(s, s->arg, i);
+			child_process(s);
 		else if (g_proc > 0)
-			parent_waits(s, s->arg);
+			parent_waits(s);
 	}
 	free_arr(s->cmd);
 }
