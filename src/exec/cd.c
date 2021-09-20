@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 07:35:18 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/15 12:55:56 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/20 19:55:57 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ static void	folder(t_shell *shell, char *cmd)
 		change_var(shell, "PWD", pwd);
 	}
 	else
-		printf("bash: cd: %s: %s\n", cmd, strerror(errno));
+	{
+		perror("bash: cd");
+		shell->cmdretval = errno;
+	}
 	free(pwd);
 }
 
@@ -51,7 +54,10 @@ static void	homer(t_shell *shell, char *str)
 			exit(EXIT_FAILURE);
 	}
 	else
+	{
 		perror("cd command failed");
+		shell->cmdretval = errno;
+	}
 	free(pwd);
 }
 
@@ -89,7 +95,7 @@ void	cd(t_shell *shell)
 	str = get_var(shell, "HOME");
 	if (!str)
 	{
-		printf("minishell: cd: home directory not set\n");
+		perror("minishell: cd: home directory not set\n");
 		exit(EXIT_FAILURE);
 	}
 	tab = ft_split(shell->cmd[0], ' ');
@@ -97,5 +103,5 @@ void	cd(t_shell *shell)
 		malloxit();
 	redirect(shell, tab[0], tab[1], str);
 	free(str);
-	free(tab[0]);
+	free_arr(tab);
 }

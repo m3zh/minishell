@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tilde.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:52:33 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/15 12:54:39 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/20 19:09:31 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,11 @@ void	tilde(t_shell *shell, char *cmd, char *str)
 	if (!pwd)
 		exit(EXIT_FAILURE);
 	if (!cmd)
+	{
 		nstr = ft_strdup(str);
+		if (!nstr)
+			malloxit();
+	}
 	else
 		mallocer(&tmp, str, cmd, &nstr);
 	if (!shell->tilde)

@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/10 18:36:32 by mlazzare          #+#    #+#              #
-#    Updated: 2021/09/17 16:20:05 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/09/20 18:56:27 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC	=	ft_splitpath.c			\
 		ft_strlcpy.c			\
 		ft_strcat.c				\
 		ft_strlcat.c			\
+		ft_strrchr.c			\
 		ft_strdup.c				\
 		ft_substr.c				\
 		ft_join.c				\

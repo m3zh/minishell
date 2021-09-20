@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:48:11 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/20 10:58:25 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/20 18:58:34 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		ft_isalpha(int c);
 int		ft_isalnum(int c);
 int		ft_isword(char *s);
 int		ft_numlen(long n);
+int     ft_strrchr(const char *s, int c);
 size_t	ft_strlen(const char *s);
 size_t	ft_tablen(char **str);
 char	*ft_strcat(char *dst, const char *src, int k);

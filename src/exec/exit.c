@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 10:56:49 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/19 21:59:54 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 20:48:16 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	stop(t_shell *s)
 	if (!ft_strcmp("exit", s->cmd[0]))
 	{
 		printf("exit\n");
+		free_arr(s->cmd);
 		exit(EXIT_SUCCESS);
 	}
 	cmd = ft_split(s->cmd[0], ' ');
@@ -51,6 +52,7 @@ void	stop(t_shell *s)
 	{
 		printf("exit\n");
 		printf("bash: exit: too many arguments\n");
+		free_arr(s->cmd);
 		free_arr(cmd);
 		s->builtin = 1;
 		exit(EXIT_FAILURE);

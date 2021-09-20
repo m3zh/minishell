@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:15:12 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/20 15:13:59 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 20:39:15 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ static char	*cpystr_up2pipe(t_shell *sh, char *s, int *i)
 {
 	int		end;
 	int		start;
-	char	*dst;
 
-	dst = NULL;
 	start = *i;
 	while (s[*i])
 	{
@@ -52,14 +50,11 @@ static char	*cpystr_up2pipe(t_shell *sh, char *s, int *i)
 			end = *i;
 			if (!s[*i + 1])
 				end += 1;
-			dst = ft_substr(s, start, end - start);
-			if (!dst)
-				malloxit();
-			break ;
+			return (ft_substr(s, start, end - start));
 		}
 		(*i)++;
 	}		
-	return (dst);
+	return (NULL);
 }
 
 static int	word_count(t_shell *sh, char *s, char c)
@@ -97,15 +92,14 @@ static char	**fill_arr(t_shell *sh, int words, char *s, char c)
 		return (NULL);
 	while (!sh->error_skip && k < words)
 	{
-		arr[k] = (char *)malloc(sizeof(char) * LEN);
+		while (s[i] && s[i] == c)
+			i++;
+		arr[k] = cpystr_up2pipe(sh, s, &i);
 		if (!arr[k])
 		{
 			free_arr(arr);
 			return (NULL);
 		}
-		while (s[i] && s[i] == c)
-			i++;
-		arr[k] = cpystr_up2pipe(sh, s, &i);
 		k++;
 	}
 	arr[k] = 0;
