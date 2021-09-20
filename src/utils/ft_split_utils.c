@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 08:54:37 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/20 12:06:46 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 15:47:13 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ static int	db_or_bs(char c)
 int	valid_dbquote(char *s, int j, int Q)
 {
 	return ((db_or_bs(s[j]) && s[j - 1] == BACKSLASH)
-		|| (s[j] == BACKSLASH && s[j + 1] == DOLLARSIGN)
+		|| (s[j] == BACKSLASH && !db_or_bs(s[j + 1]))
 		|| !(s[j] == Q || s[j] == BACKSLASH));
 }

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:20:20 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/20 08:08:12 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 15:34:55 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	exporter(t_shell *shell, int l, int start)
 			malloxit();
 		assistant(shell, str, var, i);
 		free(var);
-		free(str);
 	}
+	free(str);
 	check_nextExport(shell, l);
 }

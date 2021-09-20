@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 10:45:52 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/20 11:05:50 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 18:06:39 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	doubleqts_stringify(t_shell *s, char **arg, int i)
 	tmp = malloc(sizeof(char) * (MAX + 1));
 	if (!tmp)
 		malloxit();
-	while (arg[i][++j])
+	while (arg[i][++j] && arg[i][j + 1])
 	{
 		if (is_dollar(arg[i], j))
 		{
@@ -59,7 +59,7 @@ static void	doubleqts_stringify(t_shell *s, char **arg, int i)
 			ft_free(var);
 			j--;
 		}
-		else if (valid_dbquote(arg[i], j, DOUBLEQTS))
+		else
 			tmp[k++] = arg[i][j];
 	}
 	tmp[k] = 0;
