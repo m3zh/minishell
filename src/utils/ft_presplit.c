@@ -37,6 +37,7 @@ char	*cpystr_wCharQuotes(char *s, int *i)
 	int		start;
 	char	*dst;
 
+	dst = NULL;
 	start = *i;
 	while (s[*i])
 	{
