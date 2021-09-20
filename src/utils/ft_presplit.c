@@ -37,6 +37,7 @@ static char	*cpystr_up2pipe(char *s, int *i)
 	int		start;
 	char	*dst;
 
+	dst = NULL;
 	start = *i;
 	while (s[*i])
 	{
