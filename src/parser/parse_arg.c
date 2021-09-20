@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:25:07 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/20 12:02:56 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 15:14:59 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static void	get_outfile(t_shell *s, char **arg, int i)
 	file = i + 1;
 	if (arg[file])
 		swap_file(&s->file.outfile, arg, file);
-	else if (!s->file.preparsing)
-		return (bash_error_unexpectedToken(s));
+	else
+		return (bash_error_unexpectedToken(s, 0));
 	reset_string(arg, i);
 	reset_string(arg, file);
 	while (arg[++file])
@@ -43,8 +43,8 @@ static void	get_infile(t_shell *s, char **arg, int i)
 		swap_file(&s->file.infile, arg, file);
 	else if (arg[file] && s->file.here_doc)
 		swap_file(&s->file.stopword, arg, file);
-	else if (!s->file.preparsing)
-		return (bash_error_unexpectedToken(s));
+	else
+		return (bash_error_unexpectedToken(s, 0));
 	reset_string(arg, i);
 	reset_string(arg, file);
 	if (arg[file + 1] && !ft_strcmp(arg[file + 1], "<"))

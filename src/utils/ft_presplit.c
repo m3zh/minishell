@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:15:12 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/20 12:20:49 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 15:13:59 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static char	*cpystr_up2pipe(t_shell *sh, char *s, int *i)
 			*i = skip_ahead2pipe(sh, s, *i, DOUBLEQTS);
 		if (s[*i] == PIPE || !s[*i + 1])
 		{
+            if (s[*i] == PIPE && !s[*i + 1])
+                bash_error_unexpectedToken(sh, 2);
 			end = *i;
 			if (!s[*i + 1])
 				end += 1;
