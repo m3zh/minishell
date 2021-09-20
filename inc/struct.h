@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:49:00 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/20 14:50:23 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 21:02:51 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_shell
 	char	**minienv;
 	char	**cmd;
 	char	**path;
-	char	**args;
+	char	**arg;
 	t_redir	file;
 	t_var	var;
 	t_check	check;

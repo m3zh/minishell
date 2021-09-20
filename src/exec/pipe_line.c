@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/20 20:46:13 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 22:02:32 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ static void	child_process(t_shell *s, char **arg, int i)
 void	pipe_line(t_shell *s)
 {
 	int		i;
-	char	**arg;
 
 	i = -1;
 	while (s->cmd[++i] && !s->error_skip)
@@ -97,19 +96,19 @@ void	pipe_line(t_shell *s)
 		if (pipe(s->pipefd) < 0)
 			ft_exit(s);
 		signal(SIGQUIT, handle_sigquit);
-		arg = parse_arg(s, i);
+		s->arg = parse_arg(s, i);
 		swap_pipe(s, i);
 		reset_shell(s);
 		g_proc = fork();
 		if (g_proc < 0)
 		{
-			free_arr(arg);
+			free_arr(s->arg);
 			return (perror("Fork"));
 		}
 		if (!g_proc)
-			child_process(s, arg, i);
+			child_process(s, s->arg, i);
 		else if (g_proc > 0)
-			parent_waits(s, arg);
+			parent_waits(s, s->arg);
 	}
 	free_arr(s->cmd);
 }

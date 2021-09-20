@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:42:58 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/20 20:34:53 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 21:03:00 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	init_shell(t_shell *s, char **envp)
 	if (!s->path)
 		ft_exit(s);
 	s->cmd = 0;
-	s->args = 0;
+	s->arg = 0;
 }
 
 void	reinit_shell(t_shell *s)
@@ -114,5 +114,5 @@ void	reinit_shell(t_shell *s)
 	s->pipelen = 0;
 	s->builtin = 0;
 	s->cmd = 0;
-	s->args = 0;
+	s->arg = 0;
 }
