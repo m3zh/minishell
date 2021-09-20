@@ -6,13 +6,13 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:15:12 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/20 08:53:25 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 12:20:49 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static int	skip_ahead2pipe(char *s, int i, int QUOTES)
+static int	skip_ahead2pipe(t_shell *sh, char *s, int i, int QUOTES)
 {
 	int	q;
 
@@ -27,11 +27,11 @@ static int	skip_ahead2pipe(char *s, int i, int QUOTES)
 		i++;
 	}
 	if (q & 1)
-		bash_syntaxError();
+		bash_syntaxError(sh);
 	return (i);
 }
 
-static char	*cpystr_up2pipe(char *s, int *i)
+static char	*cpystr_up2pipe(t_shell *sh, char *s, int *i)
 {
 	int		end;
 	int		start;
@@ -42,9 +42,9 @@ static char	*cpystr_up2pipe(char *s, int *i)
 	while (s[*i])
 	{
 		if (s[*i] == SINGLEQTS)
-			*i = skip_ahead2pipe(s, *i, SINGLEQTS);
+			*i = skip_ahead2pipe(sh, s, *i, SINGLEQTS);
 		else if (s[*i] == DOUBLEQTS)
-			*i = skip_ahead2pipe(s, *i, DOUBLEQTS);
+			*i = skip_ahead2pipe(sh, s, *i, DOUBLEQTS);
 		if (s[*i] == PIPE || !s[*i + 1])
 		{
 			end = *i;
@@ -60,7 +60,7 @@ static char	*cpystr_up2pipe(char *s, int *i)
 	return (dst);
 }
 
-static int	word_count(char *s, char c)
+static int	word_count(t_shell *sh, char *s, char c)
 {
 	int	i;
 	int	count;
@@ -72,9 +72,9 @@ static int	word_count(char *s, char c)
 	while (s[++i])
 	{
 		if (s[i] == SINGLEQTS)
-			i = skip_ahead2pipe(s, i, SINGLEQTS);
+			i = skip_ahead2pipe(sh, s, i, SINGLEQTS);
 		else if (s[i] == DOUBLEQTS)
-			i = skip_ahead2pipe(s, i, DOUBLEQTS);
+			i = skip_ahead2pipe(sh, s, i, DOUBLEQTS);
 		if ((s[i] != c && s[i + 1] == c) || (s[i] != c
 				&& s[i + 1] == '\0'))
 			count++;
@@ -82,14 +82,18 @@ static int	word_count(char *s, char c)
 	return (count);
 }
 
-static char	**fill_arr(int words, char *s, char c, char **arr)
+static char	**fill_arr(t_shell *sh, int words, char *s, char c)
 {
-	int	i;
-	int	k;
+	int     i;
+	int     k;
+    char    **arr;
 
 	i = 0;
 	k = 0;
-	while (k < words)
+    arr = (char **)malloc(sizeof(char *) * (words + 1));
+	if (!arr)
+		return (NULL);
+	while (!sh->error_skip && k < words)
 	{
 		arr[k] = (char *)malloc(sizeof(char) * LEN);
 		if (!arr[k])
@@ -99,23 +103,19 @@ static char	**fill_arr(int words, char *s, char c, char **arr)
 		}
 		while (s[i] && s[i] == c)
 			i++;
-		arr[k] = cpystr_up2pipe(s, &i);
+		arr[k] = cpystr_up2pipe(sh, s, &i);
 		k++;
 	}
 	arr[k] = 0;
 	return (arr);
 }
 
-char	**ft_presplit(char *s, char c)
+char	**ft_presplit(t_shell *sh, char *s, char c)
 {
-	char	**arr;
 	int		words;
 
 	if (!s)
 		return (NULL);
-	words = word_count(s, c);
-	arr = (char **)malloc(sizeof(char *) * (words + 1));
-	if (!arr)
-		return (NULL);
-	return (fill_arr(words, s, c, arr));
+	words = word_count(sh, s, c);
+	return (fill_arr(sh, words, s, c));
 }

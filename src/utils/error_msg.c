@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 16:02:50 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/19 22:01:31 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 12:08:50 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	bash_error_wFilename(t_shell *s, char *file)
 
 /* syntax error when doublequotes or singlequotes are not closed up */
 
-void	bash_syntaxError(void)
+void	bash_syntaxError(t_shell *s)
 {
 	write(STDERR_FILENO, "bash: quotes: parsing error\n", 28);
-	exit(EXIT_FAILURE);
+	s->error_skip = 1;
 }

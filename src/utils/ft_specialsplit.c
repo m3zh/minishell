@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:15:12 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/20 10:26:25 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 12:07:35 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	cpystr_wChar(char *s, char *arr, int i, int c)
 	return (i);
 }
 
-static int	word_count(char *s, char c)
+static int	word_count(t_shell *sh, char *s, char c)
 {
 	int	i;
 	int	count;
@@ -49,9 +49,15 @@ static int	word_count(char *s, char c)
 	while (s[++i])
 	{
 		if (s[i] == SINGLEQTS)
-			i = get_quoteCount(s, i, SINGLEQTS, &count);
+		{
+			i = get_quoteCount(sh, s, i, SINGLEQTS);
+			count++;
+		}
 		else if (s[i] == DOUBLEQTS)
-			i = get_quoteCount(s, i, DOUBLEQTS, &count);
+		{
+			i = get_quoteCount(sh, s, i, DOUBLEQTS);
+			count++;
+		}
 		else if ((s[i] != c && s[i + 1] == c) || (s[i] != c
 				&& s[i + 1] == '\0'))
 			count++;
@@ -88,14 +94,14 @@ static char	**fill_arr(int words, char *s, char c, char **arr)
 	return (arr);
 }
 
-char	**ft_specialsplit(char *s, char c)
+char	**ft_specialsplit(t_shell *sh, char *s, char c)
 {
 	char	**arr;
 	int		words;
 
 	if (!s)
 		return (NULL);
-	words = word_count(s, c);
+	words = word_count(sh, s, c);
 	arr = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!arr)
 		return (NULL);

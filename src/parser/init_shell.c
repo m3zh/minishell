@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:42:58 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/15 13:10:00 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/20 12:13:01 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	init_shell(t_shell *s, char **envp)
 	s->cmdnotfound = 0;
 	s->cmdretval = 0;
 	s->tilde = 0;
+	s->error_skip = 0;
 	envinit(s, envp);
 	init_fileredir(s);
 	s->path = get_paths(envp);
@@ -106,6 +107,7 @@ void	init_shell(t_shell *s, char **envp)
 void	reinit_shell(t_shell *s)
 {
 	init_fileredir(s);
+	s->error_skip = 0;
 	s->check.preredir = 0;
 	s->check.redir = 0;
 	s->var.single_qts = 0;

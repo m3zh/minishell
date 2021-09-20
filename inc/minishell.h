@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/19 17:09:56 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 12:13:28 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int		ft_exit(t_shell *shell);
 int		starts_with(char *s1, char *s2);
 int	    valid_dbquote(char *s, int j, int Q);
 int		not_doublequote(char *s, int j);
-int     get_quoteCount(char *s, int i, int QUOTES, int *count);
+int     get_quoteCount(t_shell *sh, char *s, int i, int QUOTES);
 int		is_quotes(char *s, int i, int QUOTES);
 void	reset_string(char **s, int i);
 void	reset_shell(t_shell *s);
@@ -121,11 +121,11 @@ void	ft_free(char *s);
 void	bash_error_unexpectedToken(t_shell *s);
 void	bash_error_wFilename(t_shell *s, char *file);
 void	bash_error_cmdNotFound(t_shell *s, char *cmd);
-void	bash_syntaxError(void);
+void	bash_syntaxError(t_shell *s);
 void	str_replace(char **dst, char *src);
 void	swap_file(char **file, char **arg, int i);
 void	malloxit(void);
-char	**ft_presplit(char *s, char c);
-char	**ft_specialsplit(char *s, char c);
+char	**ft_presplit(t_shell *sh, char *s, char c);
+char	**ft_specialsplit(t_shell *sh, char *s, char c);
 
 #endif
