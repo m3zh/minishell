@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 10:45:52 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/19 21:57:19 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 10:40:05 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	doubleqts_stringify(t_shell *s, char **arg, int i)
 			ft_free(var);
 			j--;
 		}
-		else
+		else if (valid_dbquote(arg[i], j, DOUBLEQTS))
 			tmp[k++] = arg[i][j];
 	}
 	tmp[k] = 0;
