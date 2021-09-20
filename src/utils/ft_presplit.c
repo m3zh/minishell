@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:15:12 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/19 21:57:40 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 08:53:25 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	skip_ahead2pipe(char *s, int i, int QUOTES)
 	return (i);
 }
 
-char	*cpystr_wCharQuotes(char *s, int *i)
+static char	*cpystr_up2pipe(char *s, int *i)
 {
 	int		end;
 	int		start;
@@ -98,7 +98,7 @@ static char	**fill_arr(int words, char *s, char c, char **arr)
 		}
 		while (s[i] && s[i] == c)
 			i++;
-		arr[k] = cpystr_wCharQuotes(s, &i);
+		arr[k] = cpystr_up2pipe(s, &i);
 		k++;
 	}
 	arr[k] = 0;

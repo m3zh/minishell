@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:15:12 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/19 21:57:31 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/20 10:26:25 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ int	cpystr_wQuotes(char *s, char *arr, int i, int Q)
 
 	j = 0;
 	arr[j++] = s[i];
-	while (s[++i])
+	while (s[++i] && valid_dbquote(s, i, Q))
 		if (Q == SINGLEQTS || valid_dbquote(s, i, Q))
 			arr[j++] = s[i];
 	arr[j] = s[i];
 	arr[j + 1] = '\0';
-	return (i);
+	return (i + 1);
 }
 
 int	cpystr_wChar(char *s, char *arr, int i, int c)
