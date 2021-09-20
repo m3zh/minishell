@@ -1,6 +1,6 @@
-# ```minishell```
+# minishell
 
-This program is an attempt to replicate the ```bash``` shell in a ```C``` program.
+**minishell** is a minimal version of ```bash 5.1``` coded in ```C``` by [Milena Lazzaretti](https://github.com/m3zh/mnsh) and [Maxime Desalle](https://github.com/maxdesalle).
 
 ## How to use it
 To try out ```minishell```, compile it first using:
@@ -15,7 +15,8 @@ Then, open the shell as follows:
 It works exactly like ```bash```, so feel free to navigate using ```cd```, create folders with ```mkdir```, or change the environment with ```export <your variable>=<the value of your variable>```.
 
 ## Acknowledgements
-TBA
+- iciamyplant's amazing [README.md](https://github.com/iciamyplant/Minishell#readme)
+- CodeVault's [introduction to signals](https://www.youtube.com/watch?v=5We_HtLlAbs)
 
 ## Warning
 The structure of this repository does **not** necessarily follow the guidelines.
