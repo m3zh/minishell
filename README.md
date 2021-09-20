@@ -1,9 +1,9 @@
 # minishell
 
-**minishell** is a minimal version of ```bash 5.1``` coded in ```C``` by [Milena Lazzaretti](https://github.com/m3zh/mnsh) and [Maxime Desalle](https://github.com/maxdesalle).
+**minishell** is a minimal version of ```bash 5.1``` coded in **C** by [Milena Lazzaretti](https://github.com/m3zh/mnsh) and [Maxime Desalle](https://github.com/maxdesalle).
 
 ## How to use it
-To try out ```minishell```, compile it first using:
+To try out **minishell**, compile it first using:
 ```bash
 make re
 ```
@@ -12,7 +12,7 @@ Then, open the shell as follows:
 ./minishell
 ```
 
-It works exactly like ```bash```, so feel free to navigate using ```cd```, create folders with ```mkdir```, or change the environment with ```export <your variable>=<the value of your variable>```.
+It works exactly like ```bash 5.1``` (specifically on MacOS), so feel free to navigate using ```cd```, create folders with ```mkdir```, or change the environment with ```export <your variable>=<the value of your variable>```.
 
 ## Acknowledgements
 - iciamyplant's amazing [README.md](https://github.com/iciamyplant/Minishell#readme)
