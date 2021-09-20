@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 12:21:19 by mdesalle          #+#    #+#              #
-#    Updated: 2021/09/20 11:05:32 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/09/20 12:25:39 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,7 @@ ccwhite = "\033[0;0m"
 
 CC = gcc -g3
 CFLAGS = -Wall -Wextra -Werror
-CFAGS += -fsanitize=address
-
-# sudo apt-get install libreadline-dev <-- handle installation for linux
+CFLAGS += -fsanitize=address
 
 OS = $(shell uname -s)
 
