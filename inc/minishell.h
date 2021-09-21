@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/20 15:06:57 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/21 08:55:01 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int		ft_exit(t_shell *shell);
 int		starts_with(char *s1, char *s2);
 int		valid_dbquote(char *s, int j, int Q);
 int		not_doublequote(char *s, int j);
-int     get_quoteCount(t_shell *sh, char *s, int i, int QUOTES);
+int		get_quoteCount(t_shell *sh, char *s, int i, int QUOTES);
 int		is_quotes(char *s, int i, int QUOTES);
 void	reset_string(char **s, int i);
 void	reset_shell(t_shell *s);

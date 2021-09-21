@@ -6,11 +6,39 @@
 /*   By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:36:42 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/15 12:38:35 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/21 08:56:13 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+int	sorter(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s1[i] != '=' && s1[i] == s2[i])
+		i += 1;
+	if (s1[i] > s2[i])
+		return (0);
+	return (1);
+}
+
+/* returns the line at which the new environment variable should be placed */
+
+int	alpharank(t_shell *shell, char *str)
+{
+	int	i;
+
+	i = 0;
+	while (shell->minienv[i])
+	{
+		if (sorter(str, shell->minienv[i]))
+			return (i);
+		i += 1;
+	}
+	return (i);
+}
 
 /* returns 1 if the env table is alphabetically ranked, 0 if it isn't */
 
