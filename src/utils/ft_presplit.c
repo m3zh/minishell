@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:15:12 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/20 20:39:15 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/21 08:27:17 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static char	*cpystr_up2pipe(t_shell *sh, char *s, int *i)
 			*i = skip_ahead2pipe(sh, s, *i, DOUBLEQTS);
 		if (s[*i] == PIPE || !s[*i + 1])
 		{
-            if (s[*i] == PIPE && !s[*i + 1])
-                bash_error_unexpectedToken(sh, 2);
+			if (s[*i] == PIPE && !s[*i + 1])
+				bash_error_unexpectedToken(sh, 2);
 			end = *i;
 			if (!s[*i + 1])
 				end += 1;
@@ -81,13 +81,13 @@ static int	word_count(t_shell *sh, char *s, char c)
 
 static char	**fill_arr(t_shell *sh, int words, char *s, char c)
 {
-	int     i;
-	int     k;
-    char    **arr;
+	int		i;
+	int		k;
+	char	**arr;
 
 	i = 0;
 	k = 0;
-    arr = (char **)malloc(sizeof(char *) * (words + 1));
+	arr = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!arr)
 		return (NULL);
 	while (!sh->error_skip && k < words)
