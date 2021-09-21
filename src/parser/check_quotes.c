@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 10:45:52 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/20 18:06:39 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/21 12:35:04 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	singleqts_stringify(char **arg, int i)
 	tmp = malloc(sizeof(char) * (MAX + 1));
 	if (!tmp)
 		malloxit();
-	while (arg[i][j])
+	while (arg[i][++j])
 		if (arg[i][j] != SINGLEQTS)
 			tmp[k++] = arg[i][j];
 	tmp[k] = 0;
