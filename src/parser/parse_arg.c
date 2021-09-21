@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:25:07 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/20 22:56:19 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/21 08:11:41 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	get_outfile(t_shell *s, char **arg, int i)
 	s->check.redir = 1;
 }
 
-static void	get_infile(t_shell *s, char **arg, int file)
+static void	get_infile(t_shell *s, char **arg, int i, int file)
 {
 	if (arg[file] && s->file.input)
 		swap_file(&s->file.infile, arg, file);
@@ -52,7 +52,7 @@ static void	get_infile(t_shell *s, char **arg, int file)
 	reset_string(arg, i);
 	reset_string(arg, file);
 	if (arg[file + 1] && !ft_strcmp(arg[file + 1], "<"))
-		get_infile(s, arg, file + 1);
+		get_infile(s, arg, i, file + 1);
 	while (arg[++file])
 	{
 		s->file.more = 1;
