@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 10:13:13 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/16 15:56:52 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/21 08:51:15 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@ static void	unsetter(t_shell *shell)
 	int		i;
 	char	*str;
 
-	i = starts_with("unset", shell->cmd[0]);
-	while ((shell->cmd[0][i] >= 9 && shell->cmd[0][i] <= 13)
-			|| shell->cmd[0][i] == ' ' || (shell->cmd[0][i] >= 97
-			&& shell->cmd[0][i] <= 122))
-		i += 1;
-	str = ft_substr(shell->cmd[0], i, ft_strlen(shell->cmd[0]));
+	i = ft_strlen(shell->cmd[0]);
+	while (i > 0 && !ft_space(shell->cmd[0][i]))
+		i -= 1;
+	str = ft_substr(shell->cmd[0], i + 1, ft_strlen(shell->cmd[0]));
 	if (!str)
 		malloxit();
 	unset(shell, str);

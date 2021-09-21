@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 12:21:19 by mdesalle          #+#    #+#              #
-#    Updated: 2021/09/20 15:28:50 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/09/21 08:24:35 by mdesalle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ ccgreen = "\033[0;92m"
 ccwhite = "\033[0;0m"
 
 CC = gcc -g3
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 #CFLAGS += -fsanitize=address
 
 OS = $(shell uname -s)

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:47:45 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/20 14:53:08 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/21 11:53:08 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	handle_sigint(int sig)
 {
 	if (sig == SIGINT && g_proc != 0)
 	{
-		kill(getpid(), SIGCONT);
+		kill(g_proc, SIGCONT);
 		write(STDOUT, "\n", 1);
 	}
 	else if (sig == SIGINT && g_proc == 0)
