@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/20 22:26:58 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/21 13:03:10 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,19 @@ static void	last_pipe(t_shell *s)
 	close(s->file.fdin);
 }
 
-static void	parent_waits(t_shell *s)
+static void	parent_waits(t_shell *s, int i)
 {
 	int	status;
 
-	waitpid(g_proc, &status, 0);
+	waitpid(g_proc, &status, WUNTRACED | __W_CONTINUED);
 	close(s->pipefd[WRITE]);
-	s->file.fdin = s->pipefd[READ];
+	if (i != s->pipelen - 1)
+		s->file.fdin = s->pipefd[READ];
+	else
+	{
+		close(s->pipefd[READ]);
+		close(s->file.fdin);
+	}	
 	s->cmdretval = WEXITSTATUS(status);
 	g_proc = 0;
 	free_arr(s->arg);
@@ -43,9 +49,10 @@ static void	swap_pipe(t_shell *s, int i)
 {
 	if (s->file.stopword)
 		get_heredoc(s);
-	if (s->file.infile)
+	else if (s->file.infile)
 		redir_input(s);
-	dup2(s->file.fdin, READ);
+	if (dup2(s->file.fdin, READ) < 0)
+		exit(EXIT_FAILURE);
 	close(s->file.fdin);
 	if (i == s->pipelen - 1)
 		last_pipe(s);
@@ -59,7 +66,8 @@ static void	swap_pipe(t_shell *s, int i)
 			s->file.fdin = s->pipefd[READ];
 		}
 	}
-	dup2(s->file.fdout, WRITE);
+	if (dup2(s->file.fdout, WRITE) < 0)
+		exit(EXIT_FAILURE);
 	close(s->file.fdout);
 }
 
@@ -107,7 +115,9 @@ void	pipe_line(t_shell *s)
 		if (!g_proc)
 			child_process(s);
 		else if (g_proc > 0)
-			parent_waits(s);
+			parent_waits(s, i);
 	}
 	free_arr(s->cmd);
+	while (i--)
+		wait(NULL);
 }
