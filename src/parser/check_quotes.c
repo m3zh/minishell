@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 10:45:52 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/22 15:44:51 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/22 16:33:35 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	doubleqts_stringify(t_shell *s, char **arg, int i)
 	tmp = malloc(sizeof(char) * (MAX + 1));
 	if (!tmp)
 		malloxit();
+	memset(tmp, 0, MAX + 1);
 	while (arg[i][++j] && arg[i][j + 1])
 	{
 		if (is_dollar(arg[i], j))
