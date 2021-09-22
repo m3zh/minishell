@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dsh.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 11:41:46 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/15 12:19:56 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/22 14:41:54 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	sheller(t_shell *shell)
 	char	*tmp;
 
 	tmp = get_var(shell, "SHLVL");
+	if (!tmp)
+		malloxit();
 	lvl = ft_atoi(tmp);
 	free(tmp);
 	lvl += 1;

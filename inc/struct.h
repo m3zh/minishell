@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:49:00 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/20 21:02:51 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:20:01 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_shell
 	int		envinit;
 	int		cmdnotfound;
 	int		error_skip;
+	int		no_path;
 	char	*tilde;
 	char	**minienv;
 	char	**cmd;

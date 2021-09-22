@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:42:58 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/20 21:03:00 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:20:38 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	**get_paths(char **ep)
 			return (ret);
 		}
 	}
-	return (NULL);
+	return (0);
 }
 
 static void	init_fileredir(t_shell *s)
@@ -67,7 +67,7 @@ static void	envinit(t_shell *shell, char **envp)
 	shell->minienv = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!shell->minienv)
 		malloxit();
-	shell->minienv[0] = 0;
+	// shell->minienv[0] = 0;
 	i = 0;
 	while (envp[i])
 	{
@@ -94,6 +94,7 @@ void	init_shell(t_shell *s, char **envp)
 	s->cmdnotfound = 0;
 	s->cmdretval = 0;
 	s->error_skip = 0;
+	s->no_path = 0;
 	envinit(s, envp);
 	init_fileredir(s);
 	s->path = get_paths(envp);
@@ -105,8 +106,13 @@ void	init_shell(t_shell *s, char **envp)
 
 void	reinit_shell(t_shell *s)
 {
-	init_fileredir(s);
+	s->no_path = 0;
 	s->error_skip = 0;
+	init_fileredir(s);
+	free_arr(s->path);
+	s->path = get_paths(s->minienv);
+	if (!s->path)
+		s->no_path = 1;
 	s->check.preredir = 0;
 	s->check.redir = 0;
 	s->var.single_qts = 0;

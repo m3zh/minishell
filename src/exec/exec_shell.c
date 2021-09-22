@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 10:47:26 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/21 12:47:52 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:21:01 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,12 @@ void	exec_shell(t_shell *s)
 		signal(SIGQUIT, handle_sigquit);
 		exec_builtins(s);
 	}
-	if (s->builtin)
+	if (s->builtin || s->no_path)
+	{
+		if (s->no_path)
+			bash_error_wFilename(s, s->cmd[0]);
 		return (free_arr(s->cmd));
+	}
 	open_fd(s);
 	pipe_line(s);
 	close_fd(s);
