@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 10:56:49 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/20 22:51:44 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/22 13:24:41 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,18 @@
 
 static void	tabtwo(t_shell *shell, char **cmd)
 {
-	(void)shell;
-	if (ft_isword(cmd[1]))
-	{
-		printf("exit\n");
-		printf("bash: exit: %s: numeric argument required\n", cmd[1]);
-		free_arr(shell->cmd);
-		exit(EXIT_FAILURE);
-	}
-	else
+	if (ft_isnumber(cmd[1]))
 	{
 		printf("exit\n");
 		free_arr(shell->cmd);
 		exit(ft_atoi(cmd[1]));
+	}
+	else
+	{
+		printf("exit\n");
+		printf("bash: exit: %s: numeric argument required\n", cmd[1]);
+		free_arr(shell->cmd);
+		exit(BASH_ERROR);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 08:59:31 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/21 08:59:33 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/22 11:37:21 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,5 @@ void	bash_syntaxError(t_shell *s)
 {
 	write(STDERR_FILENO, "bash: quotes: parsing error\n", 28);
 	s->error_skip = 1;
+	s->cmdretval = 1;
 }

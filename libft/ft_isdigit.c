@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isword.c                                        :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/08 15:20:02 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/15 13:31:54 by mdesalle         ###   ########.fr       */
+/*   Created: 2021/09/22 11:48:12 by mlazzare          #+#    #+#             */
+/*   Updated: 2021/09/22 11:48:28 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isword(char *s)
+int	ft_isdigit(int c)
 {
-	int	i;
-
-	i = -1;
-	while (s[++i])
-	{
-		if (!ft_isalpha(s[i]))
-			return (0);
-	}
-	return (1);
+	if (c >= 48 && c <= 57)
+		return (1);
+	return (0);
 }

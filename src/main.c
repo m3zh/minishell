@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:26 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/20 20:47:23 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/22 13:24:16 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	prompt(t_shell *shell)
 	char	*input;
 	char	str[MAX];
 
-	while (BASH)
+	while (MINISHELL)
 	{
 		signal(SIGQUIT, SIG_IGN);
 		input = readline("minishell$ ");

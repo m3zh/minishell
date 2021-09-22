@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/21 08:55:01 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/22 13:24:31 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@
 
 # define READ 0
 # define WRITE 1
-# define BASH 1
+# define MINISHELL 1
+# define BASH_ERROR 2
 # define PATH 5
 # define START 6
 # define PIPE 124
