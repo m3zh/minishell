@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/22 13:24:31 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/22 17:01:07 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	redir_output(t_shell *s);
 void	redir_heredoc(t_shell *s);
 void	get_heredoc(t_shell *s);
 void	stop(t_shell *shell);
+void	shell_signal(void);
 void	handle_sigint(int sig);
 void	handle_sigquit(int sig);
 void	handle_sigusr1(int sig);
@@ -99,12 +100,6 @@ void	exporter(t_shell *shell, int l, int start);
 void	tilde(t_shell *shell, char *cmd, char *str);
 
 /*
- * SIGNALS
- */
-
-void	shell_signal(void);
-
-/*
  * UTILS
  */
 
@@ -115,6 +110,7 @@ int		valid_dbquote(char *s, int j, int Q);
 int		not_doublequote(char *s, int j);
 int		get_quoteCount(t_shell *sh, char *s, int i, int QUOTES);
 int		is_quotes(char *s, int i, int QUOTES);
+int     is_builtin(char *cmd);
 void	reset_string(char **s, int i);
 void	reset_shell(t_shell *s);
 void	free_struct(t_shell *s);
