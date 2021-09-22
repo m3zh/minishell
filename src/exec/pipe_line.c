@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/22 13:38:56 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:35:34 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,6 @@ void	pipe_line(t_shell *s)
 			parent_waits(s, i);
 	}
 	free_arr(s->cmd);
-	while (i--)
-		wait(NULL);
+	// while (i--)
+	// 	wait(NULL);
 }

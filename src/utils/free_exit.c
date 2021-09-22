@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:36:31 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/20 21:03:56 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:42:15 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ void	free_struct(t_shell *s)
 		free(s->file.infile);
 	if (s->file.outfile)
 		free(s->file.outfile);
-	if (s->file.errfile)
-		free(s->file.errfile);
 	rl_clear_history();
 }
 

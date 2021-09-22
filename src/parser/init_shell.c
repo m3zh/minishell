@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:42:58 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/22 15:20:38 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:45:56 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,9 @@ static void	init_fileredir(t_shell *s)
 	s->file.input = 0;
 	s->file.here_doc = 0;
 	s->file.stopword = 0;
-	s->file.err = 0;
-	s->file.err_out = 0;
 	s->file.more = 0;
 	s->file.infile = 0;
 	s->file.outfile = 0;
-	s->file.errfile = 0;
 }
 
 static void	envinit(t_shell *shell, char **envp)
@@ -67,7 +64,6 @@ static void	envinit(t_shell *shell, char **envp)
 	shell->minienv = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!shell->minienv)
 		malloxit();
-	// shell->minienv[0] = 0;
 	i = 0;
 	while (envp[i])
 	{
@@ -78,16 +74,13 @@ static void	envinit(t_shell *shell, char **envp)
 	}
 	shell->minienv[i] = 0;
 	ranker(shell);
-	shell->envinit = 1;
 }
 
 void	init_shell(t_shell *s, char **envp)
 {
 	s->minienv = 0;
-	s->check.preredir = 0;
-	s->check.redir = 0;
-	s->var.single_qts = 0;
-	s->var.double_qts = 0;
+	s->single_qts = 0;
+	s->double_qts = 0;
 	s->pipelen = 0;
 	s->tilde = 0;
 	s->builtin = 0;
@@ -113,10 +106,8 @@ void	reinit_shell(t_shell *s)
 	s->path = get_paths(s->minienv);
 	if (!s->path)
 		s->no_path = 1;
-	s->check.preredir = 0;
-	s->check.redir = 0;
-	s->var.single_qts = 0;
-	s->var.double_qts = 0;
+	s->single_qts = 0;
+	s->double_qts = 0;
 	s->pipelen = 0;
 	s->builtin = 0;
 	s->cmd = 0;

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:13:39 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/19 20:58:16 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:44:51 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	check_echo(t_shell *s, char **arg, int i)
 {
 	char	*tmp;
 
-	if (s->var.single_qts || s->var.double_qts)
+	if (s->single_qts || s->double_qts)
 		return ;
 	if (!ft_strncmp("$?", arg[i], 2))
 		get_lastRetValue(*s, arg, i);

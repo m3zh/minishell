@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdesalle <mdesalle@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 08:59:42 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/21 08:59:44 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:45:58 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static void	get_outfile(t_shell *s, char **arg, int i)
 		reset_string(arg, i);
 		i++;
 	}
-	s->check.redir = 1;
 }
 
 static void	get_infile(t_shell *s, char **arg, int i, int file)
@@ -66,12 +65,11 @@ static void	get_infile(t_shell *s, char **arg, int i, int file)
 	arg[file] = 0;
 	while (i++ < file)
 		reset_string(arg, i - 1);
-	s->check.redir = 1;
 }
 
 static void	check_redir(t_shell *s, char **arg, int i)
 {
-	if (s->var.single_qts || s->var.double_qts)
+	if (s->single_qts || s->double_qts)
 		return ;
 	if (!ft_strcmp(arg[i], ">"))
 		s->file.ow = 1;
@@ -103,6 +101,6 @@ char	**parse_arg(t_shell *s, int j)
 		check_echo(s, arg, i);
 		check_redir(s, arg, i);
 	}
-	s->var.single_qts = 0;
+	s->single_qts = 0;
 	return (arg);
 }

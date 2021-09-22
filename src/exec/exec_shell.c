@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 10:47:26 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/22 15:21:01 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:37:15 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	exec_builtins(t_shell *shell)
 
 void	exec_shell(t_shell *s)
 {
-	int	status;
+	// int	status;
 
 	if (s->pipelen <= 1)
 	{
@@ -65,5 +65,5 @@ void	exec_shell(t_shell *s)
 	open_fd(s);
 	pipe_line(s);
 	close_fd(s);
-	waitpid(g_proc, &status, 0);
+	wait(NULL);
 }

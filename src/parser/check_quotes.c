@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 10:45:52 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/21 12:35:04 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:44:51 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,12 @@ static void	singleqts_stringify(char **arg, int i)
 void	check_quotes(t_shell *s, char **arg, int i)
 {
 	if (starts_with("\'", arg[i]))
-		s->var.single_qts = 1;
+		s->single_qts = 1;
 	else if (starts_with("\"", arg[i]))
-		s->var.double_qts = 1;
-	if (s->var.single_qts)
+		s->double_qts = 1;
+	if (s->single_qts)
 		singleqts_stringify(arg, i);
-	else if (s->var.double_qts)
+	else if (s->double_qts)
 		doubleqts_stringify(s, arg, i);
-	s->var.double_qts = 0;
+	s->double_qts = 0;
 }

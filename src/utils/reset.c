@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 11:24:04 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/20 22:00:30 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:42:13 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	reset_shell(t_shell *s)
 {	
 	s->file.infile = 0;
 	s->file.outfile = 0;
-	s->file.errfile = 0;
 	s->file.stopword = 0;
 	s->file.ow = 0;
 	s->file.ap = 0;
