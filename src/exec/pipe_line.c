@@ -30,7 +30,7 @@ static void	parent_waits(t_shell *s, int i)
 {
 	int	status;
 
-	waitpid(g_proc, &status, WUNTRACED | __W_CONTINUED);
+	waitpid(g_proc, &status, WUNTRACED | WCONTINUED);
 	close(s->pipefd[WRITE]);
 	if (i != s->pipelen - 1)
 		s->file.fdin = s->pipefd[READ];

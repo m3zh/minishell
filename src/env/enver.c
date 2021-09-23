@@ -76,7 +76,7 @@ void	enver(t_shell *shell)
 	else if (!ft_strcmp("export", shell->cmd[0]))
 		exprint(shell);
 	else if (starts_with("export ", shell->cmd[0]))
-		exporter(shell, 7, 7);
+		exporter(shell, 7, 7, 0);
 	else
 		return ;
 	shell->builtin = 1;

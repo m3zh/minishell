@@ -26,7 +26,7 @@ static void	check_nextExport(t_shell *shell, int l)
 		if (!s)
 			malloxit();
 		if (!ft_strcmp(s, "export "))
-			exporter(shell, l + 7, l + 7);
+			exporter(shell, l + 7, l + 7, 0);
 	}
 }
 
@@ -85,20 +85,20 @@ static void	assistant(t_shell *shell, char *str, char *var, int i)
 /* prepares the variables for the expoort function or the change_var */
 /* function if the variable already exists */
 
-void	exporter(t_shell *shell, int l, int start)
+void	exporter(t_shell *shell, int l, int start, int i)
 {
-	int		i;
 	char	*str;
 	char	*var;
 
 	while (shell->cmd[0][l] && ft_space(shell->cmd[0][l]))
 		l += 1;
-	while (shell->cmd[0][l] && !ft_space(shell->cmd[0][l]))
+	while (shell->cmd[0][l] && !ft_space(shell->cmd[0][l]) && shell->cmd[0][l] != '"')
 		l += 1;
-	str = ft_substr(shell->cmd[0], start, l - start);
-	if (!str)
-		malloxit();
-	i = 0;
+	if (shell->cmd[0][l] == '"')
+		str = quote_creator(shell, l, start);
+	else
+		str = no_quotes(shell, l, start);
+	l = start;
 	if (valid_export(str, i))
 	{
 		i = up_to_equalSign(shell, str, i);
