@@ -65,8 +65,7 @@ static void	assistant(t_shell *shell, char *str, char *var, int i)
 	char	*value;
 
 	l = i;
-	while (str[i] && !ft_space(str[i]))
-		i++;
+	mover(shell, str, &i);
 	value = ft_substr(str, l + 1, i - l);
 	if (!value)
 		malloxit();
@@ -95,10 +94,9 @@ void	exporter(t_shell *shell, int l, int start, int i)
 	while (shell->cmd[0][l] && !ft_space(shell->cmd[0][l]) && shell->cmd[0][l] != '"')
 		l += 1;
 	if (shell->cmd[0][l] == '"')
-		str = quote_creator(shell, l, start);
+		str = quote_creator(shell, &l, start);
 	else
 		str = no_quotes(shell, l, start);
-	l = start;
 	if (valid_export(str, i))
 	{
 		i = up_to_equalSign(shell, str, i);
