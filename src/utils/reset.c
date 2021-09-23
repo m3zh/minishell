@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 11:24:04 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/17 11:57:28 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/23 17:17:58 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,6 @@ void	reset_shell(t_shell *s)
 	s->file.ap = 0;
 	s->file.input = 0;
 	s->file.here_doc = 0;
+	if (pipe(s->pipefd) < 0)
+		ft_exit(s);
 }

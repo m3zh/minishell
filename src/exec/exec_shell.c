@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 10:47:26 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/17 11:56:22 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/23 17:04:29 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,7 @@ static void	open_fd(t_shell *s)
 		ft_exit(s);
 }
 
-static void	close_fd(t_shell *s)
-{
-	if (dup2(s->file.tmpin, READ) < 0)
-		ft_exit(s);
-	if (dup2(s->file.tmpout, WRITE) < 0)
-		ft_exit(s);
-	close(s->file.tmpin);
-	close(s->file.tmpout);
-	close(s->pipefd[READ]);
-	close(s->pipefd[WRITE]);
-}
+
 
 static void	exec_builtins(t_shell *shell)
 {
@@ -49,7 +39,7 @@ static void	exec_builtins(t_shell *shell)
 
 void	exec_shell(t_shell *s)
 {
-	int	status;
+	
 
 	if (s->pipelen <= 1)
 	{
@@ -60,6 +50,6 @@ void	exec_shell(t_shell *s)
 		return (free_arr(s->cmd));
 	open_fd(s);
 	pipe_line(s);
-	close_fd(s);
-	waitpid(g_proc, &status, 0);
+
+	// waitpid(g_proc, &status, WNOHANG);
 }
