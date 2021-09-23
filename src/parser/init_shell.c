@@ -83,6 +83,7 @@ void	init_shell(t_shell *s, char **envp)
 	s->double_qts = 0;
 	s->pipelen = 0;
 	s->tilde = 0;
+	s->quotes = 0;
 	s->builtin = 0;
 	s->cmdnotfound = 0;
 	s->cmdretval = 0;

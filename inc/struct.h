@@ -42,6 +42,7 @@ typedef struct s_shell
 	int		cmdretval;
 	int		cmdnotfound;
 	int		error_skip;
+	int		quotes;
 	int		no_path;
 	char	*tilde;
 	char	**minienv;

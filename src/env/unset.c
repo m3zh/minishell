@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 10:38:24 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/22 14:30:55 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/23 13:50:58 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,32 +27,12 @@ static int	not_inEnv(t_shell *shell, char *var)
 	return (1);
 }
 
-/* mallocs each environment table line and copies the string over */
-/* to the new table */
-
-// static char	*tooler(t_shell *shell, char *str, int i)
-// {
-// 	char	*tmp;
-
-// 	tmp = NULL;
-// 	if (!(starts_with(str, shell->minienv[i])))
-// 	{
-// 		tmp = malloc(sizeof(char) * (ft_strlen(shell->minienv[i]) + 1));
-// 		if (!tmp)
-// 			malloxit();
-// 		ft_strlcpy(tmp, shell->minienv[i],
-// 			ft_strlen(shell->minienv[i]) + 1);
-// 	}
-// 	return (tmp);
-// }
-
 /* iterates through the environment table and assigns the right values */
 
 static void	assign(t_shell *shell, char *str, char **tmp)
 {
 	int		i;
 	int		j;
-	// char	*s;
 
 	i = -1;
 	j = -1;

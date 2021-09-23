@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/22 17:06:16 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/23 22:56:06 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	parent_waits(t_shell *s, int i)
 {
 	int	status;
 
-	waitpid(g_proc, &status, WUNTRACED | __W_CONTINUED);
+	waitpid(g_proc, &status, WUNTRACED | WCONTINUED);
 	close(s->pipefd[WRITE]);
 	if (i != s->pipelen - 1)
 		s->file.fdin = s->pipefd[READ];

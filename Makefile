@@ -43,6 +43,7 @@ SRC = \
 		./src/exec/cd.c \
 		./src/env/var.c \
 		./src/env/expoorter.c \
+		./src/env/export_utils.c \
 		./src/env/unset.c \
 		./src/env/export.c \
 		./src/env/enver.c \
