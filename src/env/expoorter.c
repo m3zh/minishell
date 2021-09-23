@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:20:20 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/20 15:34:55 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/23 13:50:30 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ void	exporter(t_shell *shell, int l, int start, int i)
 
 	while (shell->cmd[0][l] && ft_space(shell->cmd[0][l]))
 		l += 1;
-	while (shell->cmd[0][l] && !ft_space(shell->cmd[0][l]) && shell->cmd[0][l] != '"')
+	while (shell->cmd[0][l]
+			&& !ft_space(shell->cmd[0][l]) && shell->cmd[0][l] != '"')
 		l += 1;
 	if (shell->cmd[0][l] == '"')
 		str = quote_creator(shell, &l, start);

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:48:11 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/22 12:27:13 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/23 13:49:07 by maxdesall        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_isalpha(int c);
 int		ft_isalnum(int c);
 int		ft_isnumber(char *s);
-int     ft_isdigit(int c);
+int		ft_isdigit(int c);
 int		ft_numlen(long n);
 int		ft_strrchr(const char *s, int c);
 size_t	ft_strlen(const char *s);
