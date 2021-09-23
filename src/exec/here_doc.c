@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:08:28 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/20 11:05:58 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/21 08:19:06 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ void	get_heredoc(t_shell *s)
 	}
 	redir_heredoc(s);
 	ft_free(word);
+	ft_free(s->file.stopword);
 	s->file.more = 0;
 }

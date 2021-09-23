@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:36:31 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/15 14:56:34 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:42:15 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	free_struct(t_shell *s)
 {
 	free_arr(s->cmd);
 	free_arr(s->path);
-	free_arr(s->args);
+	free_arr(s->arg);
 	free_arr(s->minienv);
 	if (s->path)
 		free(s->path);
@@ -51,8 +51,6 @@ void	free_struct(t_shell *s)
 		free(s->file.infile);
 	if (s->file.outfile)
 		free(s->file.outfile);
-	if (s->file.errfile)
-		free(s->file.errfile);
 	rl_clear_history();
 }
 

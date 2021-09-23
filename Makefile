@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 12:21:19 by mdesalle          #+#    #+#              #
-#    Updated: 2021/09/23 22:33:21 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/09/23 23:12:00 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ ccwhite = "\033[0;0m"
 
 CC = gcc -g3
 CFLAGS = -Wall -Wextra -Werror
-CFLAGS += -fsanitize=address
+#CFLAGS += -fsanitize=address
 
 # sudo apt-get install libreadline-dev <-- handle installation for linux
 
@@ -45,6 +45,7 @@ SRC = \
 		./src/exec/cd.c \
 		./src/env/var.c \
 		./src/env/expoorter.c \
+		./src/env/export_utils.c \
 		./src/env/unset.c \
 		./src/env/export.c \
 		./src/env/enver.c \

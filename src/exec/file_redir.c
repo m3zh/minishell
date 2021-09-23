@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 15:17:14 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/23 20:37:12 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/23 23:00:48 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	redir_output(t_shell *s)
 				O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (s->file.fdout < 0)
 		bash_error_wFilename(s, s->file.outfile);
+	free(s->file.outfile);
 	s->file.outfile = 0;
 }
 
@@ -31,6 +32,7 @@ void	redir_input(t_shell *s)
 		s->file.fdin = open(s->file.infile, O_RDONLY);
 	if (s->file.fdin < 0)
 		bash_error_wFilename(s, s->file.infile);
+	free(s->file.infile);
 	s->file.infile = 0;
 }
 

@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:26 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/15 15:04:23 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:14:26 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	checker(t_shell *shell)
 	int	i;
 
 	i = 0;
+	if (shell->error_skip)
+		return (0);
 	if (!shell->cmd[0])
 		return (0);
 	while (shell->cmd[0][i]
@@ -41,7 +43,7 @@ static void	prompt(t_shell *shell)
 	char	*input;
 	char	str[MAX];
 
-	while (BASH)
+	while (MINISHELL)
 	{
 		signal(SIGQUIT, SIG_IGN);
 		input = readline("minishell$ ");
@@ -65,6 +67,7 @@ int	main(int ac, char **ag, char **envp)
 	sheller(&shell);
 	shell_signal();
 	prompt(&shell);
+	free_struct(&shell);
 	rl_clear_history();
 	return (0);
 }

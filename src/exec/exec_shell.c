@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 10:47:26 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/23 17:04:29 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/23 23:02:13 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ static void	open_fd(t_shell *s)
 		ft_exit(s);
 }
 
-
-
 static void	exec_builtins(t_shell *shell)
 {
 	stop(shell);
@@ -39,17 +37,18 @@ static void	exec_builtins(t_shell *shell)
 
 void	exec_shell(t_shell *s)
 {
-	
-
 	if (s->pipelen <= 1)
 	{
 		signal(SIGQUIT, handle_sigquit);
 		exec_builtins(s);
 	}
-	if (s->builtin)
+	if (s->builtin || s->no_path)
+	{
+		if (s->no_path)
+			bash_error_wFilename(s, s->cmd[0]);
 		return (free_arr(s->cmd));
+	}
 	open_fd(s);
 	pipe_line(s);
-
 	// waitpid(g_proc, &status, WNOHANG);
 }

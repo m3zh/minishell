@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/19 17:09:56 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/22 17:01:07 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@
 
 # define READ 0
 # define WRITE 1
-# define BASH 1
+# define MINISHELL 1
+# define BASH_ERROR 2
 # define PATH 5
 # define START 6
 # define PIPE 124
@@ -60,7 +61,7 @@ void	precheck_redir(t_shell *S, int last);
 void	check_quotes(t_shell *s, char **arg, int i);
 void	check_echo(t_shell *s, char **arg, int i);
 void	check_dollar(t_shell *s, char **arg, int i);
-void    check_quotes(t_shell *s, char **arg, int i);
+void	check_quotes(t_shell *s, char **arg, int i);
 
 /*
  * EXECUTION
@@ -75,6 +76,7 @@ void	redir_output(t_shell *s);
 void	redir_heredoc(t_shell *s);
 void	get_heredoc(t_shell *s);
 void	stop(t_shell *shell);
+void	shell_signal(void);
 void	handle_sigint(int sig);
 void	handle_sigquit(int sig);
 void	handle_sigusr1(int sig);
@@ -94,14 +96,11 @@ void	ranker(t_shell *shell);
 int		sorter(char *s1, char *s2);
 void	dollar(t_shell *shell);
 void	sheller(t_shell *shell);
-void	exporter(t_shell *shell, int l, int start);
+void	exporter(t_shell *shell, int l, int start, int i);
 void	tilde(t_shell *shell, char *cmd, char *str);
-
-/*
- * SIGNALS
- */
-
-void	shell_signal(void);
+char	*quote_creator(t_shell *shell, int *l, int start);
+char	*no_quotes(t_shell *shell, int l, int start);
+void	mover(t_shell *shell, char *str, int *i);
 
 /*
  * UTILS
@@ -110,22 +109,23 @@ void	shell_signal(void);
 void	free_arr(char **path);
 int		ft_exit(t_shell *shell);
 int		starts_with(char *s1, char *s2);
-int	    valid_dbquote(char *s, int j, int Q);
+int		valid_dbquote(char *s, int j, int Q);
 int		not_doublequote(char *s, int j);
-int     get_quoteCount(char *s, int i, int QUOTES, int *count);
+int		get_quoteCount(t_shell *sh, char *s, int i, int QUOTES);
 int		is_quotes(char *s, int i, int QUOTES);
+int     is_builtin(char *cmd);
 void	reset_string(char **s, int i);
 void	reset_shell(t_shell *s);
 void	free_struct(t_shell *s);
 void	ft_free(char *s);
-void	bash_error_unexpectedToken(t_shell *s);
+void	bash_error_unexpectedToken(t_shell *s, int err);
 void	bash_error_wFilename(t_shell *s, char *file);
 void	bash_error_cmdNotFound(t_shell *s, char *cmd);
-void	bash_syntaxError(void);
+void	bash_syntaxError(t_shell *s);
 void	str_replace(char **dst, char *src);
 void	swap_file(char **file, char **arg, int i);
 void	malloxit(void);
-char	**ft_presplit(char *s, char c);
-char	**ft_specialsplit(char *s, char c);
+char	**ft_presplit(t_shell *sh, char *s, char c);
+char	**ft_specialsplit(t_shell *sh, char *s, char c);
 
 #endif

@@ -6,38 +6,19 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 09:28:31 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/13 15:45:40 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/21 08:58:22 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	sorter(char *s1, char *s2)
+static void	alphalloc(char **tmp, char *str, int j, int *alpha)
 {
-	int	i;
-
-	i = 0;
-	while (s1[i] && s1[i] != '=' && s1[i] == s2[i])
-		i += 1;
-	if (s1[i] > s2[i])
-		return (0);
-	return (1);
-}
-
-/* returns the line at which the new environment variable should be placed */
-
-int	alpharank(t_shell *shell, char *str)
-{
-	int	i;
-
-	i = 0;
-	while (shell->minienv[i])
-	{
-		if (sorter(str, shell->minienv[i]))
-			return (i);
-		i += 1;
-	}
-	return (i);
+	*alpha = -1;
+	tmp[j] = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (!tmp[j])
+		malloxit();
+	ft_strlcpy(tmp[j], str, ft_strlen(str) + 1);
 }
 
 /* allocates memory for each line of the environment table and copies */
@@ -70,15 +51,11 @@ static void	assign(t_shell *shell, char *str, char **tmp)
 			i += 1;
 		}
 		else
-		{
-			alpha = -1;
-			tmp[j] = malloc(sizeof(char) * (ft_strlen(str) + 1));
-			if (!tmp[j])
-				malloxit();
-			ft_strlcpy(tmp[j], str, ft_strlen(str) + 1);
-		}
+			alphalloc(tmp, str, j, &alpha);
 		j += 1;
 	}
+	if (alpha != -1)
+		alphalloc(tmp, str, j, &alpha);
 }
 
 /* mallocs the new environment table and calls the assign function */

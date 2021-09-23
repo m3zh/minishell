@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_isnumber.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/17 16:17:36 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/22 11:48:35 by mlazzare         ###   ########.fr       */
+/*   Created: 2021/09/22 12:26:35 by mlazzare          #+#    #+#             */
+/*   Updated: 2021/09/22 12:26:53 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalnum(int c)
+int	ft_isnumber(char *s)
 {
-	return (ft_isalpha(c) || ft_isdigit(c));
+	int	i;
+
+	i = -1;
+	while (s[++i])
+	{
+		if (!ft_isdigit(s[i]))
+			return (0);
+	}
+	return (1);
 }

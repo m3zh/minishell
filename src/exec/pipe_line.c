@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/23 20:56:44 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/23 23:46:48 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 
 static void	last_pipe(t_shell *s, int i)
 {
-	// (void)i;
-	// int status;
-	
-	// waitpid(g_proc, &status, WUNTRACED | __W_CONTINUED);	
 	while (i + 1000000 > 0)
 		i--;
 	if (s->file.outfile)
@@ -68,62 +64,74 @@ static void	swap_pipe(t_shell *s, int i, int (*pipefd)[2])
 				s->file.fdin = pipefd[i - 1][READ];
 		}
 	}
-	dup2(s->file.fdout, WRITE);
+	if (dup2(s->file.fdout, WRITE) < 0)
+		exit(EXIT_FAILURE);
 	close(s->file.fdout);
 }
 
-static void	child_process(t_shell *s, char **arg, int i)
+static int	cmd_exist(t_shell *s)
+{
+	if (s->cmdnotfound)
+		bash_error_cmdNotFound(s, s->arg[0]);
+	free_arr(s->arg);
+}
+
+static void	child_process(t_shell *s)
 {
 	int		j;
 	char	*cmd;
 
 	j = -1;
-	(void)i;
-	execve(arg[0], arg, s->minienv);
+	if (!cmd_exists())
+		return ;
+	execve(s->arg[0], s->arg, s->minienv);
 	while (s->path[++j])
 	{
-		cmd = ft_join(s->path[j], arg[0]);
+		cmd = ft_join(s->path[j], s->arg[0]);
 		if (!cmd)
 			malloxit();
-		execve(cmd, arg, s->minienv);
+		execve(cmd, s->arg, s->minienv);
 		free(cmd);
-		s->cmdnotfound = 1;
 	}
-	if (s->cmdnotfound)
-		bash_error_cmdNotFound(s, arg[0]);
-	free_arr(arg);
-	s->cmdnotfound = 0;
 }
 
 void	pipe_line(t_shell *s)
 {
-	int		pipefd[s->pipelen][2];
 	int		i;
 	int		status;
-	char	**arg;
+	int		pipefd[s->pipelen][2];
 
 	i = -1;
-	while (s->cmd[++i])
+	while (s->cmd[++i] && !s->error_skip)
 	{
 		if (pipe(pipefd[i]) < 0)
 			ft_exit(s);
 		signal(SIGQUIT, handle_sigquit);
-		arg = parse_arg(s, i);
+		s->arg = parse_arg(s, i);
+		if (is_builtin(s->arg[0]))
+		{
+			free_arr(s->arg);
+			continue ;
+		}
 		g_proc = fork();
 		swap_pipe(s, i, pipefd);
 		reset_shell(s);
 		if (g_proc < 0)
 		{
-			free_arr(arg);
-			return (perror("Fork"));
+			free_arr(s->arg);
+			perror("Fork");
+			exit(EXIT_FAILURE);
 		}
 		if (!g_proc)
-			child_process(s, arg, i);
-		waitpid(g_proc, &status, WUNTRACED | WNOHANG);
+			child_process(s);
+		if (!s->cmdnotfound)
+			free(s->arg);
+		else
+			waitpid(g_proc, &status, WUNTRACED | WNOHANG);
 	}
 	free_arr(s->cmd);
 	close_fd(s, i, pipefd);
-	while(i--)
+	while (i--)
 		wait(NULL);
 	g_proc = 0;
 }
