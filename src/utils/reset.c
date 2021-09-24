@@ -31,6 +31,4 @@ void	reset_shell(t_shell *s)
 	s->file.ap = 0;
 	s->file.input = 0;
 	s->file.here_doc = 0;
-	if (pipe(s->pipefd) < 0)
-		ft_exit(s);
 }

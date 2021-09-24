@@ -28,6 +28,18 @@ static void	open_fd(t_shell *s)
 		ft_exit(s);
 }
 
+static void	close_fd(t_shell *s)
+{
+	if (dup2(s->file.tmpin, READ) < 0)
+		ft_exit(s);
+	if (dup2(s->file.tmpout, WRITE) < 0)
+		ft_exit(s);
+	close(s->file.tmpin);
+	close(s->file.tmpout);
+	close(s->pipefd[READ]);
+	close(s->pipefd[WRITE]);
+}
+
 static void	exec_builtins(t_shell *shell)
 {
 	stop(shell);
@@ -37,17 +49,17 @@ static void	exec_builtins(t_shell *shell)
 
 void	exec_shell(t_shell *s)
 {
+	int	status;
+
 	if (s->pipelen <= 1)
 	{
 		signal(SIGQUIT, handle_sigquit);
 		exec_builtins(s);
 	}
-	if (s->builtin || s->no_path)
-	{
-		if (s->no_path)
-			bash_error_wFilename(s, s->cmd[0]);
+	if (s->builtin)
 		return (free_arr(s->cmd));
-	}
 	open_fd(s);
 	pipe_line(s);
+	close_fd(s);
+	waitpid(g_proc, &status, 0);
 }

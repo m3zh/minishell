@@ -23,7 +23,7 @@ void	handle_sigint(int sig)
 	{
 		write(STDOUT, "\n", 1);
 		rl_on_new_line();
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }
@@ -38,7 +38,7 @@ void	handle_sigquit(int sig)
 	else if (sig == SIGQUIT && g_proc == 0)
 	{
 		rl_on_new_line();
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }

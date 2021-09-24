@@ -51,7 +51,7 @@ void	free_struct(t_shell *s)
 		free(s->file.infile);
 	if (s->file.outfile)
 		free(s->file.outfile);
-	rl_clear_history();
+	// rl_clear_history();
 }
 
 int	ft_exit(t_shell *shell)

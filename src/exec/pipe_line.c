@@ -12,9 +12,8 @@
 
 #include "../../inc/minishell.h"
 
-static void	last_pipe(t_shell *s, int i)
+static void	last_pipe(t_shell *s)
 {
-	wait_pid(i);
 	if (s->file.outfile)
 		redir_output(s);
 	else
@@ -23,53 +22,44 @@ static void	last_pipe(t_shell *s, int i)
 		if (!s->file.fdout)
 			ft_exit(s);
 	}
+	s->file.fdin = s->pipefd[READ];
+	close(s->file.fdin);
 }
 
-static void	close_fd(t_shell *s, int i, int (*pipefd)[2])
+static void	parent_waits(t_shell *s)
 {
-	int	l;
+	int	status;
 
-	l = i;
-	if (dup2(s->file.tmpin, READ) < 0)
-		ft_exit(s);
-	if (dup2(s->file.tmpout, WRITE) < 0)
-		ft_exit(s);
-	close(s->file.tmpin);
-	close(s->file.tmpout);
-	while (l-- >= 0)
-	{
-		close(pipefd[i][READ]);
-		close(pipefd[i][WRITE]);
-	}
-	while (i--)
-		wait(NULL);
+	waitpid(g_proc, &status, 0);
+	close(s->pipefd[WRITE]);
+	s->file.fdin = s->pipefd[READ];
+	s->cmdretval = WEXITSTATUS(status);
+	g_proc = 0;
+	free_arr(s->arg);
+	reset_shell(s);
 }
 
-static void	swap_pipe(t_shell *s, int i, int (*pipefd)[2])
+static void	swap_pipe(t_shell *s, int i)
 {
 	if (s->file.stopword)
 		get_heredoc(s);
-	else if (s->file.infile)
+	if (s->file.infile)
 		redir_input(s);
-	else if (i > 0)
-		s->file.fdin = pipefd[i - 1][READ];
 	dup2(s->file.fdin, READ);
 	close(s->file.fdin);
 	if (i == s->pipelen - 1)
-		last_pipe(s, i);
+		last_pipe(s);
 	else
 	{
 		if (s->file.outfile)
 			redir_output(s);
 		else
 		{
-			s->file.fdout = pipefd[i][WRITE];
-			if (i > 0)
-				s->file.fdin = pipefd[i - 1][READ];
+			s->file.fdout = s->pipefd[WRITE];
+			s->file.fdin = s->pipefd[READ];
 		}
 	}
-	if (dup2(s->file.fdout, WRITE) < 0)
-		exit(EXIT_FAILURE);
+	dup2(s->file.fdout, WRITE);
 	close(s->file.fdout);
 }
 
@@ -87,34 +77,37 @@ static void	child_process(t_shell *s)
 			malloxit();
 		execve(cmd, s->arg, s->minienv);
 		free(cmd);
+		s->cmdnotfound = 1;
 	}
+	if (s->cmdnotfound)
+		bash_error_cmdNotFound(s, s->arg[0]);
+	free_arr(s->arg);
+	s->cmdnotfound = 0;
 }
 
 void	pipe_line(t_shell *s)
 {
 	int		i;
-	int		status;
-	int		pipefd[s->pipelen][2];
 
 	i = -1;
 	while (s->cmd[++i] && !s->error_skip)
 	{
-		if (pipe(pipefd[i]) < 0)
+		if (pipe(s->pipefd) < 0)
 			ft_exit(s);
 		signal(SIGQUIT, handle_sigquit);
 		s->arg = parse_arg(s, i);
-		if (invalid_cmd(s))
-			continue ;
 		g_proc = fork();
-		swap_pipe(s, i, pipefd);
+		swap_pipe(s, i);
 		reset_shell(s);
 		if (g_proc < 0)
-			fork_failed(s);
+		{
+			free_arr(s->arg);
+			return (perror("Fork"));
+		}
 		if (!g_proc)
 			child_process(s);
-		waitpid(g_proc, &status, WUNTRACED | WNOHANG);
+		else if (g_proc > 0)
+			parent_waits(s);
 	}
 	free_arr(s->cmd);
-	close_fd(s, i, pipefd);
-	g_proc = 0;
 }
