@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/22 17:01:07 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/24 06:17:13 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/ioctl.h>
+# include <sys/stat.h>
 # include <termios.h>
 # include <errno.h>
 # include <string.h>
@@ -53,11 +54,12 @@
  * PARSING
  */
 
+int		preparse_shell(t_shell *shell, char *line);
+int     is_builtin(char *cmd);
+int	    not_executable(t_shell s, char *cmd);
+char	**parse_arg(t_shell *s, int i);
 void	init_shell(t_shell *s, char **envp);
 void	reinit_shell(t_shell *s);
-int		preparse_shell(t_shell *shell, char *line);
-char	**parse_arg(t_shell *s, int i);
-void	precheck_redir(t_shell *S, int last);
 void	check_quotes(t_shell *s, char **arg, int i);
 void	check_echo(t_shell *s, char **arg, int i);
 void	check_dollar(t_shell *s, char **arg, int i);
@@ -113,7 +115,6 @@ int		valid_dbquote(char *s, int j, int Q);
 int		not_doublequote(char *s, int j);
 int		get_quoteCount(t_shell *sh, char *s, int i, int QUOTES);
 int		is_quotes(char *s, int i, int QUOTES);
-int     is_builtin(char *cmd);
 void	reset_string(char **s, int i);
 void	reset_shell(t_shell *s);
 void	free_struct(t_shell *s);

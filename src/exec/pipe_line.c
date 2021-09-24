@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/23 23:46:48 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/24 06:20:46 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,12 @@ static void	swap_pipe(t_shell *s, int i, int (*pipefd)[2])
 	close(s->file.fdout);
 }
 
-static int	cmd_exist(t_shell *s)
-{
-	if (s->cmdnotfound)
-		bash_error_cmdNotFound(s, s->arg[0]);
-	free_arr(s->arg);
-}
-
 static void	child_process(t_shell *s)
 {
 	int		j;
 	char	*cmd;
 
 	j = -1;
-	if (!cmd_exists())
-		return ;
 	execve(s->arg[0], s->arg, s->minienv);
 	while (s->path[++j])
 	{
@@ -108,7 +99,7 @@ void	pipe_line(t_shell *s)
 			ft_exit(s);
 		signal(SIGQUIT, handle_sigquit);
 		s->arg = parse_arg(s, i);
-		if (is_builtin(s->arg[0]))
+		if (is_builtin(s->arg[0]) || not_executable(*s, s->arg[0]))
 		{
 			free_arr(s->arg);
 			continue ;
