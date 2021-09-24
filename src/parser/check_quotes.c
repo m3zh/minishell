@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 10:45:52 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/23 23:05:00 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/24 07:06:57 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ static char	*overwrite_dollarvalue(t_shell *s, char *str, int *j)
 	while (str[*j] && ft_isalnum(str[*j]))
 		(*j)++;
 	value = ft_substr(str, start, *j - start);
+	(*j)--;
 	if (!value)
 		malloxit();
 	var = get_var(s, value);
-	if (!var)
-		malloxit();
 	ft_free(value);
+	if (!var)
+		return (ft_strdup(""));
 	return (var);
 }
 
@@ -58,7 +59,6 @@ static void	doubleqts_stringify(t_shell *s, char **arg, int i)
 			var = overwrite_dollarvalue(s, arg[i], &j);
 			k = ft_strlcat(tmp, var, MAX + 1);
 			ft_free(var);
-			j--;
 		}
 		else
 			tmp[k++] = arg[i][j];

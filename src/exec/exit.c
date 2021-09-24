@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 10:56:49 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/23 23:29:17 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/24 06:52:39 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	stop(t_shell *s)
 	{
 		write(2, "exit\n", 5);
 		free_arr(s->cmd);
-		// kill(g_proc, SIGUSR1);
 		exit(EXIT_SUCCESS);
 	}
 	cmd = ft_split(s->cmd[0], ' ');

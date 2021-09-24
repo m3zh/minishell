@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/24 06:20:46 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/24 07:09:21 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 static void	last_pipe(t_shell *s, int i)
 {
-	while (i + 1000000 > 0)
-		i--;
+	wait_pid(i);
 	if (s->file.outfile)
 		redir_output(s);
 	else
@@ -115,10 +114,7 @@ void	pipe_line(t_shell *s)
 		}
 		if (!g_proc)
 			child_process(s);
-		if (!s->cmdnotfound)
-			free(s->arg);
-		else
-			waitpid(g_proc, &status, WUNTRACED | WNOHANG);
+		waitpid(g_proc, &status, WUNTRACED | WNOHANG);
 	}
 	free_arr(s->cmd);
 	close_fd(s, i, pipefd);

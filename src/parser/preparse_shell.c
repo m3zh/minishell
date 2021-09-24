@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:21:53 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/24 06:21:55 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/24 06:53:36 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ int	is_builtin(char *cmd)
 
 int	not_executable(t_shell s, char *cmd)
 {
-	int		j;
-	char	*exec;
-	struct 	stat sb;
+	int			j;
+	char		*exec;
+	struct stat	sb;
 
 	j = -1;
+	if (stat(cmd, &sb) == 0 && sb.st_mode & S_IXUSR)
+		return (0);
 	while (s.path[++j])
 	{
 		exec = ft_join(s.path[j], cmd);
@@ -38,7 +40,7 @@ int	not_executable(t_shell s, char *cmd)
 		free(exec);
 	}
 	bash_error_cmdNotFound(&s, cmd);
-	return (1);	
+	return (1);
 }
 
 int	preparse_shell(t_shell *shell, char *line)

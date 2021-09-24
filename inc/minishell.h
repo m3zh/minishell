@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/24 06:17:13 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/24 06:52:14 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 # define BACKSLASH 92
 # define LEN 100
 # define MAX 1000
+# define WAIT 1000000
 
 # define TMPFILE "tmpfile"
 
@@ -55,8 +56,8 @@
  */
 
 int		preparse_shell(t_shell *shell, char *line);
-int     is_builtin(char *cmd);
-int	    not_executable(t_shell s, char *cmd);
+int		is_builtin(char *cmd);
+int		not_executable(t_shell s, char *cmd);
 char	**parse_arg(t_shell *s, int i);
 void	init_shell(t_shell *s, char **envp);
 void	reinit_shell(t_shell *s);
@@ -115,6 +116,7 @@ int		valid_dbquote(char *s, int j, int Q);
 int		not_doublequote(char *s, int j);
 int		get_quoteCount(t_shell *sh, char *s, int i, int QUOTES);
 int		is_quotes(char *s, int i, int QUOTES);
+void	wait_pid(int i);
 void	reset_string(char **s, int i);
 void	reset_shell(t_shell *s);
 void	free_struct(t_shell *s);

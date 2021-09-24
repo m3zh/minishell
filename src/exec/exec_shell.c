@@ -6,11 +6,17 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 10:47:26 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/23 23:02:13 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/24 07:09:09 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void	wait_pid(int i)
+{
+	while (i + WAIT > 0)
+		i--;
+}
 
 static void	open_fd(t_shell *s)
 {
@@ -50,5 +56,4 @@ void	exec_shell(t_shell *s)
 	}
 	open_fd(s);
 	pipe_line(s);
-	// waitpid(g_proc, &status, WNOHANG);
 }
