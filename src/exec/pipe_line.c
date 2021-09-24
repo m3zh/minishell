@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/24 07:09:21 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/24 07:19:01 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,22 @@ static void	last_pipe(t_shell *s, int i)
 
 static void	close_fd(t_shell *s, int i, int (*pipefd)[2])
 {
+	int	l;
+
+	l = i;
 	if (dup2(s->file.tmpin, READ) < 0)
 		ft_exit(s);
 	if (dup2(s->file.tmpout, WRITE) < 0)
 		ft_exit(s);
 	close(s->file.tmpin);
 	close(s->file.tmpout);
-	while (i-- >= 0)
+	while (l-- >= 0)
 	{
 		close(pipefd[i][READ]);
 		close(pipefd[i][WRITE]);
 	}
+	while (i--)
+		wait(NULL);
 }
 
 static void	swap_pipe(t_shell *s, int i, int (*pipefd)[2])
@@ -98,27 +103,18 @@ void	pipe_line(t_shell *s)
 			ft_exit(s);
 		signal(SIGQUIT, handle_sigquit);
 		s->arg = parse_arg(s, i);
-		if (is_builtin(s->arg[0]) || not_executable(*s, s->arg[0]))
-		{
-			free_arr(s->arg);
+		if (invalid_cmd(s))
 			continue ;
-		}
 		g_proc = fork();
 		swap_pipe(s, i, pipefd);
 		reset_shell(s);
 		if (g_proc < 0)
-		{
-			free_arr(s->arg);
-			perror("Fork");
-			exit(EXIT_FAILURE);
-		}
+			fork_failed(s);
 		if (!g_proc)
 			child_process(s);
 		waitpid(g_proc, &status, WUNTRACED | WNOHANG);
 	}
 	free_arr(s->cmd);
 	close_fd(s, i, pipefd);
-	while (i--)
-		wait(NULL);
 	g_proc = 0;
 }

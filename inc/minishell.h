@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/24 06:52:14 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/24 07:17:55 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	check_quotes(t_shell *s, char **arg, int i);
  */
 
 int		check_cmd(t_shell *s);
+int     invalid_cmd(t_shell *s);
 void	cd(t_shell *shell);
 void	exec_shell(t_shell *s);
 void	pipe_line(t_shell *s);
@@ -83,6 +84,7 @@ void	shell_signal(void);
 void	handle_sigint(int sig);
 void	handle_sigquit(int sig);
 void	handle_sigusr1(int sig);
+void	fork_failed(t_shell *s);
 
 /*
  * ENVIRONMENT
