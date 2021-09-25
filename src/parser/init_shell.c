@@ -93,7 +93,7 @@ void	init_shell(t_shell *s, char **envp)
 	init_fileredir(s);
 	s->path = get_paths(envp);
 	if (!s->path)
-		ft_exit(s);
+		ft_exit(s, "Env path");
 	s->cmd = 0;
 	s->arg = 0;
 }

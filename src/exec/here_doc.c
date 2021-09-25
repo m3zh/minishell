@@ -19,7 +19,7 @@ void	get_heredoc(t_shell *s)
 	word = 0;
 	s->file.tmpfd = open(TMPFILE, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (s->file.tmpfd < 0)
-		ft_exit(s);
+		ft_exit(s, "Heredoc");
 	while (1)
 	{
 		word = readline("> ");

@@ -54,8 +54,9 @@ void	free_struct(t_shell *s)
 	// rl_clear_history();
 }
 
-int	ft_exit(t_shell *shell)
+int	ft_exit(t_shell *shell, char *err)
 {
+	perror(err);
 	free_struct(shell);
 	exit(EXIT_SUCCESS);
 }

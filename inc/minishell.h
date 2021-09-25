@@ -112,7 +112,7 @@ void	mover(t_shell *shell, char *str, int *i);
  */
 
 void	free_arr(char **path);
-int		ft_exit(t_shell *shell);
+int		ft_exit(t_shell *shell, char *err);
 int		starts_with(char *s1, char *s2);
 int		valid_dbquote(char *s, int j, int Q);
 int		not_doublequote(char *s, int j);

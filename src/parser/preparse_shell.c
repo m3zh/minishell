@@ -48,7 +48,7 @@ int	preparse_shell(t_shell *shell, char *line)
 	reinit_shell(shell);
 	shell->cmd = ft_presplit(shell, line, '|');
 	if (!shell->cmd)
-		return (ft_exit(shell));
+		return (ft_exit(shell, "Shell cmd"));
 	shell->pipelen = ft_tablen(shell->cmd);
 	if (shell->error_skip)
 		free_arr(shell->cmd);

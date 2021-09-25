@@ -29,7 +29,7 @@ static void	get_outfile(t_shell *s, char **arg, int i)
 			free(arg[i]);
 		arg[i] = ft_strdup(arg[file]);
 		if (!arg[i])
-			ft_exit(s);
+			malloxit();
 		i++;
 	}
 	arg[file] = 0;
@@ -59,7 +59,7 @@ static void	get_infile(t_shell *s, char **arg, int i, int file)
 			free(arg[i]);
 		arg[i] = ft_strdup(arg[file]);
 		if (!arg[i])
-			ft_exit(s);
+			malloxit();
 		i++;
 	}
 	arg[file] = 0;
@@ -94,7 +94,7 @@ char	**parse_arg(t_shell *s, int j)
 	i = -1;
 	arg = ft_specialsplit(s, s->cmd[j], ' ');
 	if (!arg)
-		ft_exit(s);
+		malloxit();
 	while (arg[++i])
 	{
 		check_quotes(s, arg, i);

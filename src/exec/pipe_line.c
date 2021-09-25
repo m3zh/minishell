@@ -20,9 +20,9 @@ static void	last_pipe(t_shell *s)
 	{
 		s->file.fdout = dup(s->file.tmpout);
 		if (!s->file.fdout)
-			ft_exit(s);
+			ft_exit(s, "Last pipe");
 	}
-	s->file.fdin = s->pipefd[READ];
+	s->file.fdin = s->pipefd_one[READ];
 	close(s->file.fdin);
 }
 
@@ -31,8 +31,8 @@ static void	parent_waits(t_shell *s)
 	int	status;
 
 	waitpid(g_proc, &status, 0);
-	close(s->pipefd[WRITE]);
-	s->file.fdin = s->pipefd[READ];
+	close(s->pipefd_one[WRITE]);
+	s->file.fdin = s->pipefd_one[READ];
 	s->cmdretval = WEXITSTATUS(status);
 	g_proc = 0;
 	free_arr(s->arg);
@@ -55,8 +55,8 @@ static void	swap_pipe(t_shell *s, int i)
 			redir_output(s);
 		else
 		{
-			s->file.fdout = s->pipefd[WRITE];
-			s->file.fdin = s->pipefd[READ];
+			s->file.fdout = s->pipefd_one[WRITE];
+			s->file.fdin = s->pipefd_one[READ];
 		}
 	}
 	dup2(s->file.fdout, WRITE);
@@ -92,8 +92,8 @@ void	pipe_line(t_shell *s)
 	i = -1;
 	while (s->cmd[++i] && !s->error_skip)
 	{
-		if (pipe(s->pipefd) < 0)
-			ft_exit(s);
+		if (pipe(s->pipefd_one) < 0)
+			ft_exit(s, "Pipe");
 		signal(SIGQUIT, handle_sigquit);
 		s->arg = parse_arg(s, i);
 		g_proc = fork();

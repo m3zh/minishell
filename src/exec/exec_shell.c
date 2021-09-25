@@ -16,28 +16,28 @@ static void	open_fd(t_shell *s)
 {
 	s->file.tmpin = dup(0);
 	if (s->file.tmpin < 0)
-		ft_exit(s);
+		ft_exit(s, "Tmpin dup");
 	s->file.tmpout = dup(1);
 	if (s->file.tmpout < 0)
-		ft_exit(s);
+		ft_exit(s, "Tmpout dup");
 	s->file.fdin = dup(s->file.tmpin);
 	if (s->file.fdin < 0)
-		ft_exit(s);
+		ft_exit(s, "Fdin dup");
 	s->file.fdout = dup(s->file.tmpout);
 	if (s->file.fdout < 0)
-		ft_exit(s);
+		ft_exit(s, "Fdout dup");
 }
 
 static void	close_fd(t_shell *s)
 {
 	if (dup2(s->file.tmpin, READ) < 0)
-		ft_exit(s);
+		ft_exit(s, "Tmpin close");
 	if (dup2(s->file.tmpout, WRITE) < 0)
-		ft_exit(s);
+		ft_exit(s, "Tmpout close");
 	close(s->file.tmpin);
 	close(s->file.tmpout);
-	close(s->pipefd[READ]);
-	close(s->pipefd[WRITE]);
+	close(s->pipefd_one[READ]);
+	close(s->pipefd_one[WRITE]);
 }
 
 static void	exec_builtins(t_shell *shell)
