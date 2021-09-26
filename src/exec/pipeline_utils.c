@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/24 07:20:26 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/26 14:26:08 by gneve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	close_fds(t_shell *s)
 	}
 }
 
-static void	switch_pipeFds(int *fd, int new_fd, int REDIR)
+static void	switch_pipefds(int *fd, int new_fd, int REDIR)
 {
 	if (REDIR == READ)
 	{
@@ -61,7 +61,6 @@ static void	switch_pipeFds(int *fd, int new_fd, int REDIR)
 		else
 			close(new_fd);
 	}
-
 }
 
 void	get_fds(t_shell *s, int i)
@@ -76,10 +75,10 @@ void	get_fds(t_shell *s, int i)
 	if (s->error_skip)
 		return ;
 	if (i > 0)
-		switch_pipeFds(&s->file.fdin,
+		switch_pipefds(&s->file.fdin,
 			s->pipe_two[READ], READ);
 	if (i != s->pipelen - 1)
-		switch_pipeFds(&s->file.fdout,
+		switch_pipefds(&s->file.fdout,
 			s->pipe_one[WRITE], WRITE);
 	else
 		close(s->pipe_one[WRITE]);

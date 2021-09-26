@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 16:13:39 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/22 15:44:51 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/26 14:38:40 by gneve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	*dollar2value(t_shell *shell, char *s, int start)
 	return (var);
 }
 
-static void	get_lastRetValue(t_shell s, char **arg, int i)
+static void	get_lastretval(t_shell s, char **arg, int i)
 {
 	int		j;
 	int		k;
@@ -68,7 +68,7 @@ void	check_echo(t_shell *s, char **arg, int i)
 	if (s->single_qts || s->double_qts)
 		return ;
 	if (!ft_strncmp("$?", arg[i], 2))
-		get_lastRetValue(*s, arg, i);
+		get_lastretval(*s, arg, i);
 	else if (starts_with("$", arg[i])
 		&& !ft_space(arg[i][1]) && ft_strcmp("$", arg[i]))
 	{

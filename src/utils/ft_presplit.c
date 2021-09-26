@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_presplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 08:59:17 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/22 15:18:49 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/26 14:36:56 by gneve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	skip_ahead2pipe(t_shell *sh, char *s, int i, int QUOTES)
 		i++;
 	}
 	if (q & 1)
-		bash_syntaxError(sh);
+		bash_syntaxerror(sh);
 	return (i);
 }
 

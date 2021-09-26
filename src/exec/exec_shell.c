@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 10:47:26 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/24 07:20:02 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/26 14:24:46 by gneve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	close_pipe(t_shell *s, int i)
 {
-	int status;
+	int	status;
 
 	if (s->pipe_two)
 		free(s->pipe_two);
@@ -32,7 +32,7 @@ static void	exec_builtins(t_shell *shell)
 
 void	exec_shell(t_shell *s)
 {
-	int i;
+	int	i;
 
 	if (s->pipelen <= 1)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:36:31 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/22 15:42:15 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/26 14:32:36 by gneve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	free_struct(t_shell *s)
 		free(s->file.infile);
 	if (s->file.outfile)
 		free(s->file.outfile);
-	// rl_clear_history();
+	rl_clear_history();
 }
 
 int	ft_exit(t_shell *shell, char *err)

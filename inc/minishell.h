@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/24 07:17:55 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/26 14:36:04 by gneve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ void	check_quotes(t_shell *s, char **arg, int i);
  */
 
 int		check_cmd(t_shell *s);
-int     invalid_cmd(t_shell *s);
+int		invalid_cmd(t_shell *s);
 void	cd(t_shell *shell);
 void	exec_shell(t_shell *s);
-int 	pipe_line(t_shell *s);
-void    get_fds(t_shell *s, int i);
+int		pipe_line(t_shell *s);
+void	get_fds(t_shell *s, int i);
 void	redir_input(t_shell *s);
 void	redir_output(t_shell *s);
 void	redir_heredoc(t_shell *s);
@@ -128,7 +128,7 @@ void	ft_free(char *s);
 void	bash_error_unexpected_token(t_shell *s, int err);
 void	bash_error_w_filename(t_shell *s, char *file);
 void	bash_error_cmd_not_found(t_shell *s, char *cmd);
-void	bash_syntaxError(t_shell *s);
+void	bash_syntaxerror(t_shell *s);
 void	str_replace(char **dst, char *src);
 void	swap_file(char **file, char **arg, int i);
 void	malloxit(void);

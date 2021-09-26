@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/24 07:19:01 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/26 14:30:51 by gneve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	*switch_pipe(int *curr_pipe)
 {
-	int *p;
+	int	*p;
 
 	p = malloc(sizeof(int) * 2);
 	p[0] = curr_pipe[0];
@@ -22,7 +22,7 @@ static int	*switch_pipe(int *curr_pipe)
 	return (p);
 }
 
-static void parent_process(t_shell *s, int i)
+static void	parent_process(t_shell *s, int i)
 {
 	close(s->pipe_one[WRITE]);
 	if (i > 0)
@@ -32,10 +32,9 @@ static void parent_process(t_shell *s, int i)
 	else
 		s->pipe_two = switch_pipe(s->pipe_one);
 	close_fds(s);
-
 }
 
-static void closeStdInOut(t_shell *s)
+static void	closestdinout(t_shell *s)
 {
 	if (s->file.fdin != READ)
 	{
@@ -60,7 +59,7 @@ static void	child_process(t_shell *s, int i)
 	get_fds(s, i);
 	if (s->error_skip)
 		return ;
-	closeStdInOut(s);
+	closestdinout(s);
 	execve(s->arg[0], s->arg, s->minienv);
 	while (s->path[++j])
 	{
