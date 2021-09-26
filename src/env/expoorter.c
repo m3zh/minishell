@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expoorter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:20:20 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/23 13:50:30 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/26 14:36:10 by gneve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* assistant to the exporter */
 
-static void	check_nextExport(t_shell *shell, int l)
+static void	check_nextexport(t_shell *shell, int l)
 {
 	char	*s;
 
@@ -30,12 +30,12 @@ static void	check_nextExport(t_shell *shell, int l)
 	}
 }
 
-static int	up_to_equalSign(t_shell *shell, char *str, int i)
+static int	up_to_equalsign(t_shell *shell, char *str, int i)
 {
 	while (str[i] && str[i] != '=')
 		i += 1;
 	if (str[i] != '=')
-		check_nextExport(shell, i);
+		check_nextexport(shell, i);
 	return (i);
 }
 
@@ -100,7 +100,7 @@ void	exporter(t_shell *shell, int l, int start, int i)
 		str = no_quotes(shell, l, start);
 	if (valid_export(str, i))
 	{
-		i = up_to_equalSign(shell, str, i);
+		i = up_to_equalsign(shell, str, i);
 		if (!str[i])
 			return ;
 		var = ft_substr(str, 0, i);
@@ -110,5 +110,5 @@ void	exporter(t_shell *shell, int l, int start, int i)
 		free(var);
 	}
 	free(str);
-	check_nextExport(shell, l);
+	check_nextexport(shell, l);
 }

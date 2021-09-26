@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:26 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/22 15:14:26 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/26 14:39:00 by gneve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,6 @@ int	main(int ac, char **ag, char **envp)
 	shell_signal();
 	prompt(&shell);
 	free_struct(&shell);
-	// rl_clear_history();
+	rl_clear_history();
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 10:38:24 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/23 13:50:58 by maxdesall        ###   ########.fr       */
+/*   Updated: 2021/09/26 14:24:01 by gneve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* if the var is not in env, we return */
 
-static int	not_inEnv(t_shell *shell, char *var)
+static int	not_inenv(t_shell *shell, char *var)
 {
 	int	i;
 
@@ -65,7 +65,7 @@ void	unset(t_shell *shell, char *str)
 	int		i;
 	char	**tmp;
 
-	if (not_inEnv(shell, str))
+	if (not_inenv(shell, str))
 		return ;
 	i = ft_tablen(shell->minienv);
 	tmp = malloc(sizeof(char *) * i);

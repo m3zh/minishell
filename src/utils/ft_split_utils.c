@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 08:54:37 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/20 22:57:15 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/26 14:37:06 by gneve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	get_quote_count(t_shell *sh, char *s, int i, int QUOTES)
 	while (s[i] && !is_quotes(s, i, QUOTES))
 		i += 1;
 	if (!s[i])
-		bash_syntaxError(sh);
+		bash_syntaxerror(sh);
 	return (i);
 }
 

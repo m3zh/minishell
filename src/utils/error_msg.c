@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 08:59:31 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/22 11:37:21 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/26 14:35:32 by gneve            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	bash_error_w_filename(t_shell *s, char *file)
 
 /* syntax error when doublequotes or singlequotes are not closed up */
 
-void	bash_syntaxError(t_shell *s)
+void	bash_syntaxerror(t_shell *s)
 {
 	write(STDERR_FILENO, "bash: quotes: parsing error\n", 28);
 	s->error_skip = 1;
