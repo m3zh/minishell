@@ -20,7 +20,7 @@ static void	get_outfile(t_shell *s, char **arg, int i)
 	if (arg[file])
 		swap_file(&s->file.outfile, arg, file);
 	else
-		return (bash_error_unexpectedToken(s, 0));
+		return (bash_error_unexpected_token(s, 0));
 	reset_string(arg, i);
 	reset_string(arg, file);
 	while (arg[++file])
@@ -47,7 +47,7 @@ static void	get_infile(t_shell *s, char **arg, int i, int file)
 	else if (arg[file] && s->file.here_doc)
 		swap_file(&s->file.stopword, arg, file);
 	else
-		return (bash_error_unexpectedToken(s, 0));
+		return (bash_error_unexpected_token(s, 0));
 	reset_string(arg, i);
 	reset_string(arg, file);
 	if (arg[file + 1] && !ft_strcmp(arg[file + 1], "<"))

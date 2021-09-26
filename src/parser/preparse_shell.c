@@ -39,7 +39,7 @@ int	not_executable(t_shell s, char *cmd)
 		}
 		free(exec);
 	}
-	bash_error_cmdNotFound(&s, cmd);
+	bash_error_cmd_not_found(&s, cmd);
 	return (1);
 }
 

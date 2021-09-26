@@ -17,7 +17,7 @@ int	is_quotes(char *s, int i, int QUOTES)
 	return (s[i] == QUOTES && s[i - 1] != BACKSLASH);
 }
 
-int	get_quoteCount(t_shell *sh, char *s, int i, int QUOTES)
+int	get_quote_count(t_shell *sh, char *s, int i, int QUOTES)
 {
 	i += 1;
 	while (s[i] && !is_quotes(s, i, QUOTES))

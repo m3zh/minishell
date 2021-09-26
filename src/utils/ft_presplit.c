@@ -46,7 +46,7 @@ static char	*cpystr_up2pipe(t_shell *sh, char *s, int *i)
 		if (s[*i] == PIPE || !s[*i + 1])
 		{
 			if (s[*i] == PIPE && !s[*i + 1])
-				bash_error_unexpectedToken(sh, 2);
+				bash_error_unexpected_token(sh, 2);
 			end = *i;
 			if (!s[*i + 1])
 				end += 1;

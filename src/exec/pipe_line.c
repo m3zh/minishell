@@ -12,56 +12,16 @@
 
 #include "../../inc/minishell.h"
 
-// static void	last_pipe(t_shell *s)
-// {
-// 	if (s->file.outfile)
-// 		redir_output(s);
-// 	else
-// 	{
-// 		s->file.fdout = dup(s->file.tmpout);
-// 		if (!s->file.fdout)
-// 			ft_exit(s, "Last pipe");
-// 	}
-// 	s->file.fdin = s->pipe_one[READ];
-// 	close(s->file.fdin);
-// }
-
-// static void	parent_waits(t_shell *s)
-// {
-// 	int	status;
-
-// 	waitpid(g_proc, &status, 0);
-// 	close(s->pipe_one[WRITE]);
-// 	s->file.fdin = s->pipe_one[READ];
-// 	s->cmdretval = WEXITSTATUS(status);
-// 	g_proc = 0;
-// 	free_arr(s->arg);
-// 	reset_shell(s);
-// }
-
-// static void	swap_redir(t_shell *s, int i)
-// {
-// 	if (s->file.stopword)
-// 		get_heredoc(s);
-// 	if (s->file.infile)
-// 		redir_input(s);
-// 	dup2(s->file.fdin, READ);
-// 	close(s->file.fdin);
-// 	if (i == s->pipelen - 1)
-// 		last_pipe(s);
-// 	else
-// 	{
-// 		if (s->file.outfile)
-// 			redir_output(s);
-// 		else
-// 		{
-// 			s->file.fdout = s->pipe_one[WRITE];
-// 			s->file.fdin = s->pipe_one[READ];
-// 		}
-// 	}
-// 	dup2(s->file.fdout, WRITE);
-// 	close(s->file.fdout);
-// }
+static void	swap_redir(t_shell *s)
+{
+	close(s->pipe_one[READ]);
+	if (s->file.stopword)
+		get_heredoc(s);
+	else if (s->file.infile)
+		redir_input(s);
+	if (s->file.outfile)
+		redir_output(s);
+}
 
 static void	close_fds(t_shell *s)
 {
@@ -77,13 +37,13 @@ static void	close_fds(t_shell *s)
 	}
 }
 
-static int	*switch_pipe(int *other)
+static int	*switch_pipe(int *curr_pipe)
 {
 	int *p;
 
 	p = malloc(sizeof(int) * 2);
-	p[0] = other[0];
-	p[1] = other[1];
+	p[0] = curr_pipe[0];
+	p[1] = curr_pipe[1];
 	return (p);
 }
 
@@ -134,44 +94,9 @@ static void	child_process(t_shell *s)
 		s->cmdnotfound = 1;
 	}
 	if (s->cmdnotfound)
-		bash_error_cmdNotFound(s, s->arg[0]);
+		bash_error_cmd_not_found(s, s->arg[0]);
 	free_arr(s->arg);
 	s->cmdnotfound = 0;
-}
-
-static void	switch_pipeFds(int *fd, int new_fd, int REDIR) // subst fd for pipemake
-{
-	if (REDIR == READ)
-	{
-		if (*fd == READ)
-			*fd = new_fd;
-		else
-			close(new_fd);
-	}
-	else if (REDIR == WRITE)
-	{
-		if (*fd == WRITE)
-			*fd = new_fd;
-		else
-			close(new_fd);
-	}
-
-}
-
-static void swapPipes(t_shell *s, int i)
-{
-	printf("in %d\n", s->file.fdin);
-	printf("out %d\n", s->file.fdout);
-	if (i > 0)
-		switch_pipeFds(&s->file.fdin,
-			s->pipe_two[READ], READ);
-	if (i != s->pipelen - 1)
-		switch_pipeFds(&s->file.fdout,
-			s->pipe_one[WRITE], WRITE);
-	else
-		close(s->pipe_one[WRITE]);
-	printf("in %d\n", s->file.fdin);
-	printf("out %d\n", s->file.fdout);
 }
 
 void	pipe_line(t_shell *s)
@@ -185,26 +110,19 @@ void	pipe_line(t_shell *s)
 		if (pipe(s->pipe_one) < 0)
 			ft_exit(s, "Pipe");
 		signal(SIGQUIT, handle_sigquit);
+		reset_shell(s);
 		s->arg = parse_arg(s, i);
 		g_proc = fork();
 		if (g_proc < 0)
-		{
-			free_arr(s->arg);
-			return (perror("Fork"));
-		}
+			fork_failed(s);
 		if (!g_proc)
 		{
-			close(s->pipe_one[READ]);
-			reset_shell(s);
-			swapPipes(s, i);
-			// swap_redir(s, i);
-			printf("after %d\n", s->file.fdin);
-			printf("after %d\n", s->file.fdout);
+			swap_redir(s);
+			swap_pipe(s, i);
 			child_process(s);
 		}
 		else if (g_proc > 0)
 			parent_process(s, i);
-		// 
 	}
 	free_arr(s->cmd);
 	while (i--)

@@ -12,7 +12,7 @@
 
 #include "../../inc/minishell.h"
 
-int	cpystr_wQuotes(char *s, char *arr, int i, int Q)
+int	cpystr_w_quotes(char *s, char *arr, int i, int Q)
 {
 	int	j;
 
@@ -26,7 +26,7 @@ int	cpystr_wQuotes(char *s, char *arr, int i, int Q)
 	return (i + 1);
 }
 
-int	cpystr_wChar(char *s, char *arr, int i, int c)
+int	cpystr_w_char(char *s, char *arr, int i, int c)
 {
 	int	j;
 
@@ -50,12 +50,12 @@ static int	word_count(t_shell *sh, char *s, char c)
 	{
 		if (s[i] == SINGLEQTS)
 		{
-			i = get_quoteCount(sh, s, i, SINGLEQTS);
+			i = get_quote_count(sh, s, i, SINGLEQTS);
 			count++;
 		}
 		else if (s[i] == DOUBLEQTS)
 		{
-			i = get_quoteCount(sh, s, i, DOUBLEQTS);
+			i = get_quote_count(sh, s, i, DOUBLEQTS);
 			count++;
 		}
 		else if ((s[i] != c && s[i + 1] == c) || (s[i] != c
@@ -83,11 +83,11 @@ static char	**fill_arr(int words, char *s, char c, char **arr)
 		while (s[i] && s[i] == c)
 			i++;
 		if ((s[i] && s[i] == SINGLEQTS))
-			i = cpystr_wQuotes(s, arr[k], i, SINGLEQTS);
+			i = cpystr_w_quotes(s, arr[k], i, SINGLEQTS);
 		else if ((s[i] && s[i] == DOUBLEQTS))
-			i = cpystr_wQuotes(s, arr[k], i, DOUBLEQTS);
+			i = cpystr_w_quotes(s, arr[k], i, DOUBLEQTS);
 		else
-			i = cpystr_wChar(s, arr[k], i, c);
+			i = cpystr_w_char(s, arr[k], i, c);
 		k++;
 	}
 	arr[k] = 0;

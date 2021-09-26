@@ -21,7 +21,7 @@ void	redir_output(t_shell *s)
 		s->file.fdout = open(s->file.outfile,
 				O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (s->file.fdout < 0)
-		bash_error_wFilename(s, s->file.outfile);
+		bash_error_w_filename(s, s->file.outfile);
 	free(s->file.outfile);
 	s->file.outfile = 0;
 }
@@ -31,7 +31,7 @@ void	redir_input(t_shell *s)
 	if (s->file.infile)
 		s->file.fdin = open(s->file.infile, O_RDONLY);
 	if (s->file.fdin < 0)
-		bash_error_wFilename(s, s->file.infile);
+		bash_error_w_filename(s, s->file.infile);
 	free(s->file.infile);
 	s->file.infile = 0;
 }

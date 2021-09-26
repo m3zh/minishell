@@ -18,7 +18,7 @@
  * or when pipe is misplaced
  */
 
-void	bash_error_unexpectedToken(t_shell *s, int err)
+void	bash_error_unexpected_token(t_shell *s, int err)
 {
 	if (!err)
 		write(STDERR_FILENO,
@@ -34,7 +34,7 @@ void	bash_error_unexpectedToken(t_shell *s, int err)
  * it reproduces the '-bash: cmd: command not found' message
  */
 
-void	bash_error_cmdNotFound(t_shell *s, char *cmd)
+void	bash_error_cmd_not_found(t_shell *s, char *cmd)
 {
 	write(STDERR_FILENO, "bash: ", 6);
 	write(STDERR_FILENO, cmd, ft_strlen(cmd));
@@ -47,7 +47,7 @@ void	bash_error_cmdNotFound(t_shell *s, char *cmd)
  * it reproduces the '-bash: Filename: error' message
  */
 
-void	bash_error_wFilename(t_shell *s, char *file)
+void	bash_error_w_filename(t_shell *s, char *file)
 {
 	write(STDERR_FILENO, "bash: ", 6);
 	write(STDERR_FILENO, file, ft_strlen(file));

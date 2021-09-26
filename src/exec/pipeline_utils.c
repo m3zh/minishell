@@ -29,8 +29,33 @@ void	fork_failed(t_shell *s)
 	exit(EXIT_FAILURE);
 }
 
-void	wait_pid(int i)
+static void	switch_pipeFds(int *fd, int new_fd, int REDIR)
 {
-	while (i + WAIT > 0)
-		i--;
+	if (REDIR == READ)
+	{
+		if (*fd == READ)
+			*fd = new_fd;
+		else
+			close(new_fd);
+	}
+	else if (REDIR == WRITE)
+	{
+		if (*fd == WRITE)
+			*fd = new_fd;
+		else
+			close(new_fd);
+	}
+
+}
+
+void swap_pipe(t_shell *s, int i)
+{
+	if (i > 0)
+		switch_pipeFds(&s->file.fdin,
+			s->pipe_two[READ], READ);
+	if (i != s->pipelen - 1)
+		switch_pipeFds(&s->file.fdout,
+			s->pipe_one[WRITE], WRITE);
+	else
+		close(s->pipe_one[WRITE]);
 }
