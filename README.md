@@ -1,6 +1,6 @@
 # minishell
 
-**minishell** is a minimal version of ```bash 5.1``` coded in **C** by [Maxime Desalle](https://github.com/maxdesalle),[Gregoire Nève](https://github.com/s19gregoire) and [Milena Lazzaretti](https://github.com/m3zh).
+**minishell** is a minimal version of ```bash 5.1``` coded in **C** by [Maxime Desalle](https://github.com/maxdesalle), [Gregoire Nève](https://github.com/s19gregoire) and [Milena Lazzaretti](https://github.com/m3zh).
 
 ## How to use it
 To try out **minishell**, compile it first using:
