@@ -91,6 +91,7 @@ void	init_shell(t_shell *s, char **envp)
 	s->no_path = 0;
 	s->file.fdin = READ;
 	s->file.fdout = WRITE;
+	s->pipe_two = NULL;
 	envinit(s, envp);
 	init_fileredir(s);
 	s->path = get_paths(envp);

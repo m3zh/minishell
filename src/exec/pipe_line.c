@@ -12,31 +12,6 @@
 
 #include "../../inc/minishell.h"
 
-static void	swap_redir(t_shell *s)
-{
-	close(s->pipe_one[READ]);
-	if (s->file.stopword)
-		get_heredoc(s);
-	else if (s->file.infile)
-		redir_input(s);
-	if (s->file.outfile)
-		redir_output(s);
-}
-
-static void	close_fds(t_shell *s)
-{
-	if (s->file.fdin != READ)
-	{
-		close(s->file.fdin);
-		s->file.fdin = READ;
-	}
-	if (s->file.fdout != WRITE)
-	{
-		close(s->file.fdout);
-		s->file.fdout = WRITE;
-	}
-}
-
 static int	*switch_pipe(int *curr_pipe)
 {
 	int *p;
@@ -76,12 +51,15 @@ static void closeStdInOut(t_shell *s)
 	}
 }
 
-static void	child_process(t_shell *s)
+static void	child_process(t_shell *s, int i)
 {
 	int		j;
 	char	*cmd;
 
 	j = -1;
+	get_fds(s, i);
+	if (s->error_skip)
+		return ;
 	closeStdInOut(s);
 	execve(s->arg[0], s->arg, s->minienv);
 	while (s->path[++j])
@@ -99,9 +77,8 @@ static void	child_process(t_shell *s)
 	s->cmdnotfound = 0;
 }
 
-void	pipe_line(t_shell *s)
+int	pipe_line(t_shell *s)
 {
-	int		status;
 	int		i;
 
 	i = -1;
@@ -116,15 +93,9 @@ void	pipe_line(t_shell *s)
 		if (g_proc < 0)
 			fork_failed(s);
 		if (!g_proc)
-		{
-			swap_redir(s);
-			swap_pipe(s, i);
-			child_process(s);
-		}
+			child_process(s, i);
 		else if (g_proc > 0)
 			parent_process(s, i);
 	}
-	free_arr(s->cmd);
-	while (i--)
-		wait(&status);
+	return (i);
 }

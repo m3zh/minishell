@@ -24,9 +24,25 @@ int	invalid_cmd(t_shell *s)
 
 void	fork_failed(t_shell *s)
 {
+	if (s->pipe_two)
+		free(s->pipe_two);
 	free_arr(s->arg);
 	perror("Fork");
 	exit(EXIT_FAILURE);
+}
+
+void	close_fds(t_shell *s)
+{
+	if (s->file.fdin != READ)
+	{
+		close(s->file.fdin);
+		s->file.fdin = READ;
+	}
+	if (s->file.fdout != WRITE)
+	{
+		close(s->file.fdout);
+		s->file.fdout = WRITE;
+	}
 }
 
 static void	switch_pipeFds(int *fd, int new_fd, int REDIR)
@@ -48,8 +64,17 @@ static void	switch_pipeFds(int *fd, int new_fd, int REDIR)
 
 }
 
-void swap_pipe(t_shell *s, int i)
+void	get_fds(t_shell *s, int i)
 {
+	close(s->pipe_one[READ]);
+	if (s->file.stopword)
+		get_heredoc(s);
+	else if (s->file.infile)
+		redir_input(s);
+	if (s->file.outfile)
+		redir_output(s);
+	if (s->error_skip)
+		return ;
 	if (i > 0)
 		switch_pipeFds(&s->file.fdin,
 			s->pipe_two[READ], READ);

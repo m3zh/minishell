@@ -74,8 +74,8 @@ int		check_cmd(t_shell *s);
 int     invalid_cmd(t_shell *s);
 void	cd(t_shell *shell);
 void	exec_shell(t_shell *s);
-void	pipe_line(t_shell *s);
-void    swap_pipe(t_shell *s, int i);
+int 	pipe_line(t_shell *s);
+void    get_fds(t_shell *s, int i);
 void	redir_input(t_shell *s);
 void	redir_output(t_shell *s);
 void	redir_heredoc(t_shell *s);
@@ -86,6 +86,7 @@ void	handle_sigint(int sig);
 void	handle_sigquit(int sig);
 void	handle_sigusr1(int sig);
 void	fork_failed(t_shell *s);
+void	close_fds(t_shell *s);
 
 /*
  * ENVIRONMENT

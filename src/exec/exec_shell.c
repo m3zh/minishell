@@ -12,34 +12,15 @@
 
 #include "../../inc/minishell.h"
 
-static void	open_fd(t_shell *s)
+static void	close_pipe(t_shell *s, int i)
 {
-	(void)s;
-	// s->file.tmpin = dup(0);
-	// if (s->file.tmpin < 0)
-	// 	ft_exit(s, "Tmpin dup");
-	// s->file.tmpout = dup(1);
-	// if (s->file.tmpout < 0)
-	// 	ft_exit(s, "Tmpout dup");
-	// s->file.fdin = dup(0);
-	// if (s->file.fdin < 0)
-	// 	ft_exit(s, "Fdin dup");
-	// s->file.fdout = dup(1);
-	// if (s->file.fdout < 0)
-	// 	ft_exit(s, "Fdout dup");
-}
+	int status;
 
-static void	close_fd(t_shell *s)
-{
-	(void)s;
-	// if (dup2(s->file.tmpin, READ) < 0)
-	// 	ft_exit(s, "Tmpin close");
-	// if (dup2(s->file.tmpout, WRITE) < 0)
-	// 	ft_exit(s, "Tmpout close");
-	// close(s->file.tmpin);
-	// close(s->file.tmpout);
-	// close(s->pipe_one[READ]);
-	// close(s->pipe_one[WRITE]);
+	if (s->pipe_two)
+		free(s->pipe_two);
+	free_arr(s->cmd);
+	while (i--)
+		wait(&status);
 }
 
 static void	exec_builtins(t_shell *shell)
@@ -51,7 +32,7 @@ static void	exec_builtins(t_shell *shell)
 
 void	exec_shell(t_shell *s)
 {
-	// int	status;
+	int i;
 
 	if (s->pipelen <= 1)
 	{
@@ -60,8 +41,6 @@ void	exec_shell(t_shell *s)
 	}
 	if (s->builtin)
 		return (free_arr(s->cmd));
-	open_fd(s);
-	pipe_line(s);
-	close_fd(s);
-	// waitpid(g_proc, &status, 0);
+	i = pipe_line(s);
+	close_pipe(s, i);
 }
