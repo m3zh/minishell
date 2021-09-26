@@ -17,8 +17,8 @@ static int	*switch_pipe(int *curr_pipe)
 	int *p;
 
 	p = malloc(sizeof(int) * 2);
-	p[0] = curr_pipe[0];
-	p[1] = curr_pipe[1];
+	p[READ] = curr_pipe[READ];
+	p[WRITE] = curr_pipe[WRITE];
 	return (p);
 }
 
@@ -26,7 +26,7 @@ static void parent_process(t_shell *s, int i)
 {
 	close(s->pipe_one[WRITE]);
 	if (i > 0)
-		close(s->pipe_two[0]);
+		close(s->pipe_two[READ]);
 	if (i == s->pipelen - 1)
 		close(s->pipe_one[READ]);
 	else
@@ -77,12 +77,12 @@ static void	child_process(t_shell *s, int i)
 	s->cmdnotfound = 0;
 }
 
-int	pipe_line(t_shell *s)
+void	pipe_line(t_shell *s)
 {
 	int		i;
 
 	i = -1;
-	while (s->cmd[++i] && !s->error_skip)
+	while (s->cmd[++i])
 	{
 		if (pipe(s->pipe_one) < 0)
 			ft_exit(s, "Pipe");
@@ -96,6 +96,6 @@ int	pipe_line(t_shell *s)
 			child_process(s, i);
 		else if (g_proc > 0)
 			parent_process(s, i);
+		free_arr(s->arg);
 	}
-	return (i);
 }

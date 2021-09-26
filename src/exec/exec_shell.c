@@ -12,19 +12,38 @@
 
 #include "../../inc/minishell.h"
 
-static void	close_pipe(t_shell *s, int i)
+static void	get_cmd_retvalue(t_shell *s, int status)
 {
+	if (WIFEXITED(status))
+		s->cmdretval = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		s->cmdretval = WTERMSIG(status) + 128;
+	else if (WIFSTOPPED(status))
+		s->cmdretval = WSTOPSIG(status);
+}
+
+static void	close_pipe(t_shell *s)
+{
+	int i;
+	int pid;
 	int status;
 
+	i = -1;
 	if (s->pipe_two)
 		free(s->pipe_two);
 	free_arr(s->cmd);
-	while (i--)
-		wait(&status);
+	while (++i < s->pipelen)
+	{
+		pid = wait(&status);
+		if (pid == g_proc)
+			get_cmd_retvalue(s, status);
+	}
+	g_proc = 0;
 }
 
 static void	exec_builtins(t_shell *shell)
 {
+	signal(SIGQUIT, handle_sigquit);
 	stop(shell);
 	cd(shell);
 	enver(shell);
@@ -32,15 +51,10 @@ static void	exec_builtins(t_shell *shell)
 
 void	exec_shell(t_shell *s)
 {
-	int i;
-
 	if (s->pipelen <= 1)
-	{
-		signal(SIGQUIT, handle_sigquit);
 		exec_builtins(s);
-	}
 	if (s->builtin)
 		return (free_arr(s->cmd));
-	i = pipe_line(s);
-	close_pipe(s, i);
+	pipe_line(s);
+	close_pipe(s);
 }
