@@ -36,8 +36,8 @@ typedef struct s_shell
 {
 	int		pipelen;
 	int		builtin;
-	int		pipefd_one[2];
-	int		pipefd2_two[2];
+	int		pipe_one[2];
+	int		*pipe_two;
 	int		single_qts;
 	int		double_qts;
 	int		cmdretval;

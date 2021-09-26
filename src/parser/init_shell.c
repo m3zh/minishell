@@ -89,6 +89,8 @@ void	init_shell(t_shell *s, char **envp)
 	s->cmdretval = 0;
 	s->error_skip = 0;
 	s->no_path = 0;
+	s->file.fdin = READ;
+	s->file.fdout = WRITE;
 	envinit(s, envp);
 	init_fileredir(s);
 	s->path = get_paths(envp);
@@ -107,6 +109,8 @@ void	reinit_shell(t_shell *s)
 	s->path = get_paths(s->minienv);
 	if (!s->path)
 		s->no_path = 1;
+	s->file.fdin = READ;
+	s->file.fdout = WRITE;
 	s->single_qts = 0;
 	s->double_qts = 0;
 	s->pipelen = 0;
