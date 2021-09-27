@@ -115,6 +115,7 @@ void	mover(t_shell *shell, char *str, int *i);
  */
 
 void	free_arr(char **path);
+void	free_redir(t_shell *s);
 int		ft_exit(t_shell *shell, char *err);
 int		starts_with(char *s1, char *s2);
 int		valid_dbquote(char *s, int j, int Q);

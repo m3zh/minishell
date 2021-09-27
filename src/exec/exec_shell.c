@@ -12,6 +12,16 @@
 
 #include "../../inc/minishell.h"
 
+void	free_redir(t_shell *s)
+{
+	if (s->file.stopword)
+		ft_free(s->file.stopword);
+	if (s->file.infile)
+		ft_free(s->file.infile);
+	if (s->file.outfile)
+		ft_free(s->file.outfile);
+}
+
 static void	get_cmd_retvalue(t_shell *s, int status)
 {
 	if (WIFEXITED(status))
@@ -29,8 +39,6 @@ static void	close_pipe(t_shell *s)
 	int	status;
 
 	i = -1;
-	if (s->pipe_two && s->pipelen > 0)
-		free(s->pipe_two);
 	free_arr(s->cmd);
 	while (++i < s->pipelen)
 	{

@@ -32,6 +32,7 @@ static void	parent_process(t_shell *s, int i)
 	else
 		s->pipe_two = switch_pipe(s->pipe_one);
 	close_fds(s);
+	free_redir(s);
 }
 
 static void	close_stdinout(t_shell *s)
