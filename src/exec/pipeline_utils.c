@@ -14,7 +14,7 @@
 
 int	invalid_cmd(t_shell *s)
 {
-	if (is_builtin(s->arg[0]) || not_executable(*s, s->arg[0]))
+	if (is_builtin(s->arg[0]) || not_executable(s, s->arg[0]))
 	{
 		free_arr(s->arg);
 		return (1);

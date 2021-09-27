@@ -57,7 +57,7 @@
 
 int		preparse_shell(t_shell *shell, char *line);
 int		is_builtin(char *cmd);
-int		not_executable(t_shell s, char *cmd);
+int		not_executable(t_shell *s, char *cmd);
 char	**parse_arg(t_shell *s, int i);
 void	init_shell(t_shell *s, char **envp);
 void	reinit_shell(t_shell *s);

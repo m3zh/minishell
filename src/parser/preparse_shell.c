@@ -29,7 +29,7 @@ int	is_builtin(char *cmd)
 		|| !ft_strcmp("unset", cmd) || !ft_strcmp("cd", cmd));
 }
 
-int	not_executable(t_shell s, char *cmd)
+int	not_executable(t_shell *s, char *cmd)
 {
 	int			j;
 	char		*exec;
@@ -38,9 +38,9 @@ int	not_executable(t_shell s, char *cmd)
 	j = -1;
 	if (stat(cmd, &sb) == 0 && sb.st_mode & S_IXUSR)
 		return (0);
-	while (s.path[++j])
+	while (s->path[++j])
 	{
-		exec = ft_join(s.path[j], cmd);
+		exec = ft_join(s->path[j], cmd);
 		if (!exec)
 			malloxit();
 		if (stat(exec, &sb) == 0 && sb.st_mode & S_IXUSR)
@@ -50,7 +50,7 @@ int	not_executable(t_shell s, char *cmd)
 		}
 		free(exec);
 	}
-	bash_error_cmd_not_found(&s, cmd);
+	bash_error_cmd_not_found(s, cmd);
 	return (1);
 }
 
