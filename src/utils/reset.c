@@ -23,6 +23,7 @@ void	reset_string(char **s, int i)
 
 void	reset_shell(t_shell *s)
 {
+	s->error_skip = 0;
 	s->cmdnotfound = 0;
 	s->file.infile = 0;
 	s->file.outfile = 0;

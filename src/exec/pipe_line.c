@@ -34,18 +34,18 @@ static void	parent_process(t_shell *s, int i)
 	close_fds(s);
 }
 
-static void	closestdinout(t_shell *s)
+static void	close_stdinout(t_shell *s)
 {
 	if (s->file.fdin != READ)
 	{
 		if (dup2(s->file.fdin, READ) < 0)
-			ft_exit(s, "Close stdin");
+			exit(EXIT_FAILURE);
 		close(s->file.fdin);
 	}
 	if (s->file.fdout != WRITE)
 	{
 		if (dup2(s->file.fdout, WRITE) < 0)
-			ft_exit(s, "Close stdout");
+			exit(EXIT_FAILURE);
 		close(s->file.fdout);
 	}
 }
@@ -57,9 +57,7 @@ static void	child_process(t_shell *s, int i)
 
 	j = -1;
 	get_fds(s, i);
-	if (s->error_skip)
-		return ;
-	closestdinout(s);
+	close_stdinout(s);
 	execve(s->arg[0], s->arg, s->minienv);
 	while (s->path[++j])
 	{
@@ -68,12 +66,7 @@ static void	child_process(t_shell *s, int i)
 			malloxit();
 		execve(cmd, s->arg, s->minienv);
 		free(cmd);
-		s->cmdnotfound = 1;
 	}
-	if (s->cmdnotfound)
-		bash_error_cmd_not_found(s, s->arg[0]);
-	free_arr(s->arg);
-	s->cmdnotfound = 0;
 }
 
 void	pipe_line(t_shell *s)
@@ -88,6 +81,8 @@ void	pipe_line(t_shell *s)
 		signal(SIGQUIT, handle_sigquit);
 		reset_shell(s);
 		s->arg = parse_arg(s, i);
+		if (invalid_cmd(s))
+			continue ;
 		g_proc = fork();
 		if (g_proc < 0)
 			fork_failed(s);

@@ -66,14 +66,7 @@ static void	switch_pipefds(int *fd, int new_fd, int REDIR)
 void	get_fds(t_shell *s, int i)
 {
 	close(s->pipe_one[READ]);
-	if (s->file.stopword)
-		get_heredoc(s);
-	else if (s->file.infile)
-		redir_input(s);
-	if (s->file.outfile)
-		redir_output(s);
-	if (s->error_skip)
-		return ;
+	open_redir(s);
 	if (i > 0)
 		switch_pipefds(&s->file.fdin,
 			s->pipe_two[READ], READ);

@@ -68,6 +68,6 @@ int	main(int ac, char **ag, char **envp)
 	shell_signal();
 	prompt(&shell);
 	free_struct(&shell);
-	rl_clear_history();
+	// rl_clear_history();
 	return (0);
 }

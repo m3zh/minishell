@@ -1,3 +1,4 @@
+!.gitignore
 /minishell.dSYM
 ./src/main.o.dSYM
 .tags

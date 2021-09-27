@@ -41,5 +41,7 @@ void	redir_heredoc(t_shell *s)
 	close(s->file.tmpfd);
 	if (s->file.here_doc)
 		s->file.fdin = open(TMPFILE, O_RDONLY);
+	if (s->file.fdin < 0)
+		bash_error_w_filename(s, s->file.infile);
 	unlink(TMPFILE);
 }

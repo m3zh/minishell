@@ -12,6 +12,17 @@
 
 #include "../../inc/minishell.h"
 
+int	open_redir(t_shell *s)
+{
+	if (s->file.stopword)
+		get_heredoc(s);
+	else if (s->file.infile)
+		redir_input(s);
+	if (s->file.outfile)
+		redir_output(s);
+	return (0);
+}
+
 int	is_builtin(char *cmd)
 {
 	return (!ft_strcmp("exit", cmd) || !ft_strcmp("export", cmd)

@@ -43,8 +43,6 @@ void	free_struct(t_shell *s)
 	free_arr(s->path);
 	free_arr(s->arg);
 	free_arr(s->minienv);
-	if (s->path)
-		free(s->path);
 	if (s->file.stopword)
 		free(s->file.stopword);
 	if (s->file.infile)

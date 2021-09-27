@@ -24,12 +24,12 @@ static void	get_cmd_retvalue(t_shell *s, int status)
 
 static void	close_pipe(t_shell *s)
 {
-	int i;
-	int pid;
-	int status;
+	int	i;
+	int	pid;
+	int	status;
 
 	i = -1;
-	if (s->pipe_two)
+	if (s->pipe_two && s->pipelen > 0)
 		free(s->pipe_two);
 	free_arr(s->cmd);
 	while (++i < s->pipelen)
