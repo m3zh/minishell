@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:42:58 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/22 15:45:56 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/27 07:54:59 by mdesalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	**get_paths(char **ep)
 	{
 		if (!ft_strncmp(ep[i], "PATH=", PATH))
 		{
-			env = ft_substr(ep[i], START, ft_strlen(ep[i]));
+			env = ft_substr(ep[i], START - 1, ft_strlen(ep[i]));
 			if (!env)
 				exit(EXIT_FAILURE);
 			ret = ft_splitpath(env, ':');
