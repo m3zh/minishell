@@ -25,16 +25,16 @@ void	ft_free(char *s)
 	s = NULL;
 }
 
-void	free_arr(char **path)
+void	free_arr(char **array)
 {
 	int	i;
 
 	i = 0;
-	while (path && path[i])
-		free(path[i++]);
-	if (path)
-		free(path);
-	path = 0;
+	while (array && array[i])
+		free(array[i++]);
+	if (array)
+		free(array);
+	array = 0;
 }
 
 void	free_struct(t_shell *s)

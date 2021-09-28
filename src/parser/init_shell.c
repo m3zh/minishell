@@ -26,6 +26,8 @@ static char	**get_paths(char **ep)
 			env = ft_substr(ep[i], START - 1, ft_strlen(ep[i]));
 			if (!env)
 				exit(EXIT_FAILURE);
+			else if (ft_strlen(env) == 0)
+				return (NULL);
 			ret = ft_splitpath(env, ':');
 			if (!ret)
 			{
