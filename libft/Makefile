@@ -37,7 +37,9 @@ SRC	=	ft_splitpath.c			\
 		ft_isalnum.c			\
 		ft_atoi.c				\
 		ft_itoa.c				\
+		ft_split_quotes.c		\
 		ft_intlen.c				\
+		ft_strchr.c
 
 OBJS = $(SRC:%.c=%.o)
 

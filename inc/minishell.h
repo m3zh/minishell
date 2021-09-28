@@ -105,7 +105,7 @@ void	ranker(t_shell *shell);
 int		sorter(char *s1, char *s2);
 void	dollar(t_shell *shell);
 void	sheller(t_shell *shell);
-void	exporter(t_shell *shell, int l, int start, int i);
+void	exporter(t_shell *shell, int i, int j);
 void	tilde(t_shell *shell, char *cmd, char *str);
 char	*quote_creator(t_shell *shell, int *l, int start);
 char	*no_quotes(t_shell *shell, int l, int start);

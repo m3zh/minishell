@@ -42,6 +42,8 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size);
 void	ft_putstr_fd(char const *s, int fd);
 long	ft_atoi(const char *nptr);
 char	*ft_itoa(int n);
+char	**ft_split_quotes(char const *str, char c);
 size_t	ft_intlen(long x);
+char	*ft_strchr(const char *s, int c);
 
 #endif

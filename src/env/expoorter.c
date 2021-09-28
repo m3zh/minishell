@@ -14,36 +14,38 @@
 
 /* assistant to the exporter */
 
-static void	check_nextexport(t_shell *shell, int l)
-{
-	char	*s;
+/* static void	check_nextexport(t_shell *shell, int l) */
+/* { */
+/* 	char	*s; */
 
-	while (shell->cmd[0][l] && ft_space(shell->cmd[0][l]))
-		l++;
-	if (shell->cmd[0][l] && shell->cmd[0][l + 7])
-	{
-		s = ft_substr(shell->cmd[0], l, 7);
-		if (!s)
-			malloxit();
-		if (!ft_strcmp(s, "export "))
-			exporter(shell, l + 7, l + 7, 0);
-	}
-}
+/* 	while (shell->cmd[0][l] && ft_space(shell->cmd[0][l])) */
+/* 		l++; */
+/* 	if (shell->cmd[0][l] && shell->cmd[0][l + 7]) */
+/* 	{ */
+/* 		s = ft_substr(shell->cmd[0], l, 7); */
+/* 		if (!s) */
+/* 			malloxit(); */
+/* 		if (!ft_strcmp(s, "export ")) */
+/* 			exporter(shell, l + 7, l + 7, 0); */
+/* 	} */
+/* } */
 
-static int	up_to_equalsign(t_shell *shell, char *str, int i)
-{
-	while (str[i] && str[i] != '=')
-		i += 1;
-	if (str[i] != '=')
-		check_nextexport(shell, i);
-	return (i);
-}
+/* static int	up_to_equalsign(t_shell *shell, char *str, int *i) */
+/* { */
+/* 	while (str[*i] && str[*i] != '=') */
+/* 		*i += 1; */
+/* 	if (str[*i] != '=') */
+/* 		check_nextexport(shell, *i); */
+/* 	return (i); */
+/* } */
 
 static int	valid_export(char *str, int i)
 {
-	char	*s;
 	int		start;
+	char	*s;
 
+	if (!ft_strchr(str, '='))
+		return (0);
 	if (!ft_isalpha(str[i]))
 	{
 		start = i;
@@ -84,31 +86,27 @@ static void	assistant(t_shell *shell, char *str, char *var, int i)
 /* prepares the variables for the expoort function or the change_var */
 /* function if the variable already exists */
 
-void	exporter(t_shell *shell, int l, int start, int i)
+void	exporter(t_shell *shell, int i, int j)
 {
-	char	*str;
 	char	*var;
+	char	**tab;
 
-	while (shell->cmd[0][l] && ft_space(shell->cmd[0][l]))
-		l += 1;
-	while (shell->cmd[0][l]
-			&& !ft_space(shell->cmd[0][l]) && shell->cmd[0][l] != '"')
-		l += 1;
-	if (shell->cmd[0][l] == '"')
-		str = quote_creator(shell, &l, start);
-	else
-		str = no_quotes(shell, l, start);
-	if (valid_export(str, i))
+	tab = ft_split_quotes(shell->cmd[0], ' ');
+	while (!ft_strcmp(tab[j], "export"))
+		j += 1;
+	while (tab[j])
 	{
-		i = up_to_equalsign(shell, str, i);
-		if (!str[i])
-			return ;
-		var = ft_substr(str, 0, i);
-		if (!var)
-			malloxit();
-		assistant(shell, str, var, i);
-		free(var);
+		i = 0;
+		if (valid_export(tab[j], i))
+		{
+			while (tab[j][i] && tab[j][i] != '=')
+				i += 1;
+			var = ft_substr(tab[j], 0, i);
+			if (!var)
+				malloxit();
+			assistant(shell, tab[j], var, i);
+			free(var);
+		}
+		j += 1;
 	}
-	free(str);
-	check_nextexport(shell, l);
 }
