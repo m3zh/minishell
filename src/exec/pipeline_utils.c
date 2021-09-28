@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/26 14:26:08 by gneve            ###   ########.fr       */
+/*   Updated: 2021/09/28 14:33:21 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,16 @@ void	close_fds(t_shell *s)
 
 static void	switch_pipefds(int *fd, int new_fd, int REDIR)
 {
-	if (REDIR == READ)
-	{
-		if (*fd == READ)
-			*fd = new_fd;
-		else
-			close(new_fd);
-	}
-	else if (REDIR == WRITE)
-	{
-		if (*fd == WRITE)
-			*fd = new_fd;
-		else
-			close(new_fd);
-	}
+	if (*fd == REDIR)
+		*fd = new_fd;
+	else
+		close(new_fd);
 }
 
 void	get_fds(t_shell *s, int i)
 {
 	close(s->pipe_one[READ]);
-	open_redir(s);
+	checkfile_redir(s);
 	if (i > 0)
 		switch_pipefds(&s->file.fdin,
 			s->pipe_two[READ], READ);

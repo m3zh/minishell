@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 08:59:42 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/22 15:45:58 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/28 15:25:40 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,8 @@ static void	get_outfile(t_shell *s, char **arg, int i)
 		i++;
 	}
 	arg[file] = 0;
-	while (i < file)
-	{
-		reset_string(arg, i);
-		i++;
-	}
+	while (i++ < file)
+		reset_string(arg, i - 1);
 }
 
 static void	get_infile(t_shell *s, char **arg, int i, int file)
@@ -50,11 +47,8 @@ static void	get_infile(t_shell *s, char **arg, int i, int file)
 		return (bash_error_unexpected_token(s, 0));
 	reset_string(arg, i);
 	reset_string(arg, file);
-	if (arg[file + 1] && !ft_strcmp(arg[file + 1], "<"))
-		get_infile(s, arg, i, file + 1);
 	while (arg[++file])
 	{
-		s->file.more = 1;
 		if (arg[i])
 			free(arg[i]);
 		arg[i] = ft_strdup(arg[file]);

@@ -6,13 +6,13 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 15:17:14 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/23 23:00:48 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/28 15:03:41 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	redir_output(t_shell *s)
+static void	redir_output(t_shell *s)
 {
 	if (s->file.ow)
 		s->file.fdout = open(s->file.outfile,
@@ -25,7 +25,7 @@ void	redir_output(t_shell *s)
 	ft_free(s->file.outfile);
 }
 
-void	redir_input(t_shell *s)
+static void	redir_input(t_shell *s)
 {
 	if (s->file.infile)
 		s->file.fdin = open(s->file.infile, O_RDONLY);
@@ -34,12 +34,12 @@ void	redir_input(t_shell *s)
 	ft_free(s->file.infile);
 }
 
-void	redir_heredoc(t_shell *s)
+void	checkfile_redir(t_shell *s)
 {
-	close(s->file.tmpfd);
-	if (s->file.here_doc)
-		s->file.fdin = open(TMPFILE, O_RDONLY);
-	if (s->file.fdin < 0)
-		bash_error_w_filename(s, s->file.infile);
-	unlink(TMPFILE);
+	if (s->file.stopword)
+		get_heredoc(s);
+	else if (s->file.infile)
+		redir_input(s);
+	if (s->file.ow || s->file.ap)
+		redir_output(s);
 }

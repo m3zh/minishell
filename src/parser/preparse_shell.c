@@ -6,22 +6,11 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:21:53 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/24 06:53:36 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/28 14:38:55 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-int	open_redir(t_shell *s)
-{
-	if (s->file.stopword)
-		get_heredoc(s);
-	else if (s->file.infile)
-		redir_input(s);
-	if (s->file.outfile)
-		redir_output(s);
-	return (0);
-}
 
 int	is_builtin(char *cmd)
 {

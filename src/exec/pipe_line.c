@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/26 14:30:51 by gneve            ###   ########.fr       */
+/*   Updated: 2021/09/28 14:34:38 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	parent_process(t_shell *s, int i)
 	free_redir(s);
 }
 
-static void	close_stdinout(t_shell *s)
+static void	dup_stdinout(t_shell *s)
 {
 	if (s->file.fdin != READ)
 	{
@@ -58,7 +58,7 @@ static void	child_process(t_shell *s, int i)
 
 	j = -1;
 	get_fds(s, i);
-	close_stdinout(s);
+	dup_stdinout(s);
 	execve(s->arg[0], s->arg, s->minienv);
 	while (s->path[++j])
 	{
