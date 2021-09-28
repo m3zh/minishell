@@ -6,21 +6,11 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/28 14:33:21 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/28 15:38:18 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-int	invalid_cmd(t_shell *s)
-{
-	if (is_builtin(s->arg[0]) || not_executable(s, s->arg[0]))
-	{
-		free_arr(s->arg);
-		return (1);
-	}
-	return (0);
-}
 
 void	fork_failed(t_shell *s)
 {

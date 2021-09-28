@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/28 14:34:38 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/28 15:43:35 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	pipe_line(t_shell *s)
 		signal(SIGQUIT, handle_sigquit);
 		reset_shell(s);
 		s->arg = parse_arg(s, i);
-		if (invalid_cmd(s))
+		if (not_pipeable_cmd(s))
 			continue ;
 		g_proc = fork();
 		if (g_proc < 0)

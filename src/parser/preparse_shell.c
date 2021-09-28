@@ -6,19 +6,19 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:21:53 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/28 14:38:55 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/28 15:52:25 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	is_builtin(char *cmd)
+static int	builtin_cmd(char *cmd)
 {
 	return (!ft_strcmp("exit", cmd) || !ft_strcmp("export", cmd)
 		|| !ft_strcmp("unset", cmd) || !ft_strcmp("cd", cmd));
 }
 
-int	not_executable(t_shell *s, char *cmd)
+static int	not_executable_cmd(t_shell *s, char *cmd)
 {
 	int			j;
 	char		*exec;
@@ -46,6 +46,17 @@ int	not_executable(t_shell *s, char *cmd)
 	}
 	bash_error_cmd_not_found(s, cmd);
 	return (1);
+}
+
+int	not_pipeable_cmd(t_shell *s)
+{
+	if (heredoc_with_nocmd(s) || builtin_cmd(s->arg[0])
+		|| not_executable_cmd(s, s->arg[0]))
+	{
+		free_arr(s->arg);
+		return (1);
+	}
+	return (0);
 }
 
 int	preparse_shell(t_shell *shell, char *line)

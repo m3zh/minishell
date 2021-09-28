@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/28 14:41:21 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/28 15:53:05 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@
  */
 
 int		preparse_shell(t_shell *shell, char *line);
-int		is_builtin(char *cmd);
-int		not_executable(t_shell *s, char *cmd);
 char	**parse_arg(t_shell *s, int i);
 void	init_shell(t_shell *s, char **envp);
 void	reinit_shell(t_shell *s);
@@ -70,8 +68,8 @@ void	check_quotes(t_shell *s, char **arg, int i);
  * EXECUTION
  */
 
-int		check_cmd(t_shell *s);
-int		invalid_cmd(t_shell *s);
+int		not_pipeable_cmd(t_shell *s);
+int		heredoc_with_nocmd(t_shell *s);
 void	checkfile_redir(t_shell *s);
 void	cd(t_shell *shell);
 void	exec_shell(t_shell *s);

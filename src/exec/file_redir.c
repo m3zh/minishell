@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 15:17:14 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/28 15:03:41 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/28 16:03:22 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ void	checkfile_redir(t_shell *s)
 		get_heredoc(s);
 	else if (s->file.infile)
 		redir_input(s);
-	if (s->file.ow || s->file.ap)
+	if (s->file.outfile)
 		redir_output(s);
 }
