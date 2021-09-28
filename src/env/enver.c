@@ -17,16 +17,13 @@
 static void	unsetter(t_shell *shell)
 {
 	int		i;
-	char	*str;
+	char	**str;
 
-	i = ft_strlen(shell->cmd[0]);
-	while (i > 0 && !ft_space(shell->cmd[0][i]))
-		i -= 1;
-	str = ft_substr(shell->cmd[0], i + 1, ft_strlen(shell->cmd[0]));
-	if (!str)
-		malloxit();
-	unset(shell, str);
-	free(str);
+	i = 0;
+	str = ft_split(shell->cmd[0], ' ');
+	while (str[++i])
+		unset(shell, str[i]);
+	free_arr(str);
 }
 
 /* reproduces the behaviour of the "export" command */

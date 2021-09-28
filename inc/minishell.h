@@ -115,7 +115,7 @@ void	mover(t_shell *shell, char *str, int *i);
  * UTILS
  */
 
-void	free_arr(char **path);
+void	free_arr(char **array);
 void	free_redir(t_shell *s);
 int		ft_exit(t_shell *shell, char *err);
 int		starts_with(char *s1, char *s2);
