@@ -17,7 +17,7 @@ ccwhite = "\033[0;0m"
 
 CC = gcc -g3
 CFLAGS = -Wall -Wextra -Werror
-#CFLAGS += -fsanitize=address
+CFLAGS += -fsanitize=address
 
 OS = $(shell uname -s)
 
@@ -44,7 +44,6 @@ SRC = \
 		./src/exec/cd.c \
 		./src/env/var.c \
 		./src/env/expoorter.c \
-		./src/env/export_utils.c \
 		./src/env/unset.c \
 		./src/env/export.c \
 		./src/env/enver.c \

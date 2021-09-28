@@ -12,33 +12,6 @@
 
 #include "../../inc/minishell.h"
 
-/* assistant to the exporter */
-
-/* static void	check_nextexport(t_shell *shell, int l) */
-/* { */
-/* 	char	*s; */
-
-/* 	while (shell->cmd[0][l] && ft_space(shell->cmd[0][l])) */
-/* 		l++; */
-/* 	if (shell->cmd[0][l] && shell->cmd[0][l + 7]) */
-/* 	{ */
-/* 		s = ft_substr(shell->cmd[0], l, 7); */
-/* 		if (!s) */
-/* 			malloxit(); */
-/* 		if (!ft_strcmp(s, "export ")) */
-/* 			exporter(shell, l + 7, l + 7, 0); */
-/* 	} */
-/* } */
-
-/* static int	up_to_equalsign(t_shell *shell, char *str, int *i) */
-/* { */
-/* 	while (str[*i] && str[*i] != '=') */
-/* 		*i += 1; */
-/* 	if (str[*i] != '=') */
-/* 		check_nextexport(shell, *i); */
-/* 	return (i); */
-/* } */
-
 static int	valid_export(char *str, int i)
 {
 	int		start;
@@ -62,13 +35,10 @@ static int	valid_export(char *str, int i)
 
 static void	assistant(t_shell *shell, char *str, char *var, int i)
 {
-	int		l;
 	char	*newv;
 	char	*value;
 
-	l = i;
-	mover(shell, str, &i);
-	value = ft_substr(str, l + 1, i - l);
+	value = ft_substr(str, i + 1, ft_strlen(str));
 	if (!value)
 		malloxit();
 	newv = get_var(shell, var);

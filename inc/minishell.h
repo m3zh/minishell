@@ -101,9 +101,6 @@ void	dollar(t_shell *shell);
 void	sheller(t_shell *shell);
 void	exporter(t_shell *shell, int i, int j);
 void	tilde(t_shell *shell, char *cmd, char *str);
-char	*quote_creator(t_shell *shell, int *l, int start);
-char	*no_quotes(t_shell *shell, int l, int start);
-void	mover(t_shell *shell, char *str, int *i);
 
 /*
  * UTILS
