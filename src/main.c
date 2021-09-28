@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:26 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/26 14:39:00 by gneve            ###   ########.fr       */
+/*   Updated: 2021/09/28 08:56:27 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	prompt(t_shell *shell)
 	while (MINISHELL)
 	{
 		signal(SIGQUIT, SIG_IGN);
-		input = readline("minishell$ ");
+		input = readline(PROMPT);
 		if (!input)
 			handle_sigusr1(SIGUSR1);
 		ft_history(str, input);
