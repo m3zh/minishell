@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:15:12 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/20 18:05:48 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/28 10:08:35 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,18 @@ int	cpystr_w_quotes(char *s, char *arr, int i, int Q)
 	return (i + 1);
 }
 
-int	cpystr_w_char(char *s, char *arr, int i, int c)
+int	cpystr_w_char(char *s, char *arr, int i)
 {
 	int	j;
 
 	j = 0;
-	while (s[i] && s[i] != c)
+	while (s[i] && !ft_space(s[i]))
 		arr[j++] = s[i++];
 	arr[j] = '\0';
 	return (i);
 }
 
-static int	word_count(t_shell *sh, char *s, char c)
+static int	word_count(t_shell *sh, char *s)
 {
 	int	i;
 	int	count;
@@ -58,14 +58,14 @@ static int	word_count(t_shell *sh, char *s, char c)
 			i = get_quote_count(sh, s, i, DOUBLEQTS);
 			count++;
 		}
-		else if ((s[i] != c && s[i + 1] == c) || (s[i] != c
-				&& s[i + 1] == '\0'))
+		else if ((!ft_space(s[i]) && ft_space(s[i + 1]))
+			|| (!ft_space(s[i]) && s[i + 1] == '\0'))
 			count++;
 	}
 	return (count);
 }
 
-static char	**fill_arr(int words, char *s, char c, char **arr)
+static char	**fill_arr(int words, char *s, char **arr)
 {
 	int	i;
 	int	k;
@@ -80,14 +80,14 @@ static char	**fill_arr(int words, char *s, char c, char **arr)
 			free_arr(arr);
 			return (NULL);
 		}
-		while (s[i] && s[i] == c)
+		while (s[i] && ft_space(s[i]))
 			i++;
 		if ((s[i] && s[i] == SINGLEQTS))
 			i = cpystr_w_quotes(s, arr[k], i, SINGLEQTS);
 		else if ((s[i] && s[i] == DOUBLEQTS))
 			i = cpystr_w_quotes(s, arr[k], i, DOUBLEQTS);
 		else
-			i = cpystr_w_char(s, arr[k], i, c);
+			i = cpystr_w_char(s, arr[k], i);
 		k++;
 	}
 	arr[k] = 0;
@@ -101,9 +101,10 @@ char	**ft_specialsplit(t_shell *sh, char *s, char c)
 
 	if (!s)
 		return (NULL);
-	words = word_count(sh, s, c);
+	(void)c;
+	words = word_count(sh, s);
 	arr = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!arr)
 		return (NULL);
-	return (fill_arr(words, s, c, arr));
+	return (fill_arr(words, s, arr));
 }
