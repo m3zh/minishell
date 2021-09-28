@@ -38,6 +38,11 @@ int	not_executable(t_shell *s, char *cmd)
 	j = -1;
 	if (stat(cmd, &sb) == 0 && sb.st_mode & S_IXUSR)
 		return (0);
+	if (!s->path)
+	{
+		bash_error_cmd_not_found(s, cmd);
+		return (1);
+	}
 	while (s->path[++j])
 	{
 		exec = ft_join(s->path[j], cmd);
