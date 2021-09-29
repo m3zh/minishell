@@ -61,6 +61,21 @@ static void	homer(t_shell *shell, char *str)
 	free(pwd);
 }
 
+static void	dollar_path(t_shell *shell, char *option)
+{
+	char	*str;
+	char	*val;
+
+	str = ft_substr(option, 1, ft_strlen(option));
+	if (!str)
+		exit(EXIT_FAILURE);
+	val = get_var(shell, str);
+	folder(shell, val);
+	free(str);
+	if (val)
+		free(val);
+}
+
 /* redirects to the right functions */
 
 static void	redirect(t_shell *shell, char *cmd, char *option, char *home)
@@ -75,6 +90,8 @@ static void	redirect(t_shell *shell, char *cmd, char *option, char *home)
 				tilde(shell, option, home);
 			else if (starts_with("-", option) && ft_strlen(option) == 1)
 				tilde(shell, shell->tilde, home);
+			else if (starts_with("$", option))
+				dollar_path(shell, option);
 			else
 				folder(shell, option);
 		}
