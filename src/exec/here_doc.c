@@ -12,6 +12,21 @@
 
 #include "../../inc/minishell.h"
 
+static int	ctrld_eof_error(t_shell *shell)
+{
+	char	*str;
+
+	str = ft_substr(shell->cmd[0], 3, ft_strlen(shell->cmd[0]));
+	ft_putstr_fd("bash: warning: ", STDERR);
+	ft_putstr_fd("here-document at line 1 delimited by end-of-file ", STDERR);
+	ft_putstr_fd("(wanted `", STDERR);
+	ft_putstr_fd(str, STDERR);
+	ft_putstr_fd("')\n", STDERR);
+	free(str);
+	return (1);
+}
+
+
 static void	redir_heredoc(t_shell *s)
 {
 	close(s->file.tmpfd);
@@ -31,6 +46,8 @@ int		heredoc_with_nocmd(t_shell *s)
 	while (1)
 	{
 		word = readline("> ");
+		if (!word)
+			return (ctrld_eof_error(s));
 		if (!ft_strcmp(word, s->file.stopword))
 			break ;
 		free(word);
@@ -43,6 +60,7 @@ int		heredoc_with_nocmd(t_shell *s)
 		
 }
 
+
 void	get_heredoc(t_shell *s)
 {
 	char	*word;
@@ -54,6 +72,8 @@ void	get_heredoc(t_shell *s)
 	while (1)
 	{
 		word = readline("> ");
+		if (!word)
+			ctrld_eof_error(s);
 		if (!ft_strcmp(word, s->file.stopword))
 			break ;
 		write(s->file.tmpfd, word, ft_strlen(word));
