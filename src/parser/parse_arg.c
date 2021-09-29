@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 08:59:42 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/29 20:52:17 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/29 20:56:47 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ static int	get_outfile(t_shell *s, char **arg, int i, int file)
 		swap_file(s, &s->file.outfile, arg, file);
 	else
 		return (bash_error_unexpected_token(s, 0));
-	free(arg[i]);
-	arg[i] = NULL;
-	free(arg[file]);
-	arg[file] = NULL;
+	reset_string(arg, i);
+	reset_string(arg, file);
 	while (arg[++file])
 	{
 		if (arg[i])
@@ -32,7 +30,7 @@ static int	get_outfile(t_shell *s, char **arg, int i, int file)
 		i++;
 	}
 	if (arg[i])
-		free(arg[i]);
+		reset_string(arg, i);
 	arg[i] = 0;
 	while (i++ < file)
 		reset_string(arg, i - 1);
@@ -47,10 +45,8 @@ static int	get_infile(t_shell *s, char **arg, int i, int file)
 		swap_file(s, &s->file.stopword, arg, file);
 	else
 		return (bash_error_unexpected_token(s, 0));
-	free(arg[i]);
-	arg[i] = NULL;
-	free(arg[file]);
-	arg[file] = NULL;
+	reset_string(arg, i);
+	reset_string(arg, file);
 	while (arg[++file])
 	{
 		if (arg[i])
@@ -61,18 +57,15 @@ static int	get_infile(t_shell *s, char **arg, int i, int file)
 		i++;
 	}
 	if (arg[i])
-		free(arg[i]);
+		reset_string(arg, i);
 	arg[i] = 0;
 	while (i++ < file)
 		reset_string(arg, i - 1);
 	return (1);
 }
 
-static int	check_redir(t_shell *s, char **arg, int i)
+static int	check_redir(t_shell *s, char **arg, int i, int redir)
 {
-	int	redir;
-
-	redir = 0;
 	if (s->single_qts || s->double_qts)
 		return (0);
 	if (!ft_strcmp(arg[i], ">"))
@@ -111,7 +104,7 @@ char	**parse_arg(t_shell *s, int j)
 	{
 		check_quotes(s, arg, i);
 		check_echo(s, arg, i);
-		if (check_redir(s, arg, i) && i >= 0)
+		if (check_redir(s, arg, i, 0) && i >= 0)
 			i--;
 	}
 	s->single_qts = 0;
