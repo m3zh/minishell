@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 08:59:31 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/29 08:30:06 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/29 10:20:17 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	bash_error_unexpected_token(t_shell *s, int err)
 	else if (err == 2)
 		write(STDERR_FILENO,
 			"-bash: syntax error near unexpected token `|'\n", 46);
-	s->error_skip = 1;
+	s->syntax_error = 1;
 	s->cmdretval = 2;
-	return (-1);
+	return (0);
 }
 
 /* 

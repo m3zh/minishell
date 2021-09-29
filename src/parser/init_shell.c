@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:42:58 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/28 15:24:56 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/29 10:21:37 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	init_shell(t_shell *s, char **envp)
 	s->cmdnotfound = 0;
 	s->cmdretval = 0;
 	s->error_skip = 0;
+	s->syntax_error = 0;
 	s->no_path = 0;
 	s->file.fdin = READ;
 	s->file.fdout = WRITE;
@@ -106,6 +107,7 @@ void	reinit_shell(t_shell *s)
 {
 	s->no_path = 0;
 	s->error_skip = 0;
+	s->syntax_error = 0;
 	init_fileredir(s);
 	free_arr(s->path);
 	s->path = get_paths(s->minienv);
