@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strings.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 11:45:12 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/26 14:37:15 by gneve            ###   ########.fr       */
+/*   Updated: 2021/09/29 11:39:40 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,17 @@ void	str_replace(char **dst, char *src)
 	free(src);
 }
 
-void	swap_file(char **file, char **arg, int i)
+void	swap_file(t_shell *s, char **file, char **arg, int i)
 {
+	int	fd;
+
 	if (*file)
+	{
+		fd = open(*file, O_CREAT | O_RDWR, 0644);
+		if (fd < 0)
+			ft_exit(s, "File not created");
 		free(*file);
+	}
 	*file = ft_strdup(arg[i]);
 	if (!*file)
 		malloxit();

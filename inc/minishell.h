@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/29 08:30:26 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/29 11:38:43 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	bash_error_w_filename(t_shell *s, char *file);
 void	bash_error_cmd_not_found(t_shell *s, char *cmd);
 void	bash_syntaxerror(t_shell *s);
 void	str_replace(char **dst, char *src);
-void	swap_file(char **file, char **arg, int i);
+void	swap_file(t_shell *s, char **file, char **arg, int i);
 void	malloxit(void);
 char	**ft_presplit(t_shell *sh, char *s, char c);
 char	**ft_specialsplit(t_shell *sh, char *s, char c);
