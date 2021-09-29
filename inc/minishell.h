@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/28 15:53:05 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/29 08:30:26 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	reset_string(char **s, int i);
 void	reset_shell(t_shell *s);
 void	free_struct(t_shell *s);
 void	ft_free(char *s);
-void	bash_error_unexpected_token(t_shell *s, int err);
+int 	bash_error_unexpected_token(t_shell *s, int err);
 void	bash_error_w_filename(t_shell *s, char *file);
 void	bash_error_cmd_not_found(t_shell *s, char *cmd);
 void	bash_syntaxerror(t_shell *s);

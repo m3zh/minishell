@@ -6,23 +6,23 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 08:59:42 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/28 15:25:40 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/29 08:40:24 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static void	get_outfile(t_shell *s, char **arg, int i)
+static int	get_outfile(t_shell *s, char **arg, int i, int file)
 {
-	int	file;
+	int	last;
 
-	file = i + 1;
 	if (arg[file])
 		swap_file(&s->file.outfile, arg, file);
 	else
 		return (bash_error_unexpected_token(s, 0));
 	reset_string(arg, i);
 	reset_string(arg, file);
+	last = i - 1;
 	while (arg[++file])
 	{
 		if (arg[i])
@@ -32,13 +32,16 @@ static void	get_outfile(t_shell *s, char **arg, int i)
 			malloxit();
 		i++;
 	}
-	arg[file] = 0;
+	arg[i] = 0;
 	while (i++ < file)
 		reset_string(arg, i - 1);
+	return (last);
 }
 
-static void	get_infile(t_shell *s, char **arg, int i, int file)
+static int	get_infile(t_shell *s, char **arg, int i, int file)
 {
+	int	last;
+	
 	if (arg[file] && s->file.input)
 		swap_file(&s->file.infile, arg, file);
 	else if (arg[file] && s->file.here_doc)
@@ -47,6 +50,7 @@ static void	get_infile(t_shell *s, char **arg, int i, int file)
 		return (bash_error_unexpected_token(s, 0));
 	reset_string(arg, i);
 	reset_string(arg, file);
+	last = i - 1;
 	while (arg[++file])
 	{
 		if (arg[i])
@@ -56,15 +60,16 @@ static void	get_infile(t_shell *s, char **arg, int i, int file)
 			malloxit();
 		i++;
 	}
-	arg[file] = 0;
+	arg[i] = 0;
 	while (i++ < file)
 		reset_string(arg, i - 1);
+	return (last);
 }
 
-static void	check_redir(t_shell *s, char **arg, int i)
+static int	check_redir(t_shell *s, char **arg, int i)
 {
 	if (s->single_qts || s->double_qts)
-		return ;
+		return (i);
 	if (!ft_strcmp(arg[i], ">"))
 		s->file.ow = 1;
 	else if (!ft_strcmp(arg[i], ">>"))
@@ -74,10 +79,11 @@ static void	check_redir(t_shell *s, char **arg, int i)
 	else if (!ft_strcmp(arg[i], "<<"))
 		s->file.here_doc = 1;
 	if ((s->file.ow || s->file.ap) && !s->file.outfile)
-		get_outfile(s, arg, i);
+		i = get_outfile(s, arg, i, i + 1);
 	else if ((s->file.input && !s->file.infile)
 		|| (s->file.here_doc && !s->file.stopword))
-		get_infile(s, arg, i, i + 1);
+		i = get_infile(s, arg, i, i + 1);
+	return (i);
 }
 
 char	**parse_arg(t_shell *s, int j)
@@ -93,7 +99,7 @@ char	**parse_arg(t_shell *s, int j)
 	{
 		check_quotes(s, arg, i);
 		check_echo(s, arg, i);
-		check_redir(s, arg, i);
+		i = check_redir(s, arg, i);
 	}
 	s->single_qts = 0;
 	return (arg);

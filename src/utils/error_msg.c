@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 08:59:31 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/26 14:35:32 by gneve            ###   ########.fr       */
+/*   Updated: 2021/09/29 08:30:06 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * or when pipe is misplaced
  */
 
-void	bash_error_unexpected_token(t_shell *s, int err)
+int	bash_error_unexpected_token(t_shell *s, int err)
 {
 	if (!err)
 		write(STDERR_FILENO,
@@ -28,6 +28,7 @@ void	bash_error_unexpected_token(t_shell *s, int err)
 			"-bash: syntax error near unexpected token `|'\n", 46);
 	s->error_skip = 1;
 	s->cmdretval = 2;
+	return (-1);
 }
 
 /* 
