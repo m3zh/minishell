@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/29 18:12:01 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/29 20:48:56 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static void	child_process(t_shell *s, int i)
 		execve(cmd, s->arg, s->minienv);
 		free(cmd);
 	}
+	free_arr(s->arg);
 	close(s->file.fdin);
 	close(s->file.fdout);
 }

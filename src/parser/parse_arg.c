@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 08:59:42 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/29 16:33:06 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/29 20:52:17 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static int	get_outfile(t_shell *s, char **arg, int i, int file)
 			malloxit();
 		i++;
 	}
+	if (arg[i])
+		free(arg[i]);
 	arg[i] = 0;
 	while (i++ < file)
 		reset_string(arg, i - 1);
@@ -58,6 +60,8 @@ static int	get_infile(t_shell *s, char **arg, int i, int file)
 			malloxit();
 		i++;
 	}
+	if (arg[i])
+		free(arg[i]);
 	arg[i] = 0;
 	while (i++ < file)
 		reset_string(arg, i - 1);

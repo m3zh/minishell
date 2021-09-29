@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:08:28 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/29 18:09:39 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/29 20:48:47 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ int		heredoc_with_nocmd(t_shell *s)
 	s->file.stopword = 0;
 	checkfile_redir(s);
 	return (1);
-		
 }
-
 
 void	get_heredoc(t_shell *s)
 {
@@ -69,7 +67,7 @@ void	get_heredoc(t_shell *s)
 	word = 0;
 	s->file.tmpfd = open(TMPFILE, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (s->file.tmpfd < 0)
-		perror("");
+		ft_exit(s, "Tmpfile");
 	while (1)
 	{
 		word = readline("> ");
@@ -85,6 +83,7 @@ void	get_heredoc(t_shell *s)
 	if (not_executable_cmd(s, s->arg[0]))
 	{
 		ft_free(s->file.stopword);
+		free_arr(s->arg);
 		s->error_skip = 1;
 		return ;
 	}
