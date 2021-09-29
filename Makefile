@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 12:21:19 by mdesalle          #+#    #+#              #
-#    Updated: 2021/09/29 16:34:42 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/09/29 16:40:12 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ ccwhite = "\033[0;0m"
 
 CC = gcc -g3
 CFLAGS = -Wall -Wextra -Werror
-CFLAGS += -fsanitize=address
+#CFLAGS += -fsanitize=address
 
 OS = $(shell uname -s)
 

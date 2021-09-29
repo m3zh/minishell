@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:21:53 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/29 16:16:33 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/29 16:37:27 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	not_executable_cmd(t_shell *s, char *cmd)
 int	not_pipeable_cmd(t_shell *s)
 {
 	if (heredoc_with_nocmd(s) || builtin_cmd(s->arg[0])
-		|| not_executable_cmd(s, s->arg[0]))
+		|| (!s->file.stopword && not_executable_cmd(s, s->arg[0])))
 	{
 		free_arr(s->arg);
 		return (1);
