@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:08:28 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/28 16:21:51 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/29 14:33:40 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		heredoc_with_nocmd(t_shell *s)
 {
 	char	*word;
 
-	if (!s->file.stopword || (ft_strcmp(s->file.stopword, "echo") && ft_strcmp(s->file.stopword, "cat")))
+	if (!s->file.stopword || (s->file.stopword && s->arg[0]))
 		return (0);
 	while (1)
 	{
@@ -45,15 +45,19 @@ int		heredoc_with_nocmd(t_shell *s)
 
 void	get_heredoc(t_shell *s)
 {
+	int		status;
 	char	*word;
 
+	shell_signal();
 	word = 0;
 	s->file.tmpfd = open(TMPFILE, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (s->file.tmpfd < 0)
 		ft_exit(s, "Heredoc");
-	while (1)
+	while (!WIFSIGNALED(status))
 	{
 		word = readline("> ");
+		if (!word)
+			handle_sigusr1(SIGUSR1);
 		if (!ft_strcmp(word, s->file.stopword))
 			break ;
 		write(s->file.tmpfd, word, ft_strlen(word));

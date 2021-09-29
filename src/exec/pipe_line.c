@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/29 10:25:33 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/29 16:15:55 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ static void	child_process(t_shell *s, int i)
 	j = -1;
 	get_fds(s, i);
 	dup_stdinout(s);
+	if (!s->arg[0])
+		return ;
 	execve(s->arg[0], s->arg, s->minienv);
-	while (s->path[++j])
+	while (s->arg[0] && s->path[++j])
 	{
 		cmd = ft_join(s->path[j], s->arg[0]);
 		if (!cmd)

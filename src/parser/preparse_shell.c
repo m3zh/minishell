@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:21:53 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/28 15:52:25 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/29 16:16:33 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	builtin_cmd(char *cmd)
 		|| !ft_strcmp("unset", cmd) || !ft_strcmp("cd", cmd));
 }
 
-static int	not_executable_cmd(t_shell *s, char *cmd)
+int	not_executable_cmd(t_shell *s, char *cmd)
 {
 	int			j;
 	char		*exec;

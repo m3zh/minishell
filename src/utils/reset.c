@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 11:24:04 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/26 14:37:10 by gneve            ###   ########.fr       */
+/*   Updated: 2021/09/29 15:19:28 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	reset_string(char **s, int i)
 void	reset_shell(t_shell *s)
 {
 	s->error_skip = 0;
+	s->syntax_error = 0;
 	s->cmdnotfound = 0;
 	s->file.infile = 0;
 	s->file.outfile = 0;
