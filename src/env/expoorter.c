@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expoorter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneve <gneve@student.s19.be>               +#+  +:+       +#+        */
+/*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:20:20 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/26 14:36:10 by gneve            ###   ########.fr       */
+/*   Updated: 2021/09/29 22:32:50 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,5 @@ void	exporter(t_shell *shell, int i, int j)
 		}
 		j += 1;
 	}
+	free_arr(tab);
 }
