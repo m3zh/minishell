@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 08:59:42 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/29 10:17:42 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/29 10:41:53 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ static int	get_outfile(t_shell *s, char **arg, int i, int file)
 	arg[i] = 0;
 	while (i++ < file)
 		reset_string(arg, i - 1);
-	s->file.ap = 0;
-	s->file.ow = 0;
 	return (1);
 }
 
@@ -63,7 +61,6 @@ static int	get_infile(t_shell *s, char **arg, int i, int file)
 	arg[i] = 0;
 	while (i++ < file)
 		reset_string(arg, i - 1);
-	s->file.input = 0;
 	return (1);
 }
 
@@ -75,17 +72,25 @@ static int	check_redir(t_shell *s, char **arg, int i)
 	if (s->single_qts || s->double_qts)
 		return (0);
 	if (!ft_strcmp(arg[i], ">"))
+	{
 		s->file.ow = 1;
-	else if (!ft_strcmp(arg[i], ">>"))
-		s->file.ap = 1;
-	else if (!ft_strcmp(arg[i], "<"))
-		s->file.input = 1;
-	else if (!ft_strcmp(arg[i], "<<"))
-		s->file.here_doc = 1;
-	if (s->file.ow || s->file.ap)
 		redir = get_outfile(s, arg, i, i + 1);
-	else if (s->file.input || (s->file.here_doc && !s->file.stopword))
+	}
+	else if (!ft_strcmp(arg[i], ">>"))
+	{
+		s->file.ap = 1;
+		redir = get_outfile(s, arg, i, i + 1);
+	}
+	else if (!ft_strcmp(arg[i], "<"))
+	{
+		s->file.input = 1;
 		redir = get_infile(s, arg, i, i + 1);
+	}		
+	else if (!ft_strcmp(arg[i], "<<"))
+	{
+		s->file.here_doc = 1;
+		redir = get_infile(s, arg, i, i + 1);
+	}
 	return (redir);
 }
 
