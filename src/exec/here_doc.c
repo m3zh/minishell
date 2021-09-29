@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:08:28 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/29 20:48:47 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/29 21:51:55 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ void	get_heredoc(t_shell *s)
 		signal(SIGQUIT, SIG_IGN);
 		word = readline("> ");
 		if (!word)
+		{
 			ctrld_eof_error(s);
+			break ;
+		}
 		if (!ft_strcmp(word, s->file.stopword))
 			break ;
 		write(s->file.tmpfd, word, ft_strlen(word));
