@@ -45,6 +45,7 @@ int		heredoc_with_nocmd(t_shell *s)
 		return (0);
 	while (1)
 	{
+		signal(SIGQUIT, SIG_IGN);
 		word = readline("> ");
 		if (!word)
 			return (ctrld_eof_error(s));
@@ -70,6 +71,7 @@ void	get_heredoc(t_shell *s)
 		ft_exit(s, "Tmpfile");
 	while (1)
 	{
+		signal(SIGQUIT, SIG_IGN);
 		word = readline("> ");
 		if (!word)
 			ctrld_eof_error(s);
