@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/29 11:38:43 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/29 17:40:03 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	check_quotes(t_shell *s, char **arg, int i);
  */
 
 int		not_pipeable_cmd(t_shell *s);
+int     not_executable_cmd(t_shell *s, char *cmd);
 int		heredoc_with_nocmd(t_shell *s);
 void	checkfile_redir(t_shell *s);
 void	cd(t_shell *shell);

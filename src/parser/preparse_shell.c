@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:21:53 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/28 15:52:25 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/29 16:37:27 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	builtin_cmd(char *cmd)
 		|| !ft_strcmp("unset", cmd) || !ft_strcmp("cd", cmd));
 }
 
-static int	not_executable_cmd(t_shell *s, char *cmd)
+int	not_executable_cmd(t_shell *s, char *cmd)
 {
 	int			j;
 	char		*exec;
@@ -51,7 +51,7 @@ static int	not_executable_cmd(t_shell *s, char *cmd)
 int	not_pipeable_cmd(t_shell *s)
 {
 	if (heredoc_with_nocmd(s) || builtin_cmd(s->arg[0])
-		|| not_executable_cmd(s, s->arg[0]))
+		|| (!s->file.stopword && not_executable_cmd(s, s->arg[0])))
 	{
 		free_arr(s->arg);
 		return (1);
