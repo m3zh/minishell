@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:26 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/28 08:56:27 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/30 18:00:15 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,6 @@ int	main(int ac, char **ag, char **envp)
 	shell_signal();
 	prompt(&shell);
 	free_struct(&shell);
-	// rl_clear_history();
+	rl_clear_history();
 	return (0);
 }

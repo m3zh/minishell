@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/30 16:31:09 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/30 18:01:29 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ void	close_fds(t_shell *s)
 	}
 }
 
-void	wait_pid()
+void	wait_pid(void)
 {
-	int i;
+	int	i;
 
+	i = 0;
 	while (i + TIME > 0)
 		i--;
 }

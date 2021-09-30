@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/30 16:20:06 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/30 18:01:41 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,5 @@ void	pipe_line(t_shell *s)
 		else if (g_proc > 0)
 			parent_process(s, i);
 		free_arr(s->arg);
-		// if (i > 0)
-		// 	free(s->pipe_two);
 	}
 }
