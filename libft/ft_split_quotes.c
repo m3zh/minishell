@@ -6,11 +6,12 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 08:54:37 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/30 12:22:00 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/30 19:22:27 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#define MAX 1000
 
 static int	word_count(const char *s, char c)
 {
@@ -35,32 +36,6 @@ static int	word_count(const char *s, char c)
 	return (count);
 }
 
-static int	words_len(const char *s, char c, int i)
-{
-	int	l;
-
-	l = 0;
-	while (s[i] && s[i] == c)
-		i += 1;
-	while (s[i])
-	{
-		if (s[i] == '"')
-		{
-			i += 1;
-			while (s[i] && s[i++] != '"')
-				l += 1;
-		}
-		else if (s[i] != c)
-		{
-			i += 1;
-			l += 1;
-		}
-		else if (s[i] == c)
-			break ;
-	}
-	return (l);
-}
-
 static char	**freetab(char **arr)
 {
 	int	i;
@@ -72,37 +47,46 @@ static char	**freetab(char **arr)
 	return (0);
 }
 
+static char	*get_line(const char *s, int *i, char c)
+{
+	int		j;
+	char	*line;
+
+	j = 0;
+	line = (char *)malloc(sizeof(char) * (MAX + 1));
+	if (!line)
+		return (NULL);
+	while (s[(*i)] && s[(*i)] == c)
+		(*i) += 1;
+	while (s[(*i)] && s[(*i)] != c)
+	{
+		if (s[(*i)] == '"')
+		{
+			(*i) += 1;
+			while (s[(*i)] && s[(*i)] != '"')
+				line[j++] = s[(*i)++];
+			(*i) += 1;
+		}
+		else if (s[(*i)] != c)
+			line[j++] = s[(*i)++];
+	}
+	line[j] = '\0';
+	return (line);
+}
+
 static char	**fill_arr(int words, const char *s, char c, char **arr)
 {
 	int	i;
-	int	j;
 	int	k;
 
 	i = 0;
 	k = -1;
+	arr[0] = 0;
 	while (++k < words)
 	{
-		j = 0;
-		arr[k] = (char *)malloc(sizeof(char) * (words_len(s, c, i) + 1));
+		arr[k] = get_line(s, &i, c);
 		if (!arr[k])
 			return (freetab(arr));
-		while (s[i] && s[i] == c)
-			i += 1;
-		while (s[i])
-		{
-			if (s[i] == '"')
-			{
-				i += 1;
-				while (s[i] && s[i] != '"')
-					arr[k][j++] = s[i++];
-				i += 1;
-			}
-			else if (s[i] != c)
-				arr[k][j++] = s[i++];
-			else if (s[i] == c)
-				break ;
-		}
-		arr[k][j] = '\0';
 	}
 	arr[k] = 0;
 	return (arr);
