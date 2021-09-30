@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/30 11:21:32 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/30 12:14:52 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,6 @@ static void	child_process(t_shell *s, int i)
 	j = -1;
 	get_fds(s, i);
 	dup_stdinout(s);
-	// if (!s->arg[0])
-	// 	return ;
-	
 	if (s->arg[0] && !s->error_skip)
 		execve(s->arg[0], s->arg, s->minienv);
 	while (!s->error_skip && s->arg[0] && s->path[++j])

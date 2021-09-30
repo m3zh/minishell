@@ -6,11 +6,18 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:08:28 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/30 11:59:41 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/30 12:28:53 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+static void	write2tmpfile(t_shell *s, char *word)
+{
+	write(s->file.tmpfd, word, ft_strlen(word));
+	write(s->file.tmpfd, "\n", 1);
+	ft_free(word);
+}
 
 static int	ctrld_eof_error(t_shell *shell)
 {
@@ -26,7 +33,6 @@ static int	ctrld_eof_error(t_shell *shell)
 	return (1);
 }
 
-
 static void	redir_heredoc(t_shell *s)
 {
 	close(s->file.tmpfd);
@@ -37,7 +43,7 @@ static void	redir_heredoc(t_shell *s)
 	unlink(TMPFILE);
 }
 
-int		heredoc_with_nocmd(t_shell *s)
+int	heredoc_with_nocmd(t_shell *s)
 {
 	char	*word;
 
@@ -60,12 +66,8 @@ int		heredoc_with_nocmd(t_shell *s)
 	return (1);
 }
 
-void	get_heredoc(t_shell *s)
+void	get_heredoc(t_shell *s, char *word)
 {
-	char	*word;
-
-	shell_signal();
-	word = 0;
 	s->file.tmpfd = open(TMPFILE, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (s->file.tmpfd < 0)
 		ft_exit(s, "Tmpfile");
@@ -80,15 +82,12 @@ void	get_heredoc(t_shell *s)
 		}
 		if (!ft_strcmp(word, s->file.stopword))
 			break ;
-		write(s->file.tmpfd, word, ft_strlen(word));
-		write(s->file.tmpfd, "\n", 1);
-		ft_free(word);
+		write2tmpfile(s, word);
 	}
 	ft_free(word);
-	if (not_executable_cmd(s, s->arg[0]))
+	if (not_executable_cmd(s, s->arg[0], -1))
 	{
 		ft_free(s->file.stopword);
-		// free_arr(s->arg);
 		s->error_skip = 1;
 		return ;
 	}

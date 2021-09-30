@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/30 12:00:35 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/30 12:24:06 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,14 @@ void	check_quotes(t_shell *s, char **arg, int i);
  */
 
 int		not_pipeable_cmd(t_shell *s);
-int     not_executable_cmd(t_shell *s, char *cmd);
+int		not_executable_cmd(t_shell *s, char *cmd, int j);
 int		heredoc_with_nocmd(t_shell *s);
 void	checkfile_redir(t_shell *s);
 void	cd(t_shell *shell);
 void	exec_shell(t_shell *s);
 void	pipe_line(t_shell *s);
 void	get_fds(t_shell *s, int i);
-void	get_heredoc(t_shell *s);
+void	get_heredoc(t_shell *s, char *word);
 void	stop(t_shell *shell);
 void	shell_signal(void);
 void	handle_sigint(int sig);
@@ -119,7 +119,7 @@ void	reset_string(char **s, int i);
 void	reset_shell(t_shell *s);
 void	free_struct(t_shell *s);
 void	ft_free(char *s);
-int 	bash_error_unexpected_token(t_shell *s, int err);
+int		bash_error_unexpected_token(t_shell *s, int err);
 void	bash_error_w_filename(t_shell *s, char *file);
 void	bash_error_cmd_not_found(t_shell *s, char *cmd);
 void	bash_syntaxerror(t_shell *s);

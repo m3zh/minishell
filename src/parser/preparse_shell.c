@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:21:53 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/30 10:55:00 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/30 12:12:48 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,12 @@ static int	builtin_cmd(char *cmd)
 		|| !ft_strcmp("unset", cmd) || !ft_strcmp("cd", cmd));
 }
 
-int	not_executable_cmd(t_shell *s, char *cmd)
+int	not_executable_cmd(t_shell *s, char *cmd, int j)
 {
-	int			j;
 	char		*exec;
 	struct stat	sb;
 
-	j = -1;
-	if (!cmd)
-		return (0);
-	if (stat(cmd, &sb) == 0 && sb.st_mode & S_IXUSR)
+	if (!cmd || (stat(cmd, &sb) == 0 && sb.st_mode & S_IXUSR))
 		return (0);
 	if (!s->path)
 	{
@@ -55,7 +51,7 @@ int	not_executable_cmd(t_shell *s, char *cmd)
 int	not_pipeable_cmd(t_shell *s)
 {
 	if (heredoc_with_nocmd(s) || builtin_cmd(s->arg[0])
-		|| (!s->file.stopword && not_executable_cmd(s, s->arg[0])))
+		|| (!s->file.stopword && not_executable_cmd(s, s->arg[0], -1)))
 	{
 		free_arr(s->arg);
 		return (1);

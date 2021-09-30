@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_quotes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 08:54:37 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/15 13:30:57 by mdesalle         ###   ########.fr       */
+/*   Updated: 2021/09/30 12:22:00 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ static char	**fill_arr(int words, const char *s, char c, char **arr)
 	int	k;
 
 	i = 0;
-	k = 0;
-	while (k < words)
+	k = -1;
+	while (++k < words)
 	{
 		j = 0;
 		arr[k] = (char *)malloc(sizeof(char) * (words_len(s, c, i) + 1));
@@ -103,7 +103,6 @@ static char	**fill_arr(int words, const char *s, char c, char **arr)
 				break ;
 		}
 		arr[k][j] = '\0';
-		k++;
 	}
 	arr[k] = 0;
 	return (arr);
