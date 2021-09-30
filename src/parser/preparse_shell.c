@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:21:53 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/29 16:37:27 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:55:00 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	builtin_cmd(char *cmd)
 {
+	if (!cmd)
+		return (0);
 	return (!ft_strcmp("exit", cmd) || !ft_strcmp("export", cmd)
 		|| !ft_strcmp("unset", cmd) || !ft_strcmp("cd", cmd));
 }
@@ -25,6 +27,8 @@ int	not_executable_cmd(t_shell *s, char *cmd)
 	struct stat	sb;
 
 	j = -1;
+	if (!cmd)
+		return (0);
 	if (stat(cmd, &sb) == 0 && sb.st_mode & S_IXUSR)
 		return (0);
 	if (!s->path)
