@@ -6,20 +6,19 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/30 10:57:51 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/30 11:21:32 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static int	*switch_pipe(int *curr_pipe)
+static void	switch_pipe(t_shell *s, int *curr_pipe)
 {
-	int	*p;
-
-	p = malloc(sizeof(int) * 2);
-	p[READ] = curr_pipe[READ];
-	p[WRITE] = curr_pipe[WRITE];
-	return (p);
+	if (s->pipe_two)
+		free(s->pipe_two);
+	s->pipe_two = malloc(sizeof(int) * 2);
+	s->pipe_two[READ] = curr_pipe[READ];
+	s->pipe_two[WRITE] = curr_pipe[WRITE];
 }
 
 static void	parent_process(t_shell *s, int i)
@@ -28,9 +27,13 @@ static void	parent_process(t_shell *s, int i)
 	if (i > 0)
 		close(s->pipe_two[READ]);
 	if (i == s->pipelen - 1)
+	{
+		free(s->pipe_two);
+		s->pipe_two = 0;
 		close(s->pipe_one[READ]);
+	}
 	else
-		s->pipe_two = switch_pipe(s->pipe_one);
+		switch_pipe(s, s->pipe_one);
 	close_fds(s);
 	free_redir(s);
 }
@@ -102,7 +105,7 @@ void	pipe_line(t_shell *s)
 		else if (g_proc > 0)
 			parent_process(s, i);
 		free_arr(s->arg);
-		if (i > 0)
-			free(s->pipe_two);
+		// if (i > 0)
+		// 	free(s->pipe_two);
 	}
 }
