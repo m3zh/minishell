@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:08:28 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/29 21:51:55 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/30 09:42:09 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	get_heredoc(t_shell *s)
 	if (not_executable_cmd(s, s->arg[0]))
 	{
 		ft_free(s->file.stopword);
-		free_arr(s->arg);
+		// free_arr(s->arg);
 		s->error_skip = 1;
 		return ;
 	}
