@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/30 12:24:06 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/30 17:18:21 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <limits.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/ioctl.h>
@@ -46,6 +47,7 @@
 # define DOUBLEQTS 34
 # define BACKSLASH 92
 # define MAX 1000
+# define TIME 1000000
 
 # define PROMPT "\033[0;32mminishell$\033[0m "
 # define TMPFILE "tmpfile"
@@ -114,7 +116,7 @@ int		valid_dbquote(char *s, int j, int Q);
 int		not_doublequote(char *s, int j);
 int		get_quote_count(t_shell *sh, char *s, int i, int QUOTES);
 int		is_quotes(char *s, int i, int QUOTES);
-void	wait_pid(int i);
+void	wait_pid();
 void	reset_string(char **s, int i);
 void	reset_shell(t_shell *s);
 void	free_struct(t_shell *s);

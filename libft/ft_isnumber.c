@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 12:26:35 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/22 12:26:53 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/30 17:35:49 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ int	ft_isnumber(char *s)
 {
 	int	i;
 
-	i = -1;
-	while (s[++i])
+	i = 0;
+	if (s[i] && (s[i] == '-' || s[i] == '+'))
+		i++;
+	while (s[i])
 	{
 		if (!ft_isdigit(s[i]))
 			return (0);
+		i++;
 	}
 	return (1);
 }

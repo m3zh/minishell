@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/29 11:57:44 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/30 16:31:09 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@ void	close_fds(t_shell *s)
 		close(s->file.fdout);
 		s->file.fdout = WRITE;
 	}
+}
+
+void	wait_pid()
+{
+	int i;
+
+	while (i + TIME > 0)
+		i--;
 }
 
 static void	switch_pipefds(int *fd, int new_fd, int REDIR)

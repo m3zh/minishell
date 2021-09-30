@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/30 12:14:52 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/30 16:20:06 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	switch_pipe(t_shell *s, int *curr_pipe)
 
 static void	parent_process(t_shell *s, int i)
 {
+	wait_pid();
 	close(s->pipe_one[WRITE]);
 	if (i > 0)
 		close(s->pipe_two[READ]);

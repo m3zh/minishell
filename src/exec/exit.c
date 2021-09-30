@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 10:56:49 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/24 06:52:39 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/30 17:20:48 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	tabtwo(t_shell *shell, char **cmd)
 {
-	if (ft_isnumber(cmd[1]))
+	if (ft_strlen(cmd[1]) < 20 && ft_isnumber(cmd[1]))
 	{
 		printf("exit\n");
 		free_arr(shell->cmd);
