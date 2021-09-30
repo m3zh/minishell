@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 08:59:42 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/29 20:56:47 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:03:09 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ static int	get_infile(t_shell *s, char **arg, int i, int file)
 
 static int	check_redir(t_shell *s, char **arg, int i, int redir)
 {
-	if (s->single_qts || s->double_qts)
-		return (0);
+	// if (s->single_qts || s->double_qts)
+	// 	return (0);
 	if (!ft_strcmp(arg[i], ">"))
 	{
 		s->file.ow = 1;
