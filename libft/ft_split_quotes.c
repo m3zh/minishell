@@ -6,16 +6,17 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 08:54:37 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/30 19:22:27 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/10/01 11:44:25 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #define MAX 1000
 
-static int	word_count(const char *s, char c)
+static int	word_count(const char *s)
 {
 	int	i;
+	int	QUOTE;
 	int	count;
 
 	if (!s || !s[0])
@@ -24,13 +25,15 @@ static int	word_count(const char *s, char c)
 	count = 0;
 	while (s[++i])
 	{
-		if (s[i] == '"')
+		if (s[i] == '"' || s[i] == '\'')
 		{
+			QUOTE = s[i];
 			i += 1;
-			while (s[i] && s[i] != '"')
+			while (s[i] && s[i] != QUOTE)
 				i += 1;
 		}
-		if ((s[i] != c && s[i + 1] == c) || (s[i] != c && s[i + 1] == '\0'))
+		if (s[i] && ((!ft_space(s[i]) && ft_space(s[i + 1]))
+				|| (!ft_space(s[i]) && s[i + 1] == '\0')))
 			count++;
 	}
 	return (count);
@@ -47,8 +50,9 @@ static char	**freetab(char **arr)
 	return (0);
 }
 
-static char	*get_line(const char *s, int *i, char c)
+static char	*get_line(const char *s, int *i)
 {
+	int		QUOTE;
 	int		j;
 	char	*line;
 
@@ -56,25 +60,26 @@ static char	*get_line(const char *s, int *i, char c)
 	line = (char *)malloc(sizeof(char) * (MAX + 1));
 	if (!line)
 		return (NULL);
-	while (s[(*i)] && s[(*i)] == c)
+	while (s[(*i)] && ft_space(s[(*i)]))
 		(*i) += 1;
-	while (s[(*i)] && s[(*i)] != c)
+	while (s[(*i)] && !ft_space(s[(*i)]))
 	{
-		if (s[(*i)] == '"')
+		if (s[(*i)] == '"' || s[(*i)] == '\'')
 		{
+			QUOTE = s[(*i)];
 			(*i) += 1;
-			while (s[(*i)] && s[(*i)] != '"')
+			while (s[(*i)] && s[(*i)] != QUOTE)
 				line[j++] = s[(*i)++];
 			(*i) += 1;
 		}
-		else if (s[(*i)] != c)
+		else if (!ft_space(s[(*i)]))
 			line[j++] = s[(*i)++];
 	}
 	line[j] = '\0';
 	return (line);
 }
 
-static char	**fill_arr(int words, const char *s, char c, char **arr)
+static char	**fill_arr(int words, const char *s, char **arr)
 {
 	int	i;
 	int	k;
@@ -84,7 +89,7 @@ static char	**fill_arr(int words, const char *s, char c, char **arr)
 	arr[0] = 0;
 	while (++k < words)
 	{
-		arr[k] = get_line(s, &i, c);
+		arr[k] = get_line(s, &i);
 		if (!arr[k])
 			return (freetab(arr));
 	}
@@ -92,17 +97,17 @@ static char	**fill_arr(int words, const char *s, char c, char **arr)
 	return (arr);
 }
 
-char	**ft_split_quotes(char const *s, char c)
+char	**ft_split_quotes(char const *s)
 {
 	int		words;
 	char	**arr;
 
 	if (!s)
 		return (NULL);
-	words = word_count(s, c);
+	words = word_count(s);
 	arr = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!arr)
 		return (NULL);
-	arr = fill_arr(words, s, c, arr);
+	arr = fill_arr(words, s, arr);
 	return (arr);
 }

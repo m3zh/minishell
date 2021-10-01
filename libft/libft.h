@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:48:11 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/09/30 12:18:27 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/10/01 10:33:52 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size);
 void	ft_putstr_fd(char const *s, int fd);
 long	ft_atoi(const char *nptr);
 char	*ft_itoa(int n);
-char	**ft_split_quotes(char const *str, char c);
+char	**ft_split_quotes(char const *str);
 size_t	ft_intlen(long x);
 char	*ft_strchr(const char *s, int c);
 

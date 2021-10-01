@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:20:20 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/29 22:32:50 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/10/01 11:42:54 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	exporter(t_shell *shell, int i, int j)
 	char	*var;
 	char	**tab;
 
-	tab = ft_split_quotes(shell->cmd[0], ' ');
+	tab = ft_split_quotes(shell->cmd[0]);
 	while (!ft_strcmp(tab[j], "export"))
 		j += 1;
 	while (tab[j])
@@ -77,6 +77,8 @@ void	exporter(t_shell *shell, int i, int j)
 			assistant(shell, tab[j], var, i);
 			free(var);
 		}
+		else if (ft_strcmp("export", tab[j]))
+			printf("bash: export: `%s': not a valid identifier\n", tab[j]);
 		j += 1;
 	}
 	free_arr(tab);
