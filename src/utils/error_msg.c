@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 08:59:31 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/29 11:10:03 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/10/01 11:47:28 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	bash_error_cmd_not_found(t_shell *s, char *cmd)
 	write(STDERR_FILENO, "bash: ", 6);
 	write(STDERR_FILENO, cmd, ft_strlen(cmd));
 	write(STDERR_FILENO, ": command not found\n", 20);
+	s->cmdnotfound = 1;
 	s->error_skip = 1;
 	s->cmdretval = 127;
 }

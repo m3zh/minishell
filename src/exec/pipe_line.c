@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 18:30:47 by maxdesall         #+#    #+#             */
-/*   Updated: 2021/09/30 18:01:41 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/10/01 11:48:00 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	child_process(t_shell *s, int i)
 		execve(cmd, s->arg, s->minienv);
 		free(cmd);
 	}
-	if (s->arg[0])
+	if (!s->cmdnotfound && s->arg[0])
 		write(STDERR_FILENO, "File not executable: try 'bash file_name'\n", 42);
 	close(s->file.fdin);
 	close(s->file.fdout);
