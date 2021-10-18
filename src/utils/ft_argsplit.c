@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_specialsplit.c                                  :+:      :+:    :+:   */
+/*   ft_argsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:15:12 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/30 12:00:25 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/10/18 09:44:38 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static char	**fill_arr(int words, char *s, char **arr)
 	return (arr);
 }
 
-char	**ft_specialsplit(t_shell *sh, char *s, char c)
+char	**ft_argsplit(t_shell *sh, char *s, char c)
 {
 	char	**arr;
 	int		words;

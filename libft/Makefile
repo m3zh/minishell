@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/10 18:36:32 by mlazzare          #+#    #+#              #
-#    Updated: 2021/10/01 11:41:18 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/10/18 09:42:45 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,6 @@ SRC	=	ft_splitpath.c			\
 		ft_isalnum.c			\
 		ft_atoi.c				\
 		ft_itoa.c				\
-		ft_split_quotes.c		\
 		ft_intlen.c				\
 		ft_strchr.c
 

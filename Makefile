@@ -6,7 +6,7 @@
 #    By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 12:21:19 by mdesalle          #+#    #+#              #
-#    Updated: 2021/09/30 19:13:20 by mlazzare         ###   ########.fr        #
+#    Updated: 2021/10/18 09:41:37 by mlazzare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,20 +43,21 @@ SRC = \
 		./src/exec/exit.c \
 		./src/exec/cd.c \
 		./src/env/var.c \
-		./src/env/expoorter.c \
+		./src/env/exporter.c \
 		./src/env/unset.c \
-		./src/env/export.c \
-		./src/env/enver.c \
+		./src/env/export_utils.c \
+		./src/env/env_cmd.c \
 		./src/utils/ft_presplit.c \
-		./src/utils/ft_specialsplit.c \
+		./src/utils/ft_argsplit.c \
+		./src/utils/ft_exportsplit.c \
 		./src/utils/ft_split_utils.c \
 		./src/utils/free_exit.c \
 		./src/utils/reset.c \
 		./src/utils/error_msg.c \
 		./src/utils/strings.c \
-		./src/main.c \
-		./src/env/dsh.c \
+		./src/env/get_shlvl.c \
 		./src/env/ranker.c \
+		./src/main.c \
 
 OBJ = $(SRC:.c=.o)
 

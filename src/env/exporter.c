@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expoorter.c                                        :+:      :+:    :+:   */
+/*   exporter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:20:20 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/10/01 11:42:54 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/10/18 09:44:36 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	exporter(t_shell *shell, int i, int j)
 	char	*var;
 	char	**tab;
 
-	tab = ft_split_quotes(shell->cmd[0]);
+	tab = ft_exportsplit(shell->cmd[0]);
 	while (!ft_strcmp(tab[j], "export"))
 		j += 1;
 	while (tab[j])

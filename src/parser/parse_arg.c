@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 08:59:42 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/30 18:01:55 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/10/18 09:43:52 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	**parse_arg(t_shell *s, int j)
 	char	**arg;
 
 	i = -1;
-	arg = ft_specialsplit(s, s->cmd[j], ' ');
+	arg = ft_argsplit(s, s->cmd[j], ' ');
 	if (!arg)
 		malloxit();
 	while (arg[++i])

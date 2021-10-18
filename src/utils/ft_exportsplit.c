@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_quotes.c                                  :+:      :+:    :+:   */
+/*   ft_exportsplit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 08:54:37 by mlazzare          #+#    #+#             */
-/*   Updated: 2021/10/01 11:44:25 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/10/18 09:44:53 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#define MAX 1000
+#include "../../inc/minishell.h"
 
 static int	word_count(const char *s)
 {
@@ -97,7 +96,7 @@ static char	**fill_arr(int words, const char *s, char **arr)
 	return (arr);
 }
 
-char	**ft_split_quotes(char const *s)
+char	**ft_exportsplit(char const *s)
 {
 	int		words;
 	char	**arr;

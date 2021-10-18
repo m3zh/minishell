@@ -6,7 +6,7 @@
 /*   By: mlazzare <mlazzare@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 12:16:49 by mdesalle          #+#    #+#             */
-/*   Updated: 2021/09/30 17:58:21 by mlazzare         ###   ########.fr       */
+/*   Updated: 2021/10/18 09:43:40 by mlazzare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void	str_replace(char **dst, char *src);
 void	swap_file(t_shell *s, char **file, char **arg, int i);
 void	malloxit(void);
 char	**ft_presplit(t_shell *sh, char *s, char c);
-char	**ft_specialsplit(t_shell *sh, char *s, char c);
+char	**ft_argsplit(t_shell *sh, char *s, char c);
+char	**ft_exportsplit(char const *str);
 
 #endif
